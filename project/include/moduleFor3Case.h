@@ -1,0 +1,8 @@
+#ifndef PROJECT_INCLUDE_MODULEFOR3CASE_H_
+#define PROJECT_INCLUDE_MODULEFOR3CASE_H_
+
+
+int custom_prime(int num);
+
+
+#endif  // PROJECT_INCLUDE_MODULEFOR3CASE_H_
