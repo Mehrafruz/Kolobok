@@ -21,12 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let tabBarController = UITabBarController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         YMKMapKit.setApiKey("5eb947dc-f594-4ba7-87cf-8ddedce5ca05")
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
         mapViewNavigationController = UINavigationController(rootViewController: MapViewController())
         meNavigationViewController = UINavigationController(rootViewController: MeViewController())
         
-        //исправить force unwrappingea
+        //MARK: исправить force unwrapping
         tabBarController.viewControllers = [categoriesNavigationViewController!, mapViewNavigationController!, meNavigationViewController!]
         
         let item1 = UITabBarItem(title: "", image: UIImage(systemName:"house"), tag: 0)
@@ -43,7 +44,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
-        
         
         
         return true

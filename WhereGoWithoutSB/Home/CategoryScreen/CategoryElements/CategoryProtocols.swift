@@ -25,16 +25,16 @@ protocol CategoryViewOutput: AnyObject {
 }
 
 protocol CategoryInteractorInput: AnyObject {
-    func loadCurrentParks(for category: String, for index: Int)
+    func loadCurrentCategoryElements(for category: String, for index: Int)
 }
 
 protocol CategoryInteractorOutput: AnyObject {
-    func didLoadCurrentParks(for index: Int, currentParks: Category?)
+    func didLoadCurrentCategoryElements(for index: Int, currentCategoryElements: CategoryElements?)
     func didFail(with error: Error)
 }
 
 protocol CategoryRouterInput: AnyObject {
-    func show(_ currentParks: Category)
+    func show(_ currentParks: CategoryElements)
     func show(_ error: Error)
 }
 

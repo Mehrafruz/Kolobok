@@ -23,14 +23,14 @@ enum NetworkError: Error {
 }
 
 protocol NetworkManagerDescription: AnyObject {
-    func parks(completion: @escaping (Result<Parks, Error>) -> Void)
+    func categoryElements(category: String, completion: @escaping (Result<CategoryElements, Error>) -> Void)
 }
 
 final class NetworkManager: NetworkManagerDescription {
     static let shared: NetworkManagerDescription = NetworkManager()
     
-    func parks(completion: @escaping (Result<Parks, Error>) -> Void) {
-        //park
+    func categoryElements(category: String, completion: @escaping (Result<CategoryElements, Error>) -> Void) {
+        //MARK: current cutegory is park
         let urlString = "https://kudago.com/public-api/v1.4/places/?lang=&fields=title,address,images,description,foreign_url,subway,timetable,favorites_count,phone&expand=&order_by=&text_format=&ids=&location=msk&has_showings=&showing_since=&showing_until=&categories=park&lon=&lat=&radius="
         
         guard let url = URL(string: urlString) else {
@@ -52,8 +52,8 @@ final class NetworkManager: NetworkManagerDescription {
             let decoder = JSONDecoder()
             
             do {
-                let parks = try decoder.decode(Parks.self, from: data)
-                completion(.success(parks))
+                let categoryElements = try decoder.decode(CategoryElements.self, from: data)
+                completion(.success(categoryElements))
             } catch let error {
                 completion(.failure(error))
             }

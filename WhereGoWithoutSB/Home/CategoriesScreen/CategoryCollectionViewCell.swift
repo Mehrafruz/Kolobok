@@ -34,7 +34,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         contentView.clipsToBounds = true
-        //закругляет углы прям как e 12 айфона ;)
         contentView.layer.cornerRadius = 12.0
         contentView.backgroundColor = .white
         
@@ -44,9 +43,6 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
     
     private func setupLayouts() {
         categoryImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        // Layout constraints for `profileImageView`
         NSLayoutConstraint.activate([
             categoryImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             categoryImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

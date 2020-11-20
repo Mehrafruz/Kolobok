@@ -13,7 +13,7 @@ final class CategoryRouter {
 }
 
 extension CategoryRouter: CategoryRouterInput{
-    func show(_ currentParks: Category) {
+    func show(_ currentParks: CategoryElements) {
         print("show")
     }
     

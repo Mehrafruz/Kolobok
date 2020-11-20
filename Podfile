@@ -7,5 +7,6 @@ target 'WhereGoWithoutSB' do
 
   # Pods for WhereGoWithoutSB
   pod 'YandexMapsMobile', ’4.0.0-full’
-
+  pod 'PinLayout'
+  pod 'Kingfisher'
 end

@@ -15,7 +15,7 @@ final class CategoryPresenter {
     private let router: CategoryRouterInput
     private let interactor: CategoryInteractorInput
 
-    private var parks: [Category.Results] = []
+    private var categoryElements: [CategoryElements.Results] = []
     
     init(router: CategoryRouterInput, interactor: CategoryInteractorInput) {
            self.router = router
@@ -30,11 +30,11 @@ extension CategoryPresenter: CategoryViewOutput {
    
     
     func item(at category: String, at index: Int) -> CategoryTableViewCellModel {
-        if !parks.isEmpty{
-            let park = parks[index]
-            return CategoryTableViewCellModel(imageURL: park.imageURL,title: park.title, adress: park.address, timeString: park.timetable, subway: park.subway)
+        if !categoryElements.isEmpty{
+            let categoryElement = categoryElements[index]
+            return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
-            interactor.loadCurrentParks(for: "some", for: index)
+            interactor.loadCurrentCategoryElements(for: "some", for: index)
         }
         return CategoryTableViewCellModel(imageURL: nil, title: "someTitle", adress: "", timeString: "", subway: "")
     }
@@ -48,9 +48,9 @@ extension CategoryPresenter: CategoryViewOutput {
 }
 
 extension CategoryPresenter: CategoryInteractorOutput {
-    func didLoadCurrentParks(for index: Int, currentParks: Category?) {
-        parks = currentParks!.results
-        if !parks.isEmpty{
+    func didLoadCurrentCategoryElements(for index: Int, currentCategoryElements: CategoryElements?) {
+        categoryElements = currentCategoryElements!.results
+        if !categoryElements.isEmpty{
             view?.update(at: index)
         }
     }

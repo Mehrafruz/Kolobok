@@ -19,12 +19,12 @@ final class CategoryInteractor {
 }
 
 extension CategoryInteractor: CategoryInteractorInput{
-    func loadCurrentParks(for category: String, for index: Int) {
-        networkManager.parks() { [weak self] (result) in
+    func loadCurrentCategoryElements(for category: String, for index: Int) {
+        networkManager.categoryElements(category: category) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let parks):
-                    self?.output?.didLoadCurrentParks(for: index, currentParks: parks)
+                case .success(let categoryElements):
+                    self?.output?.didLoadCurrentCategoryElements(for: index, currentCategoryElements: categoryElements)
                 case .failure(let error):
                     self?.output?.didFail(with: error)
                 }

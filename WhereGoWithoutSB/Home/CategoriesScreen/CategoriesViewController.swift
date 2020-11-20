@@ -5,6 +5,7 @@
 //  Created by Мехрафруз on 21.10.2020.
 //  Copyright © 2020 Мехрафруз. All rights reserved.
 //
+//MARK: этот раздел с исключительно грязным кодом, возможно когда нибудь я все перепишу. Сори)
 
 import UIKit
 import SpriteKit
@@ -54,8 +55,9 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         let scene = makeScene()
         animationView.frame.size = scene.size
         animationView.presentScene(scene)
-     
+        Timer.scheduledTimer(timeInterval: 5.1, target: self, selector: #selector(removeScene), userInfo: nil, repeats: true)
     }
+    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
       //  print ("------------------------------------cliced search bar")
@@ -69,6 +71,10 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         animationView.center.y = view.bounds.maxY-125
     }
 
+    @objc func removeScene(){
+        animationView.removeFromSuperview()
+    }
+    
     //for animation
     func makeScene() -> SKScene {
         let size = CGSize(width: 260, height: 270)
@@ -76,11 +82,19 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         scene.scaleMode = .aspectFit
         scene.backgroundColor = UIColor(red: 233/255, green: 238/255, blue: 241/255, alpha: 1)
         createSceneContents(to: scene)
+        
         //Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(animateNodes), userInfo: nil, repeats: true)
         return scene
     }
 
     func createSceneContents(to scene: SKScene) {
+        //create baground
+        let backroundImage = SKSpriteNode(imageNamed: "backgroundAnimateScene")
+        backroundImage.position = CGPoint(x: scene.size.width/2+55, y: scene.size.height/2+45)
+        //backroundImage.size = CGSize(width: 130, height: 135)
+        backroundImage.setScale(1.3)
+        backroundImage.zPosition = -1
+        scene.addChild(backroundImage)
         //create kolobok
         let kolobokTexture = createKolobokTexture()
         let kolobok = SKSpriteNode(texture: kolobokTexture.first)
@@ -94,6 +108,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         //run movements
         let rightRotate: SKAction = .rotate(byAngle: -2 * .pi, duration: 3)
         let leftRotate: SKAction = .rotate(byAngle: 2 * .pi, duration: 4)
+        let pause: SKAction = .pause()
         let animDuration: TimeInterval = 4.0
         kolobok.run(.repeat(
             .sequence(
@@ -101,8 +116,10 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
                     rightRotate,
                     animateKolobok,
                     .moveBy(x: 500, y: 0, duration: 3),
-                    .pause()]),
-                 
+                    ]),
+                 .group([pause,
+                         animateKolobok,
+                         .pause()]),
                  .group([
                     leftRotate,
                     animateKolobok,
@@ -110,6 +127,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
                 ]
             ), count: 1))
         //kolobok.removeFromParent()
+        
     }
     
     
@@ -139,11 +157,11 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     
     func addConstraints(){
         searcBar.translatesAutoresizingMaskIntoConstraints = false
-        searcBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5).isActive = true// left side
-        searcBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true //right side
-        searcBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        searcBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true// left side
+        searcBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0).isActive = true //right side
+        searcBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
         //searcBar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        searcBar.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.minY+100).isActive = true
+        searcBar.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.minY+92).isActive = true
     }
     
     private func setupCollectionViewItemSize (){
@@ -160,7 +178,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         
         // Layout constraints for `collectionView`
         NSLayoutConstraint.activate([
-            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+70),
+            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+46),
             categoriesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             categoriesCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             categoriesCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
@@ -194,10 +212,13 @@ extension CategoriesViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print ("didSelectItemAt:\(indexPath)")
         if indexPath == [0,0]{
-            let parksCategoryScreen = ParksViewController()
+            let context = CategoryContext()
+            let container = CategoryContainer.assemble(with: context)
+    
+            //let parksCategoryScreen = ParksViewController()
             //parksCategoryScreen.modalPresentationStyle = .overCurrentContext
-            parksCategoryScreen.title = "Parks"
-            navigationController?.pushViewController(parksCategoryScreen, animated: true)
+            //parksCategoryScreen.title = "Parks"
+            navigationController?.pushViewController(container.viewController, animated: true)
             //present(parksCategoryScreen, animated: true, completion: nil )
             
         }
