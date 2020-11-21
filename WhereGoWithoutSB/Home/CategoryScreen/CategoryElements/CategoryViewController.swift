@@ -60,7 +60,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
             return .init()
         }
         
-        let item = output.item(at: "some", at: indexPath.row)
+        let item = output.item(at: indexPath.row)
         cell.configure(with: item)
         
         return cell

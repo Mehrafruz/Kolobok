@@ -175,8 +175,6 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     
     private func setupLayouts() {
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Layout constraints for `collectionView`
         NSLayoutConstraint.activate([
             categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+46),
             categoriesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -210,18 +208,33 @@ extension CategoriesViewController: UICollectionViewDataSource{
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print ("didSelectItemAt:\(indexPath)")
-        if indexPath == [0,0]{
-            let context = CategoryContext()
-            let container = CategoryContainer.assemble(with: context)
-    
-            //let parksCategoryScreen = ParksViewController()
-            //parksCategoryScreen.modalPresentationStyle = .overCurrentContext
-            //parksCategoryScreen.title = "Parks"
-            navigationController?.pushViewController(container.viewController, animated: true)
-            //present(parksCategoryScreen, animated: true, completion: nil )
-            
+        var category: String = ""
+  
+        switch indexPath {
+        case [0,0]:
+            category = "park"
+        case [0,1]:
+            category = ""//street
+        case [0,2]:
+            category = "art-space"
+        case [0,3]:
+            category = "museums"
+        case [0,4]:
+            category = "restaurants"
+        case [0,5]:
+            category = "bar"
+        case [0,6]:
+            category = "clubs"
+        case [0,7]:
+            category = ""//cafe
+        default:
+            category = ""
         }
+        
+        let context = CategoryContext()
+        let container = CategoryContainer.assemble(with: category, with: context)
+        navigationController?.pushViewController(container.viewController, animated: true)
+        category = ""
     }
 }
 

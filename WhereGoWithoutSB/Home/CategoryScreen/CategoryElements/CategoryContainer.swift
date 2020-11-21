@@ -13,9 +13,9 @@ final class CategoryContainer {
     let viewController: UIViewController
     private(set) weak var router: CategoryRouterInput!
 
-    class func assemble(with context: CategoryContext) -> CategoryContainer {
+    class func assemble(with category: String, with context: CategoryContext) -> CategoryContainer {
         let router = CategoryRouter()
-        let interactor = CategoryInteractor(networkManager: NetworkManager.shared)
+        let interactor = CategoryInteractor (category: category, networkManager: NetworkManager.shared)
         let presenter = CategoryPresenter(router: router, interactor: interactor)
         let viewController = CategoryViewController(output: presenter)
 
@@ -23,6 +23,7 @@ final class CategoryContainer {
         presenter.moduleOutput = context.moduleOutput
 
         interactor.output = presenter
+        
         
         router.viewController = viewController
 

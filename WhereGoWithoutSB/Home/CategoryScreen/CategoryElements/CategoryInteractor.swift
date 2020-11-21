@@ -12,15 +12,17 @@ final class CategoryInteractor {
     private let networkManager: NetworkManagerDescription
     
     weak var output: CategoryInteractorOutput?
+    let category: String
     
-    init(networkManager: NetworkManagerDescription) {
+    init(category: String, networkManager: NetworkManagerDescription) {
         self.networkManager = networkManager
+        self.category = category
     }
 }
 
 extension CategoryInteractor: CategoryInteractorInput{
-    func loadCurrentCategoryElements(for category: String, for index: Int) {
-        networkManager.categoryElements(category: category) { [weak self] (result) in
+    func loadCurrentCategoryElements(for index: Int) {
+        networkManager.categoryElements(category: self.category) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categoryElements):

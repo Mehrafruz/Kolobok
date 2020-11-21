@@ -29,12 +29,12 @@ extension CategoryPresenter: CategoryModuleInput {
 extension CategoryPresenter: CategoryViewOutput {
    
     
-    func item(at category: String, at index: Int) -> CategoryTableViewCellModel {
+    func item(at index: Int) -> CategoryTableViewCellModel {
         if !categoryElements.isEmpty{
             let categoryElement = categoryElements[index]
             return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
-            interactor.loadCurrentCategoryElements(for: "some", for: index)
+            interactor.loadCurrentCategoryElements(for: index)
         }
         return CategoryTableViewCellModel(imageURL: nil, title: "someTitle", adress: "", timeString: "", subway: "")
     }

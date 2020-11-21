@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let item2 = UITabBarItem(title: "", image:  UIImage(systemName: "mappin.circle.fill"), tag: 1)
         let item3 = UITabBarItem(title: "", image:  UIImage(systemName: "person.fill"), tag: 2)
         
-        tabBarController.tabBar.barTintColor = UIColor(red: 1, green: 195/255, blue: 52/255, alpha: 1)
+        tabBarController.tabBar.barTintColor = UIColor(red: 171/255, green: 175/255, blue: 181/255, alpha: 1)
         tabBarController.tabBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
         
         categoriesNavigationViewController?.tabBarItem = item1

@@ -21,11 +21,11 @@ protocol CategoryViewInput: AnyObject {
 
 protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
-    func item(at category: String, at index: Int) -> CategoryTableViewCellModel
+    func item(at index: Int) -> CategoryTableViewCellModel
 }
 
 protocol CategoryInteractorInput: AnyObject {
-    func loadCurrentCategoryElements(for category: String, for index: Int)
+    func loadCurrentCategoryElements(for index: Int)
 }
 
 protocol CategoryInteractorOutput: AnyObject {
