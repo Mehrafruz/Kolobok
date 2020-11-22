@@ -43,10 +43,10 @@ class CategoryTableViewCell: UITableViewCell {
         adressImageView.image = UIImage(named: "adress")
         timeTableImageView.image = UIImage(named: "timeTable")
         subwayImageView.image = UIImage(named: "subway")
-        titleLabel.font = UIFont(name: "CM_GARDEN_R", size: 23)
-        adressLabel.font = UIFont(name: "CM_GARDEN_R", size: 14)
-        subwayLabel.font = UIFont(name: "CM_GARDEN_R", size: 14)
-        timeLabel.font = UIFont(name: "CM_GARDEN_R", size: 14)
+        titleLabel.font = UIFont(name: "NaturalMono-Regular", size: 23)
+        adressLabel.font = UIFont(name: "NaturalMono-Regular", size: 14)
+        subwayLabel.font = UIFont(name: "NaturalMono-Regular", size: 14)
+        timeLabel.font = UIFont(name: "NaturalMono-Regular", size: 14)
         subwayLabel.textColor = .darkGray
         backgroundColor = .white
         

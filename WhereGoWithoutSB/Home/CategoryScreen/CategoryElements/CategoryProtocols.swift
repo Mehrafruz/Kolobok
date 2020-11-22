@@ -22,6 +22,8 @@ protocol CategoryViewInput: AnyObject {
 protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
     func item(at index: Int) -> CategoryTableViewCellModel
+    
+    func didSelect(at index: Int)
 }
 
 protocol CategoryInteractorInput: AnyObject {

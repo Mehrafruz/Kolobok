@@ -30,11 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MARK: исправить force unwrapping
         tabBarController.viewControllers = [categoriesNavigationViewController!, mapViewNavigationController!, meNavigationViewController!]
         
-        let item1 = UITabBarItem(title: "", image: UIImage(systemName:"house"), tag: 0)
-        let item2 = UITabBarItem(title: "", image:  UIImage(systemName: "mappin.circle.fill"), tag: 1)
-        let item3 = UITabBarItem(title: "", image:  UIImage(systemName: "person.fill"), tag: 2)
         
-        tabBarController.tabBar.barTintColor = UIColor(red: 171/255, green: 175/255, blue: 181/255, alpha: 1)
+        let item1 = UITabBarItem(title: "", image: UIImage(named:"homeBar"), tag: 0)
+        let item2 = UITabBarItem(title: "", image:  UIImage(named: "mapBar"), tag: 1)//"mappin.circle.fill"
+        let item3 = UITabBarItem(title: "", image:  UIImage(named: "kolobokBar"), tag: 2)//"person.fill"
+        
+        tabBarController.tabBar.barTintColor = UIColor(red: 253/255, green: 247/255, blue: 152/255, alpha: 1) //(red: 171/255, green: 175/255, blue: 181/255, alpha: 1)
         tabBarController.tabBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
         
         categoriesNavigationViewController?.tabBarItem = item1

@@ -28,6 +28,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     var searcBar = UISearchBar()
     private let animationView = SKView()
     
+    
     private let categoriesCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
@@ -43,12 +44,13 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     override func viewDidLoad() {
         super.viewDidLoad()
         searcBar.delegate = self
-        self.navigationItem.title = "Categories"
+        self.navigationItem.title = "Куда пойдем?"
         setupViews()
         setupLayouts()
         setupSearchBar()
         setupCollectionViewItemSize()
         categoriesCollectionView.reloadData()
+
     
         //for animation
         view.addSubview(animationView)
@@ -126,8 +128,6 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
                     .moveBy(x: -600, y: 0, duration: animDuration)]),
                 ]
             ), count: 1))
-        //kolobok.removeFromParent()
-        
     }
     
     
@@ -214,7 +214,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         case [0,0]:
             category = "park"
         case [0,1]:
-            category = ""//street
+            category = "questroom"
         case [0,2]:
             category = "art-space"
         case [0,3]:
@@ -226,7 +226,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         case [0,6]:
             category = "clubs"
         case [0,7]:
-            category = ""//cafe
+            category = "attractions"
         default:
             category = ""
         }
@@ -234,7 +234,6 @@ extension CategoriesViewController: UICollectionViewDataSource{
         let context = CategoryContext()
         let container = CategoryContainer.assemble(with: category, with: context)
         navigationController?.pushViewController(container.viewController, animated: true)
-        category = ""
     }
 }
 

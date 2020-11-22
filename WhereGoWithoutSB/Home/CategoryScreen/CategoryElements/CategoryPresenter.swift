@@ -27,6 +27,16 @@ extension CategoryPresenter: CategoryModuleInput {
 }
 
 extension CategoryPresenter: CategoryViewOutput {
+    func didSelect(at index: Int) {
+        
+        if !categoryElements.isEmpty{
+            let category = categoryElements
+            //router.show(category)
+        }else{
+            return
+        }
+    }
+    
    
     
     func item(at index: Int) -> CategoryTableViewCellModel {
@@ -50,7 +60,7 @@ extension CategoryPresenter: CategoryViewOutput {
 extension CategoryPresenter: CategoryInteractorOutput {
     func didLoadCurrentCategoryElements(for index: Int, currentCategoryElements: CategoryElements?) {
         categoryElements = currentCategoryElements!.results
-        if !categoryElements.isEmpty{
+        if !categoryElements.isEmpty && index<21{
             view?.update(at: index)
         }
     }

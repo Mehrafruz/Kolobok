@@ -5,6 +5,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>SkolSerifa.ttf</string>
+		<string>NaturalMono-Regular.ttf</string>
 		<string>CM_GARDEN_R.ttf</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
