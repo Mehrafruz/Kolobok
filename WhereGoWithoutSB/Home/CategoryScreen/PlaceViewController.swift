@@ -7,24 +7,25 @@
 //
 
 import UIKit
+import PinLayout
 
 class PlaceViewController: UIViewController {
 
+    let mainImageView = UIImageView()
+    let titleLabel = UILabel()
+    let adressLabel = UILabel()
+    let timeTableLabel = UILabel()
+    let phoneLabel = UILabel()
+    let descriptionLabel = UILabel()
+    let subwayLabel = UILabel()
+    let customLine = UITableViewCell()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        view.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

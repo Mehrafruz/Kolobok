@@ -16,7 +16,7 @@ final class CategoryPresenter {
     private let interactor: CategoryInteractorInput
 
     private var categoryElements: [CategoryElements.Results] = []
-    
+
     init(router: CategoryRouterInput, interactor: CategoryInteractorInput) {
            self.router = router
            self.interactor = interactor
@@ -28,10 +28,9 @@ extension CategoryPresenter: CategoryModuleInput {
 
 extension CategoryPresenter: CategoryViewOutput {
     func didSelect(at index: Int) {
-        
         if !categoryElements.isEmpty{
-            let category = categoryElements
-            //router.show(category)
+            let category = categoryElements[index]
+            router.show(category)
         }else{
             return
         }
@@ -51,7 +50,7 @@ extension CategoryPresenter: CategoryViewOutput {
     
     
     var itemsCount: Int {
-        return 20
+        return 13
        }
     
     
@@ -60,7 +59,7 @@ extension CategoryPresenter: CategoryViewOutput {
 extension CategoryPresenter: CategoryInteractorOutput {
     func didLoadCurrentCategoryElements(for index: Int, currentCategoryElements: CategoryElements?) {
         categoryElements = currentCategoryElements!.results
-        if !categoryElements.isEmpty && index<21{
+        if !categoryElements.isEmpty && index<=13{
             view?.update(at: index)
         }
     }

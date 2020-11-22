@@ -7,6 +7,7 @@
 //
 import SpriteKit
 import UIKit
+import PinLayout
 
 
 final class CategoryViewController: UIViewController{
@@ -35,11 +36,22 @@ final class CategoryViewController: UIViewController{
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
-        
         view.addSubview(tableView)
         tableView.frame = view.frame
+        editBurButtons()
     }
     
+    private func editBurButtons(){
+        let rightBaButton = UIBarButtonItem.init(title: "filter", style: .done, target: self, action: #selector(filter))
+        rightBaButton.image = UIImage(systemName: "slider.horizontal.3")
+        rightBaButton.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationItem.rightBarButtonItem = rightBaButton
+       // self.navigationItem.backBarButtonItem?.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+    }
+    
+    @objc private func filter(){
+        
+    }
 }
 
 extension CategoryViewController: CategoryViewInput{
@@ -64,6 +76,10 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: item)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        output.didSelect(at: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

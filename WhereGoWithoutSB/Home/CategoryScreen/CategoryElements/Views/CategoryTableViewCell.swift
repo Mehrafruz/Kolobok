@@ -57,7 +57,7 @@ class CategoryTableViewCell: UITableViewCell {
         super.layoutSubviews()
         
         categoryImageView.layer.cornerRadius = 10
-        categoryImageView.clipsToBounds = true
+        categoryImageView.clipsToBounds = true //без этой штуки не применится cornerRadius
         
         categoryImageView.pin
             .size(90)
@@ -66,16 +66,18 @@ class CategoryTableViewCell: UITableViewCell {
         
         titleLabel.pin
             .left(112)
+            .right(12)
             .top(12)
             .height(25)
-            .sizeToFit(.height)
+         //   .sizeToFit(.height)
         
         adressLabel.pin
             .below(of: titleLabel)
             .left(139)
+            .right(12)
             .top(12)
             .height(15)
-            .sizeToFit(.height)
+        //    .sizeToFit(.height)
         
         adressImageView.pin
             .below(of: titleLabel)
@@ -87,8 +89,9 @@ class CategoryTableViewCell: UITableViewCell {
         timeLabel.pin
             .below(of: adressLabel)
             .left(139)
+            .right(12)
             .height(15)
-            .sizeToFit(.height)
+       //     .sizeToFit(.height)
         
         timeTableImageView.pin
             .below(of: adressLabel)
@@ -100,8 +103,9 @@ class CategoryTableViewCell: UITableViewCell {
         subwayLabel.pin
             .below(of: timeLabel)
             .left(139)
+            .right(12)
             .height(15)
-            .sizeToFit(.height)
+           // .sizeToFit(.height)
         
         subwayImageView.pin
             .below(of: timeLabel)

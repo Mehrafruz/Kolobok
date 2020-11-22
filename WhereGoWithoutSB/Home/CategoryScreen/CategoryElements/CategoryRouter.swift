@@ -13,8 +13,11 @@ final class CategoryRouter {
 }
 
 extension CategoryRouter: CategoryRouterInput{
-    func show(_ currentParks: CategoryElements) {
-        print("show")
+    func show(_ currentElements: CategoryElements.Results) {
+        let placeViewController = PlaceViewController()
+        placeViewController.title = currentElements.title
+        //viewController?.navigationController?.pushViewController(placeViewController, animated: true)
+        viewController?.present(placeViewController, animated: true, completion: nil)
     }
     
     func show(_ error: Error) {

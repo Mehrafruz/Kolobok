@@ -62,7 +62,6 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-      //  print ("------------------------------------cliced search bar")
         
     }
     
@@ -183,14 +182,6 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         ])
     }
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
 extension CategoriesViewController: UICollectionViewDataSource{
@@ -234,6 +225,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         let context = CategoryContext()
         let container = CategoryContainer.assemble(with: category, with: context)
         navigationController?.pushViewController(container.viewController, animated: true)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
     }
 }
 

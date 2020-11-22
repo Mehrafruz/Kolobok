@@ -36,9 +36,7 @@ final class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 12.0
         contentView.backgroundColor = .white
-        
         contentView.addSubview(categoryImageView)
-        
     }
     
     private func setupLayouts() {

@@ -23,12 +23,13 @@
 		EF3E22D42567F3340090FF59 /* SkolSerifa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */; };
 		EF3E22D62567F3570090FF59 /* CM_GARDEN_R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3E22D52567F3570090FF59 /* CM_GARDEN_R.ttf */; };
 		EF3EF572256A8CB1007E6E33 /* NaturalMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3EF571256A8CB1007E6E33 /* NaturalMono-Regular.ttf */; };
+		EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */; };
+		EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3EF575256AF352007E6E33 /* NetworkManager.swift */; };
 		EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */; };
 		EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB0692564651800900DE0 /* CategoryProtocols.swift */; };
 		EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06B256465F300900DE0 /* CategoryRouter.swift */; };
 		EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06D2564660500900DE0 /* CategoryInteractor.swift */; };
 		EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */; };
-		EFAAB0732565330F00900DE0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB0722565330F00900DE0 /* NetworkManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,12 +53,13 @@
 		EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SkolSerifa.ttf; path = ../../../../../Downloads/SkolSerifa.ttf; sourceTree = "<group>"; };
 		EF3E22D52567F3570090FF59 /* CM_GARDEN_R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CM_GARDEN_R.ttf; sourceTree = "<group>"; };
 		EF3EF571256A8CB1007E6E33 /* NaturalMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NaturalMono-Regular.ttf"; sourceTree = "<group>"; };
+		EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
+		EF3EF575256AF352007E6E33 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		EFAAB0692564651800900DE0 /* CategoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProtocols.swift; sourceTree = "<group>"; };
 		EFAAB06B256465F300900DE0 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
 		EFAAB06D2564660500900DE0 /* CategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInteractor.swift; sourceTree = "<group>"; };
 		EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContainer.swift; sourceTree = "<group>"; };
-		EFAAB0722565330F00900DE0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAAB0662564643000900DE0 /* CategoryElements */,
+				EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */,
 			);
 			path = CategoryScreen;
 			sourceTree = "<group>";
@@ -170,7 +173,7 @@
 		EFAAB0662564643000900DE0 /* CategoryElements */ = {
 			isa = PBXGroup;
 			children = (
-				EFAAB0722565330F00900DE0 /* NetworkManager.swift */,
+				EF3EF575256AF352007E6E33 /* NetworkManager.swift */,
 				EFAAB0712564677000900DE0 /* Views */,
 				EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */,
 				EFAAB06B256465F300900DE0 /* CategoryRouter.swift */,
@@ -345,6 +348,7 @@
 			files = (
 				EF355AF025409F7300B260E6 /* CustomLayoutSwift.swift in Sources */,
 				EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */,
+				EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */,
 				EF355AEA2540474300B260E6 /* CategoriesViewController.swift in Sources */,
 				EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */,
 				EF355AEC2540518600B260E6 /* MapViewController.swift in Sources */,
@@ -352,8 +356,8 @@
 				EF33F58F254207E800593C46 /* CategoryItem.swift in Sources */,
 				EF33F59325430F4400593C46 /* CategoryViewController.swift in Sources */,
 				EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */,
+				EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */,
 				EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */,
-				EFAAB0732565330F00900DE0 /* NetworkManager.swift in Sources */,
 				EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */,
 				EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,

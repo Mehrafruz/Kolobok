@@ -36,7 +36,7 @@ protocol CategoryInteractorOutput: AnyObject {
 }
 
 protocol CategoryRouterInput: AnyObject {
-    func show(_ currentParks: CategoryElements)
+    func show(_ currentElements: CategoryElements.Results)
     func show(_ error: Error)
 }
 
