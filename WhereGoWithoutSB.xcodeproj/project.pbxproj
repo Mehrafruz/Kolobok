@@ -97,8 +97,8 @@
 		EF33F59125430CFC00593C46 /* CategoryScreen */ = {
 			isa = PBXGroup;
 			children = (
+				EF3EF577256AF77F007E6E33 /* CategoryElement(Place) */,
 				EFAAB0662564643000900DE0 /* CategoryElements */,
-				EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */,
 			);
 			path = CategoryScreen;
 			sourceTree = "<group>";
@@ -168,6 +168,14 @@
 				EF355AED254051A400B260E6 /* MeViewController.swift */,
 			);
 			path = Me;
+			sourceTree = "<group>";
+		};
+		EF3EF577256AF77F007E6E33 /* CategoryElement(Place) */ = {
+			isa = PBXGroup;
+			children = (
+				EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */,
+			);
+			path = "CategoryElement(Place)";
 			sourceTree = "<group>";
 		};
 		EFAAB0662564643000900DE0 /* CategoryElements */ = {

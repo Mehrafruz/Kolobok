@@ -83,17 +83,15 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         scene.scaleMode = .aspectFit
         scene.backgroundColor = UIColor(red: 233/255, green: 238/255, blue: 241/255, alpha: 1)
         createSceneContents(to: scene)
-        
-        //Timer.scheduledTimer(timeInterval: 0.75, target: self, selector: #selector(animateNodes), userInfo: nil, repeats: true)
         return scene
     }
 
     func createSceneContents(to scene: SKScene) {
         //create baground
         let backroundImage = SKSpriteNode(imageNamed: "backgroundAnimateScene")
-        backroundImage.position = CGPoint(x: scene.size.width/2+55, y: scene.size.height/2+45)
+        backroundImage.position = CGPoint(x: scene.size.width/2+60, y: scene.size.height/2+46)
         //backroundImage.size = CGSize(width: 130, height: 135)
-        backroundImage.setScale(1.3)
+        backroundImage.setScale(1.30)
         backroundImage.zPosition = -1
         scene.addChild(backroundImage)
         //create kolobok
@@ -150,6 +148,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     }
     
     func setupSearchBar(){
+        searcBar.placeholder = "Мне нужно кое-что найти..."
         view.addSubview(searcBar)
         addConstraints()
     }

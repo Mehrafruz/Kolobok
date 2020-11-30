@@ -15,7 +15,9 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Map"
+        var title = "Колобок"
+        self.navigationItem.title = title
+        
         view.backgroundColor = .white
         view.addSubview(mapView)
         addConstraints()

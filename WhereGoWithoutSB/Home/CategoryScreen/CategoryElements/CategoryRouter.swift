@@ -15,8 +15,8 @@ final class CategoryRouter {
 extension CategoryRouter: CategoryRouterInput{
     func show(_ currentElements: CategoryElements.Results) {
         let placeViewController = PlaceViewController()
+        placeViewController.currentElement = currentElements
         placeViewController.title = currentElements.title
-        //viewController?.navigationController?.pushViewController(placeViewController, animated: true)
         viewController?.present(placeViewController, animated: true, completion: nil)
     }
     
