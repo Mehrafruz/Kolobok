@@ -25,6 +25,7 @@ var items2: [CategoriesItem] = [CategoriesItem(imageName:"Image5_0"),
 
 class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISearchBarDelegate{
     
+    
     var searcBar = UISearchBar()
     private let animationView = SKView()
     
@@ -37,14 +38,17 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     }()
     
     private enum LayoutConstant {
-        static let spacing: CGFloat = 1.0
+        static let spacing: CGFloat = 5.0
         static let itemHeight: CGFloat = 300.0
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searcBar.delegate = self
-        self.navigationItem.title = "Куда пойдем?"
         setupViews()
         setupLayouts()
         setupSearchBar()
@@ -57,6 +61,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         let scene = makeScene()
         animationView.frame.size = scene.size
         animationView.presentScene(scene)
+        animationView.allowsTransparency = true
         Timer.scheduledTimer(timeInterval: 5.1, target: self, selector: #selector(removeScene), userInfo: nil, repeats: true)
     }
     
@@ -81,7 +86,8 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         let size = CGSize(width: 260, height: 270)
         let scene = SKScene(size: size)
         scene.scaleMode = .aspectFit
-        scene.backgroundColor = UIColor(red: 233/255, green: 238/255, blue: 241/255, alpha: 1)
+       
+       // scene.backgroundColor = .clear//UIColor(red: 233/255, green: 238/255, blue: 241/255, alpha: 1)
         createSceneContents(to: scene)
         return scene
     }
@@ -91,9 +97,9 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         let backroundImage = SKSpriteNode(imageNamed: "backgroundAnimateScene")
         backroundImage.position = CGPoint(x: scene.size.width/2+60, y: scene.size.height/2+46)
         //backroundImage.size = CGSize(width: 130, height: 135)
-        backroundImage.setScale(1.30)
-        backroundImage.zPosition = -1
-        scene.addChild(backroundImage)
+//        backroundImage.setScale(1.30)
+//        backroundImage.zPosition = -1
+//        scene.addChild(backroundImage)
         //create kolobok
         let kolobokTexture = createKolobokTexture()
         let kolobok = SKSpriteNode(texture: kolobokTexture.first)
@@ -148,7 +154,9 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     }
     
     func setupSearchBar(){
-        searcBar.placeholder = "Мне нужно кое-что найти..."
+        searcBar.placeholder = "Поиск"
+        searcBar.layer.cornerRadius = 10
+        searcBar.alpha = 0.5
         view.addSubview(searcBar)
         addConstraints()
     }
@@ -159,7 +167,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         searcBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0).isActive = true //right side
         searcBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
         //searcBar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        searcBar.topAnchor.constraint(equalTo: view.topAnchor, constant: view.bounds.minY+92).isActive = true
+        searcBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY).isActive = true
     }
     
     private func setupCollectionViewItemSize (){
@@ -174,8 +182,8 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     private func setupLayouts() {
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+46),
-            categoriesCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+40),
+            categoriesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             categoriesCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             categoriesCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
@@ -225,6 +233,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         let container = CategoryContainer.assemble(with: category, with: context)
         navigationController?.pushViewController(container.viewController, animated: true)
         self.navigationController?.navigationBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationController?.navigationBar.topItem?.title = "К категориям"
     }
 }
 
@@ -238,5 +247,6 @@ extension CategoriesViewController: CustomLayoutDelegate{
         return UIImage(named: items2[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
     }
 }
+
 
 

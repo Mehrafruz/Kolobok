@@ -64,6 +64,7 @@ extension CategoryPresenter: CategoryInteractorOutput {
         }
     }
     
+    
     func didFail(with error: Error) {
     //MARK: кидает ошибку, разобраться
        // router.show(error)

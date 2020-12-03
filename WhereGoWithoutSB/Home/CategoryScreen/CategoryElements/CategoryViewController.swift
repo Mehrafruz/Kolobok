@@ -25,11 +25,17 @@ final class CategoryViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         setup()
     }
+    
+   
     
     private func setup() {
         tableView.dataSource = self
@@ -56,7 +62,8 @@ final class CategoryViewController: UIViewController{
 
 extension CategoryViewController: CategoryViewInput{
     func update(at index: Int) {
-        tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+       // tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        tableView.reloadData()
     }
     
     
