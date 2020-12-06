@@ -9,4 +9,8 @@ target 'WhereGoWithoutSB' do
   pod 'YandexMapsMobile', ’4.0.0-full’
   pod 'PinLayout'
   pod 'Kingfisher'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Database'
+
 end

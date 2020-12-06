@@ -9,8 +9,13 @@
 import UIKit
 import SpriteKit
 
+var signInNavigationViewController: UINavigationController?
+var signUpNavigationViewController: UINavigationController?
+
+
 class WelcomeViewController: UIViewController{
     
+
     private let exitButton = UIButton()
     private let animationView = SKView()
     private var signUpButton = UIButton()
@@ -21,6 +26,9 @@ class WelcomeViewController: UIViewController{
  
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        signInNavigationViewController = UINavigationController(rootViewController: SignInViewController())
+        signUpNavigationViewController = UINavigationController(rootViewController: SignUpViewController())
     }
     
     override func viewDidLoad() {
@@ -55,10 +63,12 @@ class WelcomeViewController: UIViewController{
         UITextView.appearance().linkTextAttributes = [ .foregroundColor: UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)]
         withoutSingUpTextView.attributedText = withoutSingUpText
         
-        setupButton(button: signInButton, title: "Зарегистрироваться",
+        
+        setupButton(button: signInButton, title: "Войти",
                     color: UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1), textColor: UIColor.white)
         signInButton.addTarget(self, action: #selector(didClickedSignInButton), for: .touchUpInside)
-        setupButton(button: signUpButton, title: "Войти",
+       
+        setupButton(button: signUpButton, title: "Зарегистрироваться",
                     color: UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1),  textColor: UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1))
         signUpButton.addTarget(self, action: #selector(didClickedSignUpButton), for: .touchUpInside)
         
@@ -75,6 +85,7 @@ class WelcomeViewController: UIViewController{
         button.setTitle(title, for: UIControl.State.normal)
         button.setTitleColor(textColor, for: UIControl.State.normal)
         button.titleLabel?.font = UIFont(name: "POEVeticaVanta", size: 17)
+
         button.backgroundColor = color
         button.layer.zPosition = 1.5
         button.layer.cornerRadius = cornerRadius
@@ -97,12 +108,12 @@ class WelcomeViewController: UIViewController{
     
     func createSceneContents(to scene: SKScene) {
         //create baground
-        let backroundImage = SKSpriteNode(imageNamed: "backgroundAnimateScene")
-        backroundImage.position = CGPoint(x: scene.size.width/2+60, y: scene.size.height/2+46)
-        //backroundImage.size = CGSize(width: 130, height: 135)
-        //        backroundImage.setScale(1.30)
-        //        backroundImage.zPosition = -1
-        //        scene.addChild(backroundImage)
+        let backroundImage = SKSpriteNode(imageNamed: "bgWelcomeScene")
+        backroundImage.position = CGPoint(x: scene.frame.midX, y: scene.frame.midY)
+        backroundImage.size = CGSize(width: scene.size.width, height: scene.size.height)
+        backroundImage.setScale(1)
+        backroundImage.zPosition = -1
+        scene.addChild(backroundImage)
         //create kolobok
         let kolobok = SKSpriteNode(imageNamed: "kolobokAnimation")
         kolobok.size = CGSize(width: 100, height: 100)
@@ -111,8 +122,8 @@ class WelcomeViewController: UIViewController{
         kolobok.position.x = UIScreen.main.bounds.minX-100
         scene.addChild(kolobok)
         //run movements
-        let rightRotate: SKAction = .rotate(byAngle: -2 * .pi, duration: 3)
-        let leftRotate: SKAction = .rotate(byAngle: 2 * .pi, duration: 3)
+        let rightRotate: SKAction = .rotate(byAngle: -3 * .pi, duration: 3)
+        let leftRotate: SKAction = .rotate(byAngle: 3 * .pi, duration: 3)
         let pause: SKAction = .pause()
         kolobok.run(.repeat(
             .sequence(
@@ -164,7 +175,7 @@ class WelcomeViewController: UIViewController{
             welcomeLabel.widthAnchor.constraint(equalToConstant: 250),
             welcomeLabel.heightAnchor.constraint(equalToConstant: 50),
             welcomeLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            welcomeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -150)
+            welcomeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -120)
         ])
         
         NSLayoutConstraint.activate([
@@ -193,15 +204,22 @@ class WelcomeViewController: UIViewController{
     
     @objc func didClickedExitButton(){
         self.dismiss(animated: true, completion: nil)
+        present(CategoriesViewController(), animated: true)
+        
     }
     
     @objc func didClickedSignUpButton(){
-        
+        signUpButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        present(signUpNavigationViewController!, animated: true)
+
     }
     
     @objc func didClickedSignInButton(){
-        
+       signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+       present(signInNavigationViewController!, animated: true)
     }
+    
+   
     
 }
 

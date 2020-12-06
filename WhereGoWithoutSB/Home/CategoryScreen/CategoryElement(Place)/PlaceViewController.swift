@@ -35,8 +35,7 @@ class PlaceViewController: UIViewController {
     let exitButtonImage = UIImageView()
 
     var currentElement: CategoryElements.Results!
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

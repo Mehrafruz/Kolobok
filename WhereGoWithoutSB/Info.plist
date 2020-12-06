@@ -4,6 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>POEVeticaVanta.otf</string>
 		<string>SkolSerifa.ttf</string>
 		<string>NaturalMono-Regular.ttf</string>
 		<string>CM_GARDEN_R.ttf</string>

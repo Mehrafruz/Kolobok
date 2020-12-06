@@ -8,31 +8,48 @@
 
 import UIKit
 import YandexMapsMobile
+import Firebase
 
 var categoriesNavigationViewController : UINavigationController?
 var mapViewNavigationController: UINavigationController?
 var meNavigationViewController: UINavigationController?
-
+var authNavigationViewController: UINavigationController?
+var welcomeNavigationViewController: UINavigationController?
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
     let tabBarController = UITabBarController()
-
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         YMKMapKit.setApiKey("5eb947dc-f594-4ba7-87cf-8ddedce5ca05")
+        
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
         mapViewNavigationController =  UINavigationController(rootViewController: MapViewController())
         meNavigationViewController = UINavigationController(rootViewController: MeViewController())
+        welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
         
+        FirebaseApp.configure()
+        
+        // MARK: Содержимое кномки выйти из аккаунта, пока не решено куда ее лепить
+        do{
+            try Auth.auth().signOut()
+        } catch {
+            print ("не удалось выйти из аккаунта")
+        }
+        
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            if user == nil{
+                self.window?.rootViewController?.present(welcomeNavigationViewController!, animated: true)
+            }
+        }
         
         
         
         //MARK: исправить force unwrapping
         tabBarController.viewControllers = [categoriesNavigationViewController!, mapViewNavigationController!, meNavigationViewController!]
-        
         
         let item1 = UITabBarItem(title: "", image: UIImage(named:"homeBar"), tag: 0)
         let item2 = UITabBarItem(title: "", image:  UIImage(named: "mapBar"), tag: 1)//"mappin.circle.fill"
@@ -54,6 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
+    
 }
 
