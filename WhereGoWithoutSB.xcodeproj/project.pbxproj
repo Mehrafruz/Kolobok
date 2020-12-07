@@ -19,6 +19,7 @@
 		EF355AEC2540518600B260E6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF355AEB2540518600B260E6 /* MapViewController.swift */; };
 		EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF355AED254051A400B260E6 /* MeViewController.swift */; };
 		EF355AF025409F7300B260E6 /* CustomLayoutSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF355AEF25409F7300B260E6 /* CustomLayoutSwift.swift */; };
+		EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */; };
 		EF38AA122551D5BB00385632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF38AA112551D5BB00385632 /* Assets.xcassets */; };
 		EF3CFD172575994400F201C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF3CFD162575994400F201C7 /* GoogleService-Info.plist */; };
 		EF3E22D42567F3340090FF59 /* SkolSerifa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */; };
@@ -54,6 +55,7 @@
 		EF355AEB2540518600B260E6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		EF355AED254051A400B260E6 /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		EF355AEF25409F7300B260E6 /* CustomLayoutSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayoutSwift.swift; sourceTree = "<group>"; };
+		EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		EF38AA112551D5BB00385632 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = WhereGoWithoutSB/Assets.xcassets; sourceTree = "<group>"; };
 		EF3CFD162575994400F201C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SkolSerifa.ttf; path = ../../../../../Downloads/SkolSerifa.ttf; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */,
+				EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */,
 			);
 			path = "CategoryElement(Place)";
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */,
 				EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */,
 				EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */,
+				EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,
 				EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,

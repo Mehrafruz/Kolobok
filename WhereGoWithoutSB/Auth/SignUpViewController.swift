@@ -45,6 +45,10 @@ class SignUpViewController: UIViewController {
         view.backgroundColor = .white
         registerForKeyboardNotifikation()
         
+        if didDismissViewFlag{
+            self.dismiss(animated: false, completion: nil)
+        }
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         setup()
@@ -146,14 +150,14 @@ class SignUpViewController: UIViewController {
             return
         }
         // MARK: Парольдолжен состоять минимум из 6 элементов
-       if (!name.isEmpty && !email.isEmpty && !password0.isEmpty && !password1.isEmpty){
+        if (!name.isEmpty && !email.isEmpty && !password0.isEmpty && !password1.isEmpty){
             Auth.auth().createUser(withEmail: email, password: password0)  { (result, error) in
                 if error == nil{
                     if let result = result{
                         print(result.user.uid)
                         let referenceUsers = Database.database().reference().child("users")
                         referenceUsers.child(result.user.uid).updateChildValues(["name" : name, "email" : email])
-                         self.dismiss(animated: true, completion: nil)
+                        self.dismiss(animated: true, completion: nil)
                     }
                 }
             }
@@ -257,7 +261,7 @@ class SignUpViewController: UIViewController {
             customLine2.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             customLine2.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor, constant: -174)
         ])
-
+        
         NSLayoutConstraint.activate([
             emailImageView.widthAnchor.constraint(equalToConstant: 30),
             emailImageView.heightAnchor.constraint(equalToConstant: 25),
@@ -363,11 +367,13 @@ class SignUpViewController: UIViewController {
 }
 
 
-extension SignUpViewController: UITextFieldDelegate, UITextViewDelegate{
+extension SignUpViewController: UITextFieldDelegate, UITextViewDelegate, UIAdaptivePresentationControllerDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "signIn"{
+            //            navigationController?.popViewController(animated: true)
+            //            navigationController?.pushViewController(signInNavigationViewController!, animated: true)
+            //            self.dismiss(animated: true, completion: nil)
             present(SignInViewController(), animated: true)
-            //didClickedExitButton()
         }
         return false
     }
@@ -377,5 +383,8 @@ extension SignUpViewController: UITextFieldDelegate, UITextViewDelegate{
         return true
     }
     
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        didClickedGoBackButton()
+    }
     
 }

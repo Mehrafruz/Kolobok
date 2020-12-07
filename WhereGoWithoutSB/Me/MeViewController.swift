@@ -1,7 +1,7 @@
 import UIKit
 
 class MeViewController: UIViewController {
-
+    
     let tempButton = UIButton()
     let titleLabel = UILabel()
     let avatarImageView = UIImageView()
@@ -10,17 +10,16 @@ class MeViewController: UIViewController {
     let settings: [String] = ["Настройки", "Помощь"]
     
     private let visitedCollectionView: UICollectionView = {
-       let viewLayout = UICollectionViewFlowLayout()
-       
-       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
-       viewLayout.scrollDirection = .horizontal
-       viewLayout.itemSize = CGSize.init(width: 70, height: 70)
-       viewLayout.minimumInteritemSpacing = 10
-       collectionView.backgroundColor = UIColor(red: 299/255, green: 299/255, blue: 299/255, alpha: 1)
+        let viewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        viewLayout.scrollDirection = .horizontal
+        viewLayout.itemSize = CGSize.init(width: 70, height: 70)
+        viewLayout.minimumInteritemSpacing = 10
+        collectionView.backgroundColor = UIColor(red: 299/255, green: 299/255, blue: 299/255, alpha: 1)
+        
+        return collectionView
+    }()
     
-       return collectionView
-   }()
-
     private let favoriteCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         
@@ -29,47 +28,47 @@ class MeViewController: UIViewController {
         viewLayout.itemSize = CGSize.init(width: 70, height: 70)
         viewLayout.minimumInteritemSpacing = 10
         collectionView.backgroundColor = UIColor(red: 299/255, green: 299/255, blue: 299/255, alpha: 1)
-     
+        
         return collectionView
     }()
     
     private var settingsTableView : UITableView = {
-           let tableView = UITableView()
-           tableView.translatesAutoresizingMaskIntoConstraints = false
-           return tableView
-       }()
-//
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    //
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Аккаунт"
         view.backgroundColor = .systemBackground
         
-//        setupButton()
+        //        setupButton()
         setupTitleView()
         setupAvatarImage()
         setupView("Просмотреное:", visitedView)
         constraintsForVisited(to: avatarImageView, by: 20, visitedView)
         setupView("Избранное:", favoriteView)
         constraintsForVisited(to: avatarImageView, by: 160, favoriteView)
-//        setupView("Wish list:", favoriteView)
-//        constraintsForVisited(to: avatarImageView, by: 120, favoriteView)
-    
+        //        setupView("Wish list:", favoriteView)
+        //        constraintsForVisited(to: avatarImageView, by: 120, favoriteView)
+        
         setupCollectionView(visitedCollectionView)
         setupLayouts(visitedCollectionView, visitedView)
         setupCollectionView(favoriteCollectionView)
         setupLayouts(favoriteCollectionView, favoriteView)
-//        setupCollectionViewItemSize()
+        //        setupCollectionViewItemSize()
         setupTableView()
-//       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
-//       collectionView.backgroundColor = #colorLiteral(red: 1, green: 0.489895463, blue: 0, alpha: 1)
-       
-     
+        //       let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        //       collectionView.backgroundColor = #colorLiteral(red: 1, green: 0.489895463, blue: 0, alpha: 1)
+        
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-    
+        
         //для анимации
         //animationView.center.x = view.bounds.midX
         //animationView.center.y = view.bounds.minY+125
@@ -81,7 +80,7 @@ class MeViewController: UIViewController {
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
         
-//        settingsTableView.topAnchor.constraint(equalTo: favoriteCollectionView.bottomAnchor).isActive = true
+        //        settingsTableView.topAnchor.constraint(equalTo: favoriteCollectionView.bottomAnchor).isActive = true
         settingsTableView.topAnchor.constraint(equalTo: favoriteCollectionView.bottomAnchor, constant: 16).isActive = true// left side
         //        avatarImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 100).isActive = true //right side
         settingsTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -118,7 +117,7 @@ class MeViewController: UIViewController {
         // Layout constraints for collectionView
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: upperView.bottomAnchor, constant: -10),
-//            visitedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            //            visitedCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 90)
@@ -143,9 +142,9 @@ class MeViewController: UIViewController {
         view.addSubview(avatarImageView)
         let indent: CGFloat = 144.0
         let width = UIScreen.main.bounds.width - indent * 2
-
+        
         avatarImageView.layer.cornerRadius = width / 2
-        avatarImageView.contentMode = .scaleAspectFit
+//        avatarImageView.contentMode = .scaleAspectF.it
         avatarImageView.layer.masksToBounds = true
         
         avatarImageView.layer.borderColor = UIColor(red: 1, green: 195/255, blue: 52/255, alpha: 1).cgColor
@@ -179,22 +178,22 @@ class MeViewController: UIViewController {
         constraintsForTitle()
         
     }
-     
+    
     @objc func tempButtonTapped () {
         let secondViewController = PlaceViewController()
         navigationController?.pushViewController(secondViewController, animated: true)
     }
-
+    
     
     func constraintsForTitle() {
         let horizontalConstraint = NSLayoutConstraint(item: titleLabel,
-                                                  attribute: .top,
-                                                  relatedBy: .equal,
-                                                  toItem: view.safeAreaLayoutGuide,
-                                                  attribute:
-.top,
-                                                  multiplier: 1,
-                                                  constant: 0)
+                                                      attribute: .top,
+                                                      relatedBy: .equal,
+                                                      toItem: view.safeAreaLayoutGuide,
+                                                      attribute:
+            .top,
+                                                      multiplier: 1,
+                                                      constant: 0)
         let verticalCenter = NSLayoutConstraint(item: titleLabel,
                                                 attribute: .centerX,
                                                 relatedBy: .equal,
@@ -210,13 +209,13 @@ class MeViewController: UIViewController {
                                         multiplier: 1,
                                         constant: 50)
         
-//        let width = NSLayoutConstraint(item: titleView,
-//                                       attribute: .width,
-//                                       relatedBy: .equal,
-//                                       toItem: nil,
-//                                       attribute: .width,
-//                                       multiplier: 1,
-//                                       constant: 100)
+        //        let width = NSLayoutConstraint(item: titleView,
+        //                                       attribute: .width,
+        //                                       relatedBy: .equal,
+        //                                       toItem: nil,
+        //                                       attribute: .width,
+        //                                       multiplier: 1,
+        //                                       constant: 100)
         
         let constraints: [NSLayoutConstraint] = [horizontalConstraint, verticalCenter, height]
         
@@ -255,7 +254,7 @@ class MeViewController: UIViewController {
                                         attribute: .height,
                                         multiplier: 1,
                                         constant: 50)
-    
+        
         
         let constraints: [NSLayoutConstraint] = [horizontalConstraint, verticalConstraint, height]
         
@@ -264,18 +263,18 @@ class MeViewController: UIViewController {
     
     
     
-  
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to
-do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to
+     do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 extension MeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -306,20 +305,20 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settings.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel!.text = settings[indexPath.row]
-//        cell.imageView?.image = UIImage(named: "kolobokAnimation_1")
-//        let image = UIImage(named: "kolobokAnimation_1")
+        //        cell.imageView?.image = UIImage(named: "kolobokAnimation_1")
+        //        let image = UIImage(named: "kolobokAnimation_1")
         cell.accessoryType = .disclosureIndicator
         return cell
     }
-
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 10
-//    }
-
-
-
+    
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        return 10
+    //    }
+    
+    
+    
 }

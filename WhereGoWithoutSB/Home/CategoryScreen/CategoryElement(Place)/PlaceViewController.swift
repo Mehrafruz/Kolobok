@@ -8,34 +8,61 @@
 
 import UIKit
 import PinLayout
-import Kingfisher
-
+import Foundation
 
 class PlaceViewController: UIViewController {
-
-    let mainImageView = UIImageView()
+    private var scrollView = UIScrollView()
+    private var placeImagesURLs: [CategoryElements.Results.Images] = []
     let titleLabel = UILabel()
     let adressLabel = UILabel()
     let timeTableLabel = UILabel()
     let phoneLabel = UILabel()
-    let descriptionLabel = UITextField()
+    let descriptionTextView = UITextView()
     let subwayLabel = UILabel()
-    let customLine0 = UITableViewCell()
-    let customLine1 = UITableViewCell()
-    let customLine2 = UITableViewCell()
-    let customLine3 = UITableViewCell()
-    let customLine4 = UITableViewCell()
-    let swipeLine = UITableViewCell()
+    private let customLine0 = UITableViewCell()
+    private let customLine1 = UITableViewCell()
+    private let customLine2 = UITableViewCell()
+    private let customLine3 = UITableViewCell()
+    private let customLine4 = UITableViewCell()
+    private let customLine5 = UITableViewCell()
+    private let swipeLine = UITableViewCell()
     let likeImage = UIImageView()
     let reviewLabel = UILabel()
     
-    let likeButton = UIButton()
-    let reviewButton = UIButton()
-    //MARK: пределать button
-    let exitButtonImage = UIImageView()
-
+    private let likeButton = UIButton()
+    private let reviewButton = UIButton()
+    private let showOnMapButton = UIButton()
+    private let goBackButton = UIButton()
+    
+    private let adressImageView = UIImageView()
+    private let timeImageView = UIImageView()
+    private let subwayImageView = UIImageView()
+    private let phoneImageView = UIImageView()
+    
+    private let imagesPageControl = UIPageControl()
+    private let imageCollectionView: UICollectionView = {
+        let viewLayout = UICollectionViewFlowLayout()
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
+        viewLayout.scrollDirection = .horizontal
+        viewLayout.itemSize = CGSize.init(width: UIScreen.main.bounds.width, height: 412)
+        viewLayout.minimumInteritemSpacing = 0
+        viewLayout.minimumLineSpacing = 0
+        collectionView.backgroundColor = .gray
+        return collectionView
+    }()
+    
     var currentElement: CategoryElements.Results!
-
+    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
+    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
+    private let customDarkGrayColor = UIColor(red: 94/255, green: 97/255, blue: 101/255, alpha: 1)
+    private let customBlueColor =  UIColor(red: 119/255, green: 152/255, blue: 162/255, alpha: 1)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        //MARK: чтобы прокрутка скрола заработала сонтентсайз вызывай тут
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -43,186 +70,314 @@ class PlaceViewController: UIViewController {
     }
     
     func setup(){
-        mainImageView.kf.setImage(with: currentElement.imageURL)
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        placeImagesURLs = currentElement.images
+        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: customBlackColor)
+        goBackButton.layer.zPosition = 1
+        goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
+       
+        setupLittleButton(button: showOnMapButton, imageName: "location", bgImageName: "", tintColor: customBlackColor)
+        showOnMapButton.backgroundColor = customGrayColor
+    
+        setupButton(button: reviewButton, title: "Оставить отзыв", color: customGrayColor, textColor: .white)
+        setupButton(button: likeButton, title: "", color: customYellowColor, textColor: .white)
+        likeImage.image = UIImage(systemName: "heart")
+        likeImage.tintColor = customBlackColor
+        likeImage.layer.zPosition = 2
         
         titleLabel.text = currentElement.title
-        titleLabel.font = UIFont(name: "NaturalMono-Regular", size: 30)
-        adressLabel.text = "Адрес: " + currentElement.address
-        adressLabel.font = UIFont(name: "NaturalMono-Regular", size: 17)
-        timeTableLabel.text = "Время работы: " + currentElement.timetable
-        timeTableLabel.font = UIFont(name: "NaturalMono-Regular", size: 17)
-        phoneLabel.text = "Телефон: " + currentElement.phone
-        phoneLabel.font = UIFont(name: "NaturalMono-Regular", size: 17)
-        descriptionLabel.text = "Описание: " + currentElement.description
-        descriptionLabel.font = UIFont(name: "NaturalMono-Regular", size: 17)
-        subwayLabel.text = "Станция метро: " + currentElement.subway
-        subwayLabel.font = UIFont(name: "NaturalMono-Regular", size: 17)
-        customLine0.backgroundColor = UIColor(red: 129/255, green: 129/255, blue: 129/255, alpha: 1)
-        customLine1.backgroundColor = UIColor(red: 129/255, green: 129/255, blue: 129/255, alpha: 1)
-        customLine2.backgroundColor = UIColor(red: 129/255, green: 129/255, blue: 129/255, alpha: 1)
-        customLine3.backgroundColor = UIColor(red: 129/255, green: 129/255, blue: 129/255, alpha: 1)
-        customLine4.backgroundColor = UIColor(red: 129/255, green: 129/255, blue: 129/255, alpha: 1)
-        swipeLine.backgroundColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-
-        likeButton.backgroundColor = UIColor(red: 253/255, green: 247/255, blue: 152/255, alpha: 1)
-        reviewButton.backgroundColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
+        titleLabel.font = UIFont(name: "POEVeticaVanta", size: 25)
+        titleLabel.textAlignment = .center
         
-        likeImage.image = UIImage(systemName: "heart")
-        likeImage.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-        reviewLabel.text = "Оставить отзыв"
-        reviewLabel.textColor = .white
-        reviewLabel.font = UIFont(name: "NaturalMono-Regular", size: 17)
+        adressLabel.text = currentElement.address
+        timeTableLabel.text = currentElement.timetable
+        phoneLabel.text = currentElement.phone
         
-        exitButtonImage.image = UIImage(systemName: "xmark")
-        exitButtonImage.tintColor = .white
+        setupDescriptionTextView()
         
-        [mainImageView, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionLabel, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, likeButton, reviewButton, likeImage, reviewLabel, exitButtonImage, swipeLine].forEach { view.addSubview($0) }
-        addConstraint()
+        setupImageView(imageView: adressImageView, imageName: "adress")
+        setupImageView(imageView: timeImageView, imageName: "timeTable")
+        setupImageView(imageView: subwayImageView, imageName: "subway")
+        phoneImageView.image = UIImage(systemName: "phone.circle.fill")
+        phoneImageView.tintColor = customBlueColor
+            
+        subwayLabel.text = currentElement.subway
+        
+        [adressLabel, timeTableLabel, phoneLabel, subwayLabel].forEach {
+            ($0).font = UIFont(name: "POEVeticaVanta", size: 18)
+        }
+        
+        [adressLabel, timeTableLabel, phoneLabel, subwayLabel].forEach {
+            ($0).textColor = customBlackColor
+        }
+        
+        [customLine0, customLine1, customLine2, customLine3, customLine4, customLine5].forEach {
+            ($0).backgroundColor = customGrayColor
+        }
+        
+        setupCollectionView(imageCollectionView)
+        setupPageControl(pageControl: imagesPageControl)
+        
+        view.addSubview(scrollView)
+        
+        [goBackButton, imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewButton, reviewLabel, likeImage, showOnMapButton].forEach { scrollView.addSubview($0) }
+        addConstraints()
     }
     
-    func addConstraint(){
-        super.viewDidLayoutSubviews()
-        
-        mainImageView.layer.cornerRadius = 10
-        mainImageView.clipsToBounds = true
-        
-        mainImageView.pin
-            .top(2)
-            .left(1)
-            .right(1)
-            .size(412)
-        
-        titleLabel.pin
-            .below(of: mainImageView)
-            .left(20)
-            .right(20)
-            .top(12)
-            .height(35)
-        
-        customLine0.pin
-            .below(of: titleLabel)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(0.5)
-            .width(UIScreen.main.bounds.width-40)
-        
-        adressLabel.pin
-            .below(of: customLine0)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(35)
-        
-        customLine1.pin
-            .below(of: adressLabel)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(0.5)
-            .width(UIScreen.main.bounds.width-40)
-        
-        timeTableLabel.pin
-            .below(of: customLine1)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(35)
-        
-        customLine2.pin
-            .below(of: timeTableLabel)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(0.5)
-            .width(UIScreen.main.bounds.width-40)
-        
-        phoneLabel.pin
-            .below(of: customLine2)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(35)
-        
-        customLine3.pin
-            .below(of: phoneLabel)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(0.5)
-            .width(UIScreen.main.bounds.width-40)
-        
-        subwayLabel.pin
-            .below(of: customLine3)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(35)
-        
-        customLine4.pin
-            .below(of: subwayLabel)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(0.5)
-            .width(UIScreen.main.bounds.width-40)
-        
-        descriptionLabel.pin
-            .below(of: customLine4)
-            .left(20)
-            .right(20)
-            .top(15)
-            .height(35)
-            .width(UIScreen.main.bounds.width-40)
-        
-        likeButton.layer.cornerRadius = 10
-        likeButton.clipsToBounds = true
-        
-        likeButton.pin
-            .left(15)
-            .bottom(100)
-            .right(UIScreen.main.bounds.width/2-15)
-            .width(UIScreen.main.bounds.width/2-22.5)
-            .height(50)
-        
-        reviewButton.layer.cornerRadius = 10
-        reviewButton.clipsToBounds = true
-        
-        reviewButton.pin
-            .right(15)
-            .bottom(100)
-            .left(UIScreen.main.bounds.width/2+15)
-            .width(UIScreen.main.bounds.width/2-22.5)
-            .height(50)
-        
-        likeImage.pin
-            .left(UIScreen.main.bounds.width/4-20)
-            .bottom(105)
-            .right(UIScreen.main.bounds.width/4-11)
-            .width(50)
-            .height(40)
-        
-        reviewLabel.pin
-            .right(15)
-            .bottom(100)
-            .left(UIScreen.main.bounds.width/2+35)
-            .width(UIScreen.main.bounds.width/2-7.5)
-            .height(50)
-        
-        exitButtonImage.pin
-            .right(15)
-            .top(15)
-            .size(30)
-        
-        swipeLine.pin
-            .right(UIScreen.main.bounds.width - UIScreen.main.bounds.width/3)
-            .left(UIScreen.main.bounds.width)
-            .top(10)
-            .width(1)
-            .height(UIScreen.main.bounds.width/3)
+    func setupImageView(imageView: UIImageView, imageName: String) {
+        imageView.image = UIImage(named: imageName)
+    }
+    
+    func setupDescriptionTextView(){
+        var descriptionText = currentElement.description
+        descriptionText = String(descriptionText.dropFirst(3))
+        descriptionText = String(descriptionText.dropLast(5))
+        descriptionTextView.text = descriptionText
+        descriptionTextView.font = UIFont(name: "POEVeticaVanta", size: 18)
+        descriptionTextView.isEditable = false
+        descriptionTextView.textColor = customDarkGrayColor
+    }
+    
+    func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
+        button.setTitle(title, for: UIControl.State.normal)
+        button.setTitleColor(textColor, for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont(name: "POEVeticaVanta", size: 17)
+        button.backgroundColor = color
+        button.layer.zPosition = 1.5
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
+        button.layer.shadowRadius = 3.0
+        button.layer.shadowOpacity = 0.5
+        button.layer.masksToBounds = false
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
+    
+    func setupLittleButton(button: UIButton, imageName: String, bgImageName: String, tintColor: UIColor) {
+        button.setImage( UIImage(systemName: imageName), for: UIControl.State.normal)
+        button.setBackgroundImage( UIImage(systemName: bgImageName), for: UIControl.State.normal)
+        button.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        button.tintColor = tintColor
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
+        button.layer.shadowRadius = 3.0
+        button.layer.shadowOpacity = 0.5
+        button.layer.masksToBounds = false
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
+    
+    
+    private func setupCollectionView(_ collectionView: UICollectionView) {
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(PlaceCollectionViewCell.self, forCellWithReuseIdentifier: "MyCell")
+        collectionView.isPagingEnabled = true
+    }
+    
+    private func setupPageControl(pageControl: UIPageControl){
+        pageControl.backgroundColor = UIColor.clear
+        pageControl.numberOfPages = currentElement.images.count
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = customBlackColor
     }
     
     
     
+    func addConstraints(){
+        [goBackButton, imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewButton, reviewLabel, likeImage, showOnMapButton].forEach {
+            ($0).translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        NSLayoutConstraint.activate([
+            goBackButton.widthAnchor.constraint(equalToConstant: 30),
+            goBackButton.heightAnchor.constraint(equalToConstant: 30),
+            goBackButton.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 20),
+            goBackButton.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            imageCollectionView.widthAnchor.constraint(equalToConstant: self.scrollView.bounds.width),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: 400),
+            imageCollectionView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
+            imageCollectionView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor),
+            imageCollectionView.rightAnchor.constraint(equalTo: self.scrollView.rightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            showOnMapButton.widthAnchor.constraint(equalToConstant: 40),
+            showOnMapButton.heightAnchor.constraint(equalToConstant: 40),
+            showOnMapButton.topAnchor.constraint(equalTo: self.imageCollectionView.bottomAnchor, constant: -20),
+            showOnMapButton.rightAnchor.constraint(equalTo: self.imageCollectionView.rightAnchor, constant: -20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            imagesPageControl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0.0),
+            imagesPageControl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 0.0),
+            imagesPageControl.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
+            imagesPageControl.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, constant: 400)
+        ])
+        
+        NSLayoutConstraint.activate([
+            titleLabel.widthAnchor.constraint(equalToConstant:  380),
+            titleLabel.heightAnchor.constraint(equalToConstant: 50),
+            titleLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 420),
+            titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine0.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine0.widthAnchor.constraint(equalToConstant: 350),
+            customLine0.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 461),
+            customLine0.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 180),
+            descriptionTextView.widthAnchor.constraint(equalToConstant: 380),
+            descriptionTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            descriptionTextView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 470),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine1.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine1.widthAnchor.constraint(equalToConstant: 350),
+            customLine1.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 665),
+            customLine1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            adressImageView.heightAnchor.constraint(equalToConstant: 30),
+            adressImageView.widthAnchor.constraint(equalToConstant: 30),
+            adressImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 680),
+            adressImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+        ])
+        
+        NSLayoutConstraint.activate([
+            adressLabel.heightAnchor.constraint(equalToConstant: 50),
+            adressLabel.widthAnchor.constraint(equalToConstant: 320),
+            adressLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 670),
+            adressLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            adressLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine2.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine2.widthAnchor.constraint(equalToConstant: 350),
+            customLine2.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 710),
+            customLine2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            timeImageView.heightAnchor.constraint(equalToConstant: 25),
+            timeImageView.widthAnchor.constraint(equalToConstant: 25),
+            timeImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 728),
+            timeImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+        ])
+        
+        NSLayoutConstraint.activate([
+            timeTableLabel.heightAnchor.constraint(equalToConstant: 50),
+            timeTableLabel.widthAnchor.constraint(equalToConstant: 320),
+            timeTableLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 715),
+            timeTableLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            timeTableLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine3.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine3.widthAnchor.constraint(equalToConstant: 350),
+            customLine3.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 755),
+            customLine3.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            subwayImageView.heightAnchor.constraint(equalToConstant: 25),
+            subwayImageView.widthAnchor.constraint(equalToConstant: 25),
+            subwayImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 772),
+            subwayImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+        ])
+        
+        NSLayoutConstraint.activate([
+            subwayLabel.heightAnchor.constraint(equalToConstant: 50),
+            subwayLabel.widthAnchor.constraint(equalToConstant: 320),
+            subwayLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 760),
+            subwayLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            subwayLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine4.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine4.widthAnchor.constraint(equalToConstant: 350),
+            customLine4.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 800),
+            customLine4.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            phoneImageView.heightAnchor.constraint(equalToConstant: 25),
+            phoneImageView.widthAnchor.constraint(equalToConstant: 25),
+            phoneImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 816),
+            phoneImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+        ])
+        
+        NSLayoutConstraint.activate([
+            phoneLabel.heightAnchor.constraint(equalToConstant: 50),
+            phoneLabel.widthAnchor.constraint(equalToConstant: 320),
+            phoneLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 805),
+            phoneLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            phoneLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine5.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine5.widthAnchor.constraint(equalToConstant: 350),
+            customLine5.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 845),
+            customLine5.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            likeButton.heightAnchor.constraint(equalToConstant: 50),
+            likeButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/2-50),
+            likeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30),
+            likeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 32),
+        ])
+        
+        NSLayoutConstraint.activate([
+            likeImage.heightAnchor.constraint(equalToConstant: 30),
+            likeImage.widthAnchor.constraint(equalToConstant: 35),
+            likeImage.centerXAnchor.constraint(equalTo: likeButton.centerXAnchor),
+            likeImage.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            reviewButton.heightAnchor.constraint(equalToConstant: 50),
+            reviewButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/2-50),
+            reviewButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30),
+            reviewButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -32),
+        ])
+        
+    }
+    
+    @objc func didClickedGoBackButton() {
+        self.dismiss(animated: true, completion: nil)
+       // navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        imagesPageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
+    }
+    
+}
 
+extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return currentElement.images.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MyCell", for: indexPath) as? PlaceCollectionViewCell else {
+            return .init()
+        }
+        cell.setupImage(imageURL: currentElement.images[indexPath.row].image)
+        return cell
+    }
+    
+    
 }

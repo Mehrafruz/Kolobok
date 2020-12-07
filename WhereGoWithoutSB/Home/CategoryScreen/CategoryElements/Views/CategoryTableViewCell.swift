@@ -29,6 +29,10 @@ class CategoryTableViewCell: UITableViewCell {
     private let timeLabel = UILabel()
     private let subwayLabel = UILabel()
     
+    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
+    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setup()
@@ -43,11 +47,12 @@ class CategoryTableViewCell: UITableViewCell {
         adressImageView.image = UIImage(named: "adress")
         timeTableImageView.image = UIImage(named: "timeTable")
         subwayImageView.image = UIImage(named: "subway")
-        titleLabel.font = UIFont(name: "NaturalMono-Regular", size: 23)
-        adressLabel.font = UIFont(name: "NaturalMono-Regular", size: 14)
-        subwayLabel.font = UIFont(name: "NaturalMono-Regular", size: 14)
-        timeLabel.font = UIFont(name: "NaturalMono-Regular", size: 14)
-        subwayLabel.textColor = .darkGray
+        titleLabel.font = UIFont(name: "POEVeticaVanta", size: 20)
+        
+        [adressLabel,subwayLabel,timeLabel].forEach{
+            ($0).font = UIFont(name: "POEVeticaVanta", size: 15)
+        }
+        subwayLabel.textColor = customBlackColor
         backgroundColor = .white
         
         [categoryImageView, adressImageView, timeTableImageView, subwayImageView, adressLabel, titleLabel, timeLabel, subwayLabel].forEach { contentView.addSubview($0) }
@@ -60,59 +65,50 @@ class CategoryTableViewCell: UITableViewCell {
         categoryImageView.clipsToBounds = true //без этой штуки не применится cornerRadius
         
         categoryImageView.pin
-            .size(90)
+            .size(92)
             .left(12)
-            .height(92)
         
         titleLabel.pin
             .left(112)
             .right(12)
-            .top(12)
-            .height(25)
+            .height(30)
          //   .sizeToFit(.height)
         
         adressLabel.pin
             .below(of: titleLabel)
             .left(139)
             .right(12)
-            .top(12)
-            .height(15)
-        //    .sizeToFit(.height)
+            .height(20)
+            //.sizeToFit(.height)
         
         adressImageView.pin
             .below(of: titleLabel)
             .left(112)
-            .top(12)
-            .size(15)
-            .height(15)
+            .size(20)
         
         timeLabel.pin
             .below(of: adressLabel)
             .left(139)
             .right(12)
-            .height(15)
+            .height(20)
        //     .sizeToFit(.height)
         
         timeTableImageView.pin
             .below(of: adressLabel)
             .left(112)
-            .top(12)
-            .size(15)
-            .height(15)
+            .size(20)
         
         subwayLabel.pin
             .below(of: timeLabel)
             .left(139)
             .right(12)
-            .height(15)
+            .height(20)
            // .sizeToFit(.height)
         
         subwayImageView.pin
             .below(of: timeLabel)
             .left(112)
-            .top(12)
-            .size(15)
-            .height(15)
+            .size(20)
     }
     
     func configure(with model: CategoryTableViewCellModel) {

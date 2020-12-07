@@ -12,10 +12,11 @@ import SpriteKit
 var signInNavigationViewController: UINavigationController?
 var signUpNavigationViewController: UINavigationController?
 
+var didDismissViewFlag = false
 
 class WelcomeViewController: UIViewController{
     
-
+    
     private let exitButton = UIButton()
     private let animationView = SKView()
     private var signUpButton = UIButton()
@@ -23,7 +24,11 @@ class WelcomeViewController: UIViewController{
     private var welcomeLabel = UILabel()
     private var withoutSingUpTextView = UITextView()
     private let cornerRadius: CGFloat = 20
- 
+    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
+    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
+   
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -41,7 +46,7 @@ class WelcomeViewController: UIViewController{
         let exitButtonImage = UIImage(systemName: "xmark")
         exitButton.setBackgroundImage( exitButtonImage, for: UIControl.State.normal)
         exitButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        exitButton.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        exitButton.tintColor = customBlackColor
         exitButton.addTarget(self, action: #selector(didClickedExitButton), for: .touchUpInside)
         
         view.addSubview(animationView)
@@ -52,7 +57,7 @@ class WelcomeViewController: UIViewController{
         
         welcomeLabel.font = UIFont(name: "POEVeticaVanta", size: 40)
         welcomeLabel.layer.zPosition = 1.5
-        welcomeLabel.textColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        welcomeLabel.textColor = customBlackColor
         welcomeLabel.text = "Привет!"
         welcomeLabel.textAlignment = .center
         
@@ -60,32 +65,29 @@ class WelcomeViewController: UIViewController{
         withoutSingUpTextView.delegate = self
         let withoutSingUpText = NSMutableAttributedString(string: "Хочешь продолжить без регистрации?", attributes: attribute as [NSAttributedString.Key : Any])
         withoutSingUpText.addAttribute(.link, value: "withoutSignUp", range: NSRange(location: 6, length: withoutSingUpText.string.count-7))
-        UITextView.appearance().linkTextAttributes = [ .foregroundColor: UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)]
+        UITextView.appearance().linkTextAttributes = [ .foregroundColor: customGrayColor]
         withoutSingUpTextView.attributedText = withoutSingUpText
         
         
         setupButton(button: signInButton, title: "Войти",
-                    color: UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1), textColor: UIColor.white)
+                    color: customGrayColor, textColor: UIColor.white)
         signInButton.addTarget(self, action: #selector(didClickedSignInButton), for: .touchUpInside)
-       
+        
         setupButton(button: signUpButton, title: "Зарегистрироваться",
-                    color: UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1),  textColor: UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1))
+                    color: customYellowColor,  textColor: customBlackColor)
         signUpButton.addTarget(self, action: #selector(didClickedSignUpButton), for: .touchUpInside)
         
         [exitButton, welcomeLabel, signInButton, signUpButton, withoutSingUpTextView].forEach {
             view.addSubview($0)
         }
-        
-//        drawDottedLine(start: CGPoint(x: UIScreen.main.bounds.maxX, y: UIScreen.main.bounds.maxY-(scene.size.height)/6), end: CGPoint(x: UIScreen.main.bounds.minX-100, y: -UIScreen.main.bounds.midY+scene.size.height/3), view: self.view)
-        
-        addConstraint()
+        addConstraints()
     }
     
     func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
         button.setTitle(title, for: UIControl.State.normal)
         button.setTitleColor(textColor, for: UIControl.State.normal)
         button.titleLabel?.font = UIFont(name: "POEVeticaVanta", size: 17)
-
+        
         button.backgroundColor = color
         button.layer.zPosition = 1.5
         button.layer.cornerRadius = cornerRadius
@@ -122,8 +124,8 @@ class WelcomeViewController: UIViewController{
         kolobok.position.x = UIScreen.main.bounds.minX-100
         scene.addChild(kolobok)
         //run movements
-        let rightRotate: SKAction = .rotate(byAngle: -3 * .pi, duration: 3)
-        let leftRotate: SKAction = .rotate(byAngle: 3 * .pi, duration: 3)
+        let rightRotate: SKAction = .rotate(byAngle: -4 * .pi, duration: 3)
+        let leftRotate: SKAction = .rotate(byAngle: 4 * .pi, duration: 3)
         let pause: SKAction = .pause()
         kolobok.run(.repeat(
             .sequence(
@@ -145,9 +147,10 @@ class WelcomeViewController: UIViewController{
             ), count: 1))
     }
     
+    //MARK: не применяю данную функцию но пусть побудет тут
     func drawDottedLine(start p0: CGPoint, end p1: CGPoint, view: UIView) {
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1).cgColor
+        shapeLayer.strokeColor = customBlackColor.cgColor
         shapeLayer.lineWidth = 1
         shapeLayer.zPosition = 1
         shapeLayer.lineDashPattern = [7, 3] // 7 is the length of dash, 3 is length of the gap.
@@ -157,12 +160,10 @@ class WelcomeViewController: UIViewController{
         view.layer.addSublayer(shapeLayer)
     }
     
-    func addConstraint() {
-        exitButton.translatesAutoresizingMaskIntoConstraints = false
-        welcomeLabel.translatesAutoresizingMaskIntoConstraints = false
-        signInButton.translatesAutoresizingMaskIntoConstraints = false
-        signUpButton.translatesAutoresizingMaskIntoConstraints = false
-        withoutSingUpTextView.translatesAutoresizingMaskIntoConstraints = false
+    func addConstraints() {
+        [exitButton, welcomeLabel, signInButton, signUpButton, withoutSingUpTextView].forEach {
+            ($0).translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
             exitButton.widthAnchor.constraint(equalToConstant: 30),
@@ -203,23 +204,28 @@ class WelcomeViewController: UIViewController{
     }
     
     @objc func didClickedExitButton(){
+        //present(CategoriesViewController(), animated: true)
         self.dismiss(animated: true, completion: nil)
-        present(CategoriesViewController(), animated: true)
+        didDismissViewFlag = true
+        //navigationController?.popViewController(animated: true)
+        //  navigationController?.pushViewController(CategoriesViewController(), animated: true)
         
     }
     
     @objc func didClickedSignUpButton(){
         signUpButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+       // navigationController?.pushViewController(signUpNavigationViewController!, animated: true)
         present(signUpNavigationViewController!, animated: true)
-
+        
     }
     
     @objc func didClickedSignInButton(){
-       signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-       present(signInNavigationViewController!, animated: true)
+        signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        //navigationController?.pushViewController(signInNavigationViewController!, animated: true)
+        present(signInNavigationViewController!, animated: true)
     }
     
-   
+    
     
 }
 
