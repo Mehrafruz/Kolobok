@@ -51,13 +51,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //MARK: исправить force unwrapping
         tabBarController.viewControllers = [categoriesNavigationViewController!, mapViewNavigationController!, meNavigationViewController!]
         
-//        let item1 = UITabBarItem(title: "", image: UIImage(named:"homeBar"), tag: 0)
-//        let item2 = UITabBarItem(title: "", image:  UIImage(named: "mapBar"), tag: 1)//"mappin.circle.fill"
-//        let item3 = UITabBarItem(title: "", image: UIImage(named: "user"), tag: 2)//"person.fill"
+        let item1 = UITabBarItem(title: "", image: UIImage(named:"house"), tag: 0)
+        let item2 = UITabBarItem(title: "", image:  UIImage(named: "map"), tag: 1)//"mappin.circle.fill"
+        let item3 = UITabBarItem(title: "", image: UIImage(named: "person"), tag: 2)//"person.fill"
 //
-        let item1 = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)
-        let item2 = UITabBarItem(title: "", image:  UIImage(systemName: "map.fill"), tag: 1)//"mappin.circle.fill"
-        let item3 = UITabBarItem(title: "", image: UIImage(systemName: "person.fill"), tag: 2)//"person.fill"
+//        let item1 = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)//"homeBar"
+//        let item2 = UITabBarItem(title: "", image:  UIImage(systemName: "map.fill"), tag: 1)//"mappin.circle.fill"
+//        let item3 = UITabBarItem(title: "", image: UIImage(systemName: "person.fill"), tag: 2)//"person.fill"
         
         
         tabBarController.tabBar.barTintColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)//(red: 253/255, green: 247/255, blue: 152/255, alpha: 1)- беклый желтый //(red: 171/255, green: 175/255, blue: 181/255, alpha: 1) - серый

@@ -47,7 +47,7 @@
 		EF33F59225430F4400593C46 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		EF33F59425430F9500593C46 /* CategoryElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryElements.swift; sourceTree = "<group>"; };
 		EF33F597254360BA00593C46 /* CategoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewCell.swift; sourceTree = "<group>"; };
-		EF355ACF254045AD00B260E6 /* WhereGoWithoutSB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereGoWithoutSB.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF355ACF254045AD00B260E6 /* Kolobok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kolobok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF355AD2254045AD00B260E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EF355ADE254045B000B260E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EF355AE0254045B000B260E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -137,7 +137,7 @@
 		EF355AD0254045AD00B260E6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				EF355ACF254045AD00B260E6 /* WhereGoWithoutSB.app */,
+				EF355ACF254045AD00B260E6 /* Kolobok.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -265,7 +265,7 @@
 			);
 			name = WhereGoWithoutSB;
 			productName = WhereGoWithoutSB;
-			productReference = EF355ACF254045AD00B260E6 /* WhereGoWithoutSB.app */;
+			productReference = EF355ACF254045AD00B260E6 /* Kolobok.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -547,7 +547,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = App.example.WhereGoWithoutSB;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Kolobok;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -566,7 +566,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = App.example.WhereGoWithoutSB;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Kolobok;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

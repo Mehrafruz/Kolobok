@@ -74,6 +74,7 @@ class PlaceViewController: UIViewController {
         placeImagesURLs = currentElement.images
         setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: customBlackColor)
         goBackButton.layer.zPosition = 1
+        
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
        
         setupLittleButton(button: showOnMapButton, imageName: "location", bgImageName: "", tintColor: customBlackColor)
