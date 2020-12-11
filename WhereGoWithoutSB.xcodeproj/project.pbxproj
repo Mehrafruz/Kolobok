@@ -29,6 +29,7 @@
 		EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3EF575256AF352007E6E33 /* NetworkManager.swift */; };
 		EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */; };
 		EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */; };
+		EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */; };
 		EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */; };
 		EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB0692564651800900DE0 /* CategoryProtocols.swift */; };
 		EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06B256465F300900DE0 /* CategoryRouter.swift */; };
@@ -36,6 +37,7 @@
 		EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */; };
 		EFAEA30C25770FB300F4FB7D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */; };
 		EFAEA30E257716C900F4FB7D /* POEVeticaVanta.otf in Resources */ = {isa = PBXBuildFile; fileRef = EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */; };
+		EFD24CDA25826D6D002320E5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD24CD925826D6D002320E5 /* SearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,7 @@
 		EF3EF575256AF352007E6E33 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInMapViewController.swift; sourceTree = "<group>"; };
 		EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		EFAAB0692564651800900DE0 /* CategoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProtocols.swift; sourceTree = "<group>"; };
 		EFAAB06B256465F300900DE0 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
@@ -72,6 +75,7 @@
 		EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContainer.swift; sourceTree = "<group>"; };
 		EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = POEVeticaVanta.otf; sourceTree = "<group>"; };
+		EFD24CD925826D6D002320E5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +167,7 @@
 		EF355AE6254046B100B260E6 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				EFD24CD8258153AF002320E5 /* SearchScreen */,
 				EF33F59025430CD500593C46 /* CategoriesScreen */,
 				EF33F59125430CFC00593C46 /* CategoryScreen */,
 			);
@@ -190,6 +195,7 @@
 			children = (
 				EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */,
 				EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */,
+				EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */,
 			);
 			path = "CategoryElement(Place)";
 			sourceTree = "<group>";
@@ -224,6 +230,14 @@
 				EF33F597254360BA00593C46 /* CategoryTableViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		EFD24CD8258153AF002320E5 /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				EFD24CD925826D6D002320E5 /* SearchController.swift */,
+			);
+			path = SearchScreen;
 			sourceTree = "<group>";
 		};
 		EFFE0EBC25671F9A009943B9 /* Fonts */ = {
@@ -386,6 +400,7 @@
 				EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */,
 				EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */,
 				EF355AEA2540474300B260E6 /* CategoriesViewController.swift in Sources */,
+				EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */,
 				EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */,
 				EF355AEC2540518600B260E6 /* MapViewController.swift in Sources */,
 				EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */,
@@ -401,6 +416,7 @@
 				EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,
 				EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */,
+				EFD24CDA25826D6D002320E5 /* SearchController.swift in Sources */,
 				EF355AD3254045AD00B260E6 /* AppDelegate.swift in Sources */,
 				EFAEA30C25770FB300F4FB7D /* WelcomeViewController.swift in Sources */,
 			);

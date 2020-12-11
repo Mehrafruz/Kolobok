@@ -72,13 +72,16 @@ class PlaceViewController: UIViewController {
     func setup(){
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         placeImagesURLs = currentElement.images
-        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: customBlackColor)
-        goBackButton.layer.zPosition = 1
-        
+        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: customGrayColor)
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
+        showOnMapButton.addTarget(self, action: #selector(didClickedShowOnMapButton), for: .touchUpInside)
+        imageCollectionView.layer.zPosition = -0.1
+        
+        
        
-        setupLittleButton(button: showOnMapButton, imageName: "location", bgImageName: "", tintColor: customBlackColor)
+        setupLittleButton(button: showOnMapButton, imageName: "location.fill", bgImageName: "", tintColor: customBlackColor)
         showOnMapButton.backgroundColor = customGrayColor
+        showOnMapButton.alpha = 0.8
     
         setupButton(button: reviewButton, title: "Оставить отзыв", color: customGrayColor, textColor: .white)
         setupButton(button: likeButton, title: "", color: customYellowColor, textColor: .white)
@@ -86,7 +89,7 @@ class PlaceViewController: UIViewController {
         likeImage.tintColor = customBlackColor
         likeImage.layer.zPosition = 2
         
-        titleLabel.text = currentElement.title
+        titleLabel.text = currentElement.short_title
         titleLabel.font = UIFont(name: "POEVeticaVanta", size: 25)
         titleLabel.textAlignment = .center
         
@@ -121,7 +124,11 @@ class PlaceViewController: UIViewController {
         
         view.addSubview(scrollView)
         
-        [goBackButton, imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewButton, reviewLabel, likeImage, showOnMapButton].forEach { scrollView.addSubview($0) }
+        [goBackButton].forEach {
+            imageCollectionView.addSubview($0)
+        }
+        
+        [imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewButton, reviewLabel, likeImage, showOnMapButton].forEach { scrollView.addSubview($0) }
         addConstraints()
     }
     
@@ -158,7 +165,7 @@ class PlaceViewController: UIViewController {
         button.setBackgroundImage( UIImage(systemName: bgImageName), for: UIControl.State.normal)
         button.setTitleColor(UIColor.white, for: UIControl.State.normal)
         button.tintColor = tintColor
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 25
         button.clipsToBounds = true
         button.layer.shadowRadius = 3.0
         button.layer.shadowOpacity = 0.5
@@ -204,10 +211,10 @@ class PlaceViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            showOnMapButton.widthAnchor.constraint(equalToConstant: 40),
-            showOnMapButton.heightAnchor.constraint(equalToConstant: 40),
-            showOnMapButton.topAnchor.constraint(equalTo: self.imageCollectionView.bottomAnchor, constant: -20),
-            showOnMapButton.rightAnchor.constraint(equalTo: self.imageCollectionView.rightAnchor, constant: -20)
+            showOnMapButton.widthAnchor.constraint(equalToConstant: 50),
+            showOnMapButton.heightAnchor.constraint(equalToConstant: 50),
+            showOnMapButton.topAnchor.constraint(equalTo: self.imageCollectionView.bottomAnchor, constant: -25),
+            showOnMapButton.rightAnchor.constraint(equalTo: self.imageCollectionView.rightAnchor, constant: -25)
         ])
         
         NSLayoutConstraint.activate([
@@ -359,6 +366,10 @@ class PlaceViewController: UIViewController {
     @objc func didClickedGoBackButton() {
         self.dismiss(animated: true, completion: nil)
        // navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func didClickedShowOnMapButton() {
+        present(PlaceInMapViewController(lat: currentElement.coords.lat, lon: currentElement.coords.lon),animated: true)
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

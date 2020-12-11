@@ -11,6 +11,7 @@ import Foundation
 struct CategoryElements: Codable {
     struct Results: Codable {
         let title: String
+        let short_title: String
         let address: String
         let timetable: String
         let phone: String
@@ -18,9 +19,15 @@ struct CategoryElements: Codable {
         let subway: String
         let favorites_count: Int
         let images: [Images]
+        let coords: Coords
         
         struct Images: Codable{
             let image: String
+        }
+        
+        struct Coords: Codable{
+            let lat: Double
+            let lon: Double
         }
         
         var imageURL: URL? {

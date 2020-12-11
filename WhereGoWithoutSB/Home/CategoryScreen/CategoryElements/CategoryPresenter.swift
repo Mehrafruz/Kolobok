@@ -41,7 +41,7 @@ extension CategoryPresenter: CategoryViewOutput {
     func item(at index: Int) -> CategoryTableViewCellModel {
         if !categoryElements.isEmpty{
             let categoryElement = categoryElements[index]
-            return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
+            return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.short_title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
             interactor.loadCurrentCategoryElements(for: index)
         }

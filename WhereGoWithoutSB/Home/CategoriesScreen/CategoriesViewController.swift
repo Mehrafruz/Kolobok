@@ -25,10 +25,9 @@ var items2: [CategoriesItem] = [CategoriesItem(imageName:"Image5_0"),
 
 class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISearchBarDelegate{
     
-    
+    var searchController = UISearchController(searchResultsController: nil)
     var searcBar = UISearchBar()
-    private let animationView = SKView()
-    
+    var searchTableView = UITableView()
     
     private let categoriesCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -49,20 +48,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     override func viewDidLoad() {
         super.viewDidLoad()
         searcBar.delegate = self
-        setupViews()
-        setupLayouts()
-        setupSearchBar()
-        setupCollectionViewItemSize()
-        categoriesCollectionView.reloadData()
-
-    
-        //for animation
-        view.addSubview(animationView)
-//        let scene = makeScene()
-//        animationView.frame.size = scene.size
-//        animationView.presentScene(scene)
-//        animationView.allowsTransparency = true
-        //Timer.scheduledTimer(timeInterval: 5.1, target: self, selector: #selector(removeScene), userInfo: nil, repeats: true)
+        setup()
     }
     
     
@@ -72,82 +58,20 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //for animation
-//        animationView.center.x = view.bounds.minX+30
-//        animationView.center.y = view.bounds.maxY-125
-    }
-
-    @objc func removeScene(){
-        //animationView.removeFromSuperview()
     }
     
-//    //for animation
-//    func makeScene() -> SKScene {
-//        let size = CGSize(width: 260, height: 270)
-//        let scene = SKScene(size: size)
-//        scene.scaleMode = .aspectFit
-//
-//       // scene.backgroundColor = .clear//UIColor(red: 233/255, green: 238/255, blue: 241/255, alpha: 1)
-//        createSceneContents(to: scene)
-//        return scene
-//    }
+    private func setup(){
+        setupViews()
+        setupLayouts()
+        setupSearchBar()
+        setupCollectionViewItemSize()
+        categoriesCollectionView.reloadData()
+    }
 
-//    func createSceneContents(to scene: SKScene) {
-//        //create baground
-//        let backroundImage = SKSpriteNode(imageNamed: "backgroundAnimateScene")
-//        backroundImage.position = CGPoint(x: scene.size.width/2+60, y: scene.size.height/2+46)
-//        //backroundImage.size = CGSize(width: 130, height: 135)
-////        backroundImage.setScale(1.30)
-////        backroundImage.zPosition = -1
-////        scene.addChild(backroundImage)
-//        //create kolobok
-//        let kolobokTexture = createKolobokTexture()
-//        let kolobok = SKSpriteNode(texture: kolobokTexture.first)
-//        kolobok.size = CGSize(width: 120, height: 120)
-//        kolobok.position.y = scene.size.height / 2
-//        kolobok.position.x = UIScreen.main.bounds.minX-300
-//        scene.addChild(kolobok)
-//        //run texture animation
-//        let characterFramesOverOneSecond: TimeInterval = 1.0 / TimeInterval(12)
-//        let animateKolobok: SKAction = .animate(with: kolobokTexture, timePerFrame: characterFramesOverOneSecond, resize: false, restore: true)
-//        //run movements
-//        let rightRotate: SKAction = .rotate(byAngle: -2 * .pi, duration: 3)
-//        let leftRotate: SKAction = .rotate(byAngle: 2 * .pi, duration: 4)
-//        let pause: SKAction = .pause()
-//        let animDuration: TimeInterval = 4.0
-//        kolobok.run(.repeat(
-//            .sequence(
-//                [.group([
-//                    rightRotate,
-//                    animateKolobok,
-//                    .moveBy(x: 500, y: 0, duration: 3),
-//                    ]),
-//                 .group([pause,
-//                         animateKolobok,
-//                         .pause()]),
-//                 .group([
-//                    leftRotate,
-//                    animateKolobok,
-//                    .moveBy(x: -600, y: 0, duration: animDuration)]),
-//                ]
-//            ), count: 1))
-//    }
-//
-//
-//    func createKolobokTexture() -> [SKTexture] {
-//        var arrayTexture = [SKTexture]()
-//        for index in 0 ... 11{
-//            let imageName = String("kolobokAnimation_\(index).png")
-//            let texture = SKTexture(imageNamed: imageName)
-//            arrayTexture.append(texture)
-//        }
-//        return arrayTexture
-//    }
     
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(categoriesCollectionView)
-        
         categoriesCollectionView.dataSource = self
         categoriesCollectionView.delegate = self
         categoriesCollectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
@@ -166,7 +90,6 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         searcBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true// left side
         searcBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0).isActive = true //right side
         searcBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        //searcBar.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         searcBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY).isActive = true
     }
     

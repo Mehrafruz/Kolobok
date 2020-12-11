@@ -23,13 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let tabBarController = UITabBarController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        YMKMapKit.setApiKey("5eb947dc-f594-4ba7-87cf-8ddedce5ca05")
+        YMKMapKit.setApiKey("3ed69a38-a2d6-43ec-ac3e-a79da5bd277d")
         
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
         mapViewNavigationController =  UINavigationController(rootViewController: MapViewController())
         meNavigationViewController = UINavigationController(rootViewController: MeViewController())
         welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
+    
         
         FirebaseApp.configure()
         
@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let item1 = UITabBarItem(title: "", image: UIImage(named:"house"), tag: 0)
         let item2 = UITabBarItem(title: "", image:  UIImage(named: "map"), tag: 1)//"mappin.circle.fill"
         let item3 = UITabBarItem(title: "", image: UIImage(named: "person"), tag: 2)//"person.fill"
+        
 //
 //        let item1 = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)//"homeBar"
 //        let item2 = UITabBarItem(title: "", image:  UIImage(systemName: "map.fill"), tag: 1)//"mappin.circle.fill"

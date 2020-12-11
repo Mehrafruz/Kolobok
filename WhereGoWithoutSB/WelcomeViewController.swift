@@ -214,6 +214,7 @@ class WelcomeViewController: UIViewController{
     
     @objc func didClickedSignUpButton(){
         signUpButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        self.dismiss(animated: true, completion: nil)
        // navigationController?.pushViewController(signUpNavigationViewController!, animated: true)
         present(signUpNavigationViewController!, animated: true)
         
@@ -221,8 +222,10 @@ class WelcomeViewController: UIViewController{
     
     @objc func didClickedSignInButton(){
         signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        //navigationController?.pushViewController(signInNavigationViewController!, animated: true)
-        present(signInNavigationViewController!, animated: true)
+        signInNavigationViewController!.modalPresentationStyle = .overCurrentContext
+        navigationController?.present(signInNavigationViewController!, animated: true)
+        //present(signInNavigationViewController!, animated: true, completion: WelcomeViewController().dismiss(animated: false))
+        
     }
     
     
