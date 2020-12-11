@@ -52,7 +52,6 @@ final class CategoryViewController: UIViewController{
         rightBaButton.image = UIImage(systemName: "slider.horizontal.3")
         rightBaButton.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
         self.navigationItem.rightBarButtonItem = rightBaButton
-       // self.navigationItem.backBarButtonItem?.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
     }
     
     @objc private func filter(){
@@ -61,8 +60,7 @@ final class CategoryViewController: UIViewController{
 }
 
 extension CategoryViewController: CategoryViewInput{
-    func update(at index: Int) {
-       // tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+    func update() {
         tableView.reloadData()
     }
     

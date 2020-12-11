@@ -16,21 +16,22 @@ protocol CategoryModuleOutput: AnyObject {
 }
 
 protocol CategoryViewInput: AnyObject {
-     func update(at index: Int)
+     func update()
 }
 
 protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
     func item(at index: Int) -> CategoryTableViewCellModel
+   // func tableView()
     func didSelect(at index: Int)
 }
 
 protocol CategoryInteractorInput: AnyObject {
-    func loadCurrentCategoryElements(for index: Int)
+    func loadCurrentCategoryElements()
 }
 
 protocol CategoryInteractorOutput: AnyObject {
-    func didLoadCurrentCategoryElements(for index: Int, currentCategoryElements: CategoryElements?)
+    func didLoadCurrentCategoryElements( currentCategoryElements: CategoryElements?)
     func didFail(with error: Error)
 }
 

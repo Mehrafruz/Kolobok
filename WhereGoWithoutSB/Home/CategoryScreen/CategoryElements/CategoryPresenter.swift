@@ -27,6 +27,7 @@ extension CategoryPresenter: CategoryModuleInput {
 }
 
 extension CategoryPresenter: CategoryViewOutput {
+        
     func didSelect(at index: Int) {
         if !categoryElements.isEmpty{
             let category = categoryElements[index]
@@ -36,31 +37,29 @@ extension CategoryPresenter: CategoryViewOutput {
         }
     }
     
-   
-    
     func item(at index: Int) -> CategoryTableViewCellModel {
         if !categoryElements.isEmpty{
             let categoryElement = categoryElements[index]
             return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.short_title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
-            interactor.loadCurrentCategoryElements(for: index)
+            interactor.loadCurrentCategoryElements()
         }
         return CategoryTableViewCellModel(imageURL: nil, title: "someTitle", adress: "", timeString: "", subway: "")
     }
     
-    
     var itemsCount: Int {
-        return 13
+        interactor.loadCurrentCategoryElements()
+        return categoryElements.count
        }
     
     
 }
 
 extension CategoryPresenter: CategoryInteractorOutput {
-    func didLoadCurrentCategoryElements(for index: Int, currentCategoryElements: CategoryElements?) {
+    func didLoadCurrentCategoryElements(currentCategoryElements: CategoryElements?) {
         categoryElements = currentCategoryElements!.results
-        if !categoryElements.isEmpty && index<=13{
-            view?.update(at: index)
+        if !categoryElements.isEmpty{
+            view?.update()
         }
     }
     
