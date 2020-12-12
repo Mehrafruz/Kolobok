@@ -16,15 +16,20 @@ protocol MapModuleOutput: class {
 }
 
 protocol MapViewInput: class {
+     func update()
 }
 
 protocol MapViewOutput: class {
+    func categoriesElementsIsLoad()// -> [CategoryElements.Results]
 }
 
 protocol MapInteractorInput: class {
+    func loadCategoriesElements()
 }
 
 protocol MapInteractorOutput: class {
+    func didLoadCategoriesElements( categoriesElements: CategoryElements?)
+    func didFail(with error: Error)
 }
 
 protocol MapRouterInput: class {

@@ -9,21 +9,39 @@
 import UIKit
 import YandexMapsMobile
 
+var categoriesElements: [CategoryElements.Results] = []
+
 class MapViewController: UIViewController{
     
+    private let output: MapViewOutput
     let mapView = YMKMapView()
     private let userLocationButton = UIButton()
     
     private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
     private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
     
+    
+    
+
+    init(output: MapViewOutput) {
+        self.output = output
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        output.categoriesElementsIsLoad()
         let startLocation = YMKPoint(latitude: 55.7522, longitude: 37.6156)
         
         mapView.mapWindow.map.addCameraListener(with: self)
@@ -68,19 +86,6 @@ class MapViewController: UIViewController{
             userLocationButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -100),
             userLocationButton.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -30)
         ])
-        //        NSLayoutConstraint.activate([
-        //            trafficLabel.topAnchor.constraint(equalTo: mapView.topAnchor, constant: 50),
-        //            trafficLabel.widthAnchor.constraint(equalToConstant: 35),
-        //            trafficLabel.heightAnchor.constraint(equalToConstant: 35),
-        //            trafficLabel.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -20),
-        //        ])
-        //
-        //        NSLayoutConstraint.activate([
-        //            trafficSwitch.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -55),
-        //            trafficSwitch.widthAnchor.constraint(equalToConstant: 70),
-        //            trafficSwitch.heightAnchor.constraint(equalToConstant: 70),
-        //            trafficSwitch.rightAnchor.constraint(equalTo: mapView.rightAnchor, constant: -20),
-        //        ])
     }
     
     
@@ -149,5 +154,13 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
         
         print ("didClickedUserLocationButton")
     }
+    
+}
+
+extension MapViewController: MapViewInput{
+    func update() {
+        //тут добавляем все точки, видимо
+    }
+    
     
 }

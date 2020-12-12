@@ -26,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         YMKMapKit.setApiKey("3ed69a38-a2d6-43ec-ac3e-a79da5bd277d")
         
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
-        mapViewNavigationController =  UINavigationController(rootViewController: MapViewController())
+        
+        let context = MapContext()
+        let container = MapContainer.assemble(with: "park,questroom,art-space,museums,bar,clubs,attractions", with: context)
+        mapViewNavigationController =  UINavigationController(rootViewController: container.viewController)
         meNavigationViewController = UINavigationController(rootViewController: MeViewController())
         welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
     

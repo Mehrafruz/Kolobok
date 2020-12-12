@@ -22,7 +22,6 @@
 		EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */; };
 		EF38AA122551D5BB00385632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF38AA112551D5BB00385632 /* Assets.xcassets */; };
 		EF3CFD172575994400F201C7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF3CFD162575994400F201C7 /* GoogleService-Info.plist */; };
-		EF3E22D42567F3340090FF59 /* SkolSerifa.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */; };
 		EF3E22D62567F3570090FF59 /* CM_GARDEN_R.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3E22D52567F3570090FF59 /* CM_GARDEN_R.ttf */; };
 		EF3EF572256A8CB1007E6E33 /* NaturalMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF3EF571256A8CB1007E6E33 /* NaturalMono-Regular.ttf */; };
 		EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */; };
@@ -30,6 +29,11 @@
 		EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */; };
 		EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */; };
 		EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */; };
+		EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDD2585162900E6D034 /* MapPresenter.swift */; };
+		EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDE2585162A00E6D034 /* MapRouter.swift */; };
+		EF5ADBE42585162A00E6D034 /* MapProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */; };
+		EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBE02585162A00E6D034 /* MapInteractor.swift */; };
+		EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBE12585162A00E6D034 /* MapContainer.swift */; };
 		EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */; };
 		EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB0692564651800900DE0 /* CategoryProtocols.swift */; };
 		EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06B256465F300900DE0 /* CategoryRouter.swift */; };
@@ -60,7 +64,6 @@
 		EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		EF38AA112551D5BB00385632 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = WhereGoWithoutSB/Assets.xcassets; sourceTree = "<group>"; };
 		EF3CFD162575994400F201C7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = SkolSerifa.ttf; path = ../../../../../Downloads/SkolSerifa.ttf; sourceTree = "<group>"; };
 		EF3E22D52567F3570090FF59 /* CM_GARDEN_R.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = CM_GARDEN_R.ttf; sourceTree = "<group>"; };
 		EF3EF571256A8CB1007E6E33 /* NaturalMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NaturalMono-Regular.ttf"; sourceTree = "<group>"; };
 		EF3EF573256ACA2F007E6E33 /* PlaceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceViewController.swift; sourceTree = "<group>"; };
@@ -68,6 +71,11 @@
 		EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInMapViewController.swift; sourceTree = "<group>"; };
+		EF5ADBDD2585162900E6D034 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
+		EF5ADBDE2585162A00E6D034 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
+		EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProtocols.swift; sourceTree = "<group>"; };
+		EF5ADBE02585162A00E6D034 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
+		EF5ADBE12585162A00E6D034 /* MapContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainer.swift; sourceTree = "<group>"; };
 		EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		EFAAB0692564651800900DE0 /* CategoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProtocols.swift; sourceTree = "<group>"; };
 		EFAAB06B256465F300900DE0 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
@@ -178,6 +186,11 @@
 			isa = PBXGroup;
 			children = (
 				EF355AEB2540518600B260E6 /* MapViewController.swift */,
+				EF5ADBDD2585162900E6D034 /* MapPresenter.swift */,
+				EF5ADBDE2585162A00E6D034 /* MapRouter.swift */,
+				EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */,
+				EF5ADBE02585162A00E6D034 /* MapInteractor.swift */,
+				EF5ADBE12585162A00E6D034 /* MapContainer.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -245,7 +258,6 @@
 			children = (
 				EF3EF571256A8CB1007E6E33 /* NaturalMono-Regular.ttf */,
 				EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */,
-				EF3E22D32567F3340090FF59 /* SkolSerifa.ttf */,
 				EF3E22D52567F3570090FF59 /* CM_GARDEN_R.ttf */,
 			);
 			path = Fonts;
@@ -321,7 +333,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF3E22D62567F3570090FF59 /* CM_GARDEN_R.ttf in Resources */,
-				EF3E22D42567F3340090FF59 /* SkolSerifa.ttf in Resources */,
 				EFAEA30E257716C900F4FB7D /* POEVeticaVanta.otf in Resources */,
 				EF3EF572256A8CB1007E6E33 /* NaturalMono-Regular.ttf in Resources */,
 				EF38AA122551D5BB00385632 /* Assets.xcassets in Resources */,
@@ -398,22 +409,27 @@
 			files = (
 				EF355AF025409F7300B260E6 /* CustomLayoutSwift.swift in Sources */,
 				EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */,
+				EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */,
 				EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */,
 				EF355AEA2540474300B260E6 /* CategoriesViewController.swift in Sources */,
 				EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */,
+				EF5ADBE42585162A00E6D034 /* MapProtocols.swift in Sources */,
 				EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */,
 				EF355AEC2540518600B260E6 /* MapViewController.swift in Sources */,
 				EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */,
 				EF33F58F254207E800593C46 /* CategoryItem.swift in Sources */,
 				EF33F59325430F4400593C46 /* CategoryViewController.swift in Sources */,
 				EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */,
+				EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */,
 				EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */,
 				EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */,
 				EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */,
 				EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */,
+				EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */,
 				EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,
 				EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */,
+				EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,
 				EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */,
 				EFD24CDA25826D6D002320E5 /* SearchController.swift in Sources */,

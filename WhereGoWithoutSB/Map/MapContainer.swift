@@ -13,13 +13,13 @@ final class MapContainer {
 	let viewController: UIViewController
 	private(set) weak var router: MapRouterInput!
 
-	class func assemble(with context: MapContext) -> MapContainer {
+    class func assemble(with categories: String, with context: MapContext) -> MapContainer {
         let router = MapRouter()
-        let interactor = MapInteractor()
+        let interactor = MapInteractor(categories: categories, networkManager: NetworkManager.shared)
         let presenter = MapPresenter(router: router, interactor: interactor)
 		let viewController = MapViewController(output: presenter)
 
-		presenter.view = viewController
+        presenter.view = viewController
 		presenter.moduleOutput = context.moduleOutput
 
 		interactor.output = presenter

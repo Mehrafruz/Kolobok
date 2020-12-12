@@ -141,7 +141,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         case [0,3]:
             category = "museums"
         case [0,4]:
-            category = "restaurants"
+            category = "restaurants"//restaurants
         case [0,5]:
             category = "bar"
         case [0,6]:
