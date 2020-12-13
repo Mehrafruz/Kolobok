@@ -22,7 +22,7 @@ protocol CategoryViewInput: AnyObject {
 protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
     func item(at index: Int) -> CategoryTableViewCellModel
-   // func tableView()
+    func tableView()
     func didSelect(at index: Int)
 }
 

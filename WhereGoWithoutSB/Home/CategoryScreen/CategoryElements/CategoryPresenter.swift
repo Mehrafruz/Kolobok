@@ -27,6 +27,10 @@ extension CategoryPresenter: CategoryModuleInput {
 }
 
 extension CategoryPresenter: CategoryViewOutput {
+    func tableView() {
+        interactor.loadCurrentCategoryElements()
+    }
+    
         
     func didSelect(at index: Int) {
         if !categoryElements.isEmpty{
@@ -48,7 +52,6 @@ extension CategoryPresenter: CategoryViewOutput {
     }
     
     var itemsCount: Int {
-        interactor.loadCurrentCategoryElements()
         return categoryElements.count
        }
     

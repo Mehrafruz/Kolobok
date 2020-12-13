@@ -31,7 +31,7 @@ final class CategoryViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        output.tableView()
         setup()
     }
     

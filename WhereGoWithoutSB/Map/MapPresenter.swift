@@ -15,7 +15,7 @@ final class MapPresenter {
 	private let router: MapRouterInput
 	private let interactor: MapInteractorInput
     
-    private var categoryElements: [CategoryElements.Results] = []
+    
     
     init(router: MapRouterInput, interactor: MapInteractorInput) {
         self.router = router
@@ -27,6 +27,15 @@ extension MapPresenter: MapModuleInput {
 }
 
 extension MapPresenter: MapViewOutput {
+    func didSelect(at index: Int) {
+        if !globalCategoriesElements.isEmpty{
+            let category = globalCategoriesElements[index]
+            router.show(category)
+        }else{
+            return
+        }
+    }
+    
     func categoriesElementsIsLoad(){
         interactor.loadCategoriesElements()
     }
@@ -34,12 +43,10 @@ extension MapPresenter: MapViewOutput {
 }
 
 
-
-
 extension MapPresenter: MapInteractorOutput {
     func didLoadCategoriesElements(categoriesElements: CategoryElements?) {
-        categoryElements = categoriesElements!.results
-        if !categoryElements.isEmpty{
+        globalCategoriesElements = categoriesElements!.results
+        if !globalCategoriesElements.isEmpty{
             view?.update()
         }
     }

@@ -20,7 +20,8 @@ protocol MapViewInput: class {
 }
 
 protocol MapViewOutput: class {
-    func categoriesElementsIsLoad()// -> [CategoryElements.Results]
+    func categoriesElementsIsLoad()
+    func didSelect(at index: Int)
 }
 
 protocol MapInteractorInput: class {
@@ -33,4 +34,6 @@ protocol MapInteractorOutput: class {
 }
 
 protocol MapRouterInput: class {
+    func show(_ currentElements: CategoryElements.Results)
+    func show(_ error: Error)
 }

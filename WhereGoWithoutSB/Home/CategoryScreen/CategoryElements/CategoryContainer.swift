@@ -24,7 +24,6 @@ final class CategoryContainer {
 
         interactor.output = presenter
         
-        
         router.viewController = viewController
 
         return CategoryContainer(view: viewController, input: presenter, router: router)

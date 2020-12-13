@@ -9,20 +9,23 @@
 import UIKit
 import YandexMapsMobile
 
-var categoriesElements: [CategoryElements.Results] = []
+var globalCategoriesElements: [CategoryElements.Results] = []
 
 class MapViewController: UIViewController{
+    
     
     private let output: MapViewOutput
     let mapView = YMKMapView()
     private let userLocationButton = UIButton()
+    private var points = [YMKPoint]()
+    var collection: YMKClusterizedPlacemarkCollection?
     
     private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
     private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
     
     
     
-
+    
     init(output: MapViewOutput) {
         self.output = output
         super.init(nibName: nil, bundle: nil)
@@ -42,14 +45,12 @@ class MapViewController: UIViewController{
         super.viewDidLoad()
         view.backgroundColor = .white
         output.categoriesElementsIsLoad()
-        let startLocation = YMKPoint(latitude: 55.7522, longitude: 37.6156)
-        
+        // let startLocation = YMKPoint(latitude: 55.7522, longitude: 37.6156)
         mapView.mapWindow.map.addCameraListener(with: self)
-        
-        mapView.mapWindow.map.move(
-            with: YMKCameraPosition.init(target: startLocation, zoom: 15, azimuth: 0, tilt: 0),
-            animationType: YMKAnimation(type: YMKAnimationType.linear, duration: 1),
-            cameraCallback: nil)
+        //        mapView.mapWindow.map.move(
+        //            with: YMKCameraPosition.init(target: startLocation, zoom: 13, azimuth: 0, tilt: 0),
+        //            animationType: YMKAnimation(type: YMKAnimationType.linear, duration: 1),
+        //            cameraCallback: nil)
         view.addSubview(mapView)
         setup()
         
@@ -102,13 +103,11 @@ class MapViewController: UIViewController{
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
-    
-    
-    
 }
 
 
-extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener{
+extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener, YMKClusterListener,  YMKMapObjectTapListener{
+    
     func onObjectAdded(with view: YMKUserLocationView) {
         let pinPlacemark = view.pin.useCompositeIcon()
         
@@ -151,15 +150,39 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
             CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale),
             anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
         userLocationLayer.setObjectListenerWith(self)
-        
-        print ("didClickedUserLocationButton")
     }
     
+    func onClusterAdded(with cluster: YMKCluster) {
+        
+    }
+    
+    
+    func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
+        guard let userPoint = mapObject as? YMKPlacemarkMapObject else {
+            return true
+        }
+        output.didSelect(at: userPoint.userData as! Int)
+        return true
+    }
 }
 
 extension MapViewController: MapViewInput{
+    
     func update() {
-        //тут добавляем все точки, видимо
+        collection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
+        collection?.addTapListener(with: self)
+        
+        for i in 0..<globalCategoriesElements.count{
+            points.append(YMKPoint(latitude: globalCategoriesElements[i].coords.lat, longitude: globalCategoriesElements[i].coords.lon))
+            let placeMark = collection?.addPlacemark(with: YMKPoint(latitude: globalCategoriesElements[i].coords.lat, longitude: globalCategoriesElements[i].coords.lon),
+                                    image: UIImage(named: "pointInMapBlackMini")!,
+                                    style: YMKIconStyle.init())
+            placeMark?.userData = i
+        }
+        collection?.clusterPlacemarks(withClusterRadius: 10, minZoom: 5)
+        
+        mapView.mapWindow.map.move(
+            with: YMKCameraPosition.init(target: points[0], zoom: 12, azimuth: 0, tilt: 0))
     }
     
     
