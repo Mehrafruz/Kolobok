@@ -55,6 +55,8 @@ class CategoryTableViewCell: UITableViewCell {
         subwayLabel.textColor = customBlackColor
         backgroundColor = .white
         
+        categoryImageView.contentMode = .scaleAspectFill
+        
         [categoryImageView, adressImageView, timeTableImageView, subwayImageView, adressLabel, titleLabel, timeLabel, subwayLabel].forEach { contentView.addSubview($0) }
     }
     

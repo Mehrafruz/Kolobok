@@ -13,9 +13,9 @@ final class SearchContainer {
 	let viewController: UIViewController
 	private(set) weak var router: SearchRouterInput!
 
-	class func assemble(with context: SearchContext) -> SearchContainer {
+    class func assemble (with context: SearchContext) -> SearchContainer {
         let router = SearchRouter()
-        let interactor = SearchInteractor()
+        let interactor = SearchInteractor(networkManager: SearchNetworkManager.shared)
         let presenter = SearchPresenter(router: router, interactor: interactor)
 		let viewController = SearchViewController(output: presenter)
 

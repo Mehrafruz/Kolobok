@@ -25,7 +25,32 @@ extension SearchPresenter: SearchModuleInput {
 }
 
 extension SearchPresenter: SearchViewOutput {
+    var itemsCount: Int {
+        globalSearchElements.count
+    }
+    
+    func item(at index: Int) -> SearchTableViewCellModel {
+        let searchPlace = globalSearchElements[index]
+        return SearchTableViewCellModel(title: searchPlace.title)
+    }
+    
+    func makeLoadSearchElements(with keyword: String) {
+        interactor.loadSearchElements(with: keyword)
+    }
+    
 }
 
 extension SearchPresenter: SearchInteractorOutput {
+    func didLoadSearchElements(searchElements: SearchElements?) {
+        globalSearchElements = searchElements!.results
+        if !globalSearchElements.isEmpty{
+            view?.update()
+        }
+    }
+    
+    func didFail(with error: Error) {
+        
+    }
+    
+    
 }

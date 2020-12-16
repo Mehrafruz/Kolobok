@@ -45,12 +45,7 @@ class MapViewController: UIViewController{
         super.viewDidLoad()
         view.backgroundColor = .white
         output.categoriesElementsIsLoad()
-        // let startLocation = YMKPoint(latitude: 55.7522, longitude: 37.6156)
         mapView.mapWindow.map.addCameraListener(with: self)
-        //        mapView.mapWindow.map.move(
-        //            with: YMKCameraPosition.init(target: startLocation, zoom: 13, azimuth: 0, tilt: 0),
-        //            animationType: YMKAnimation(type: YMKAnimationType.linear, duration: 1),
-        //            cameraCallback: nil)
         view.addSubview(mapView)
         setup()
         

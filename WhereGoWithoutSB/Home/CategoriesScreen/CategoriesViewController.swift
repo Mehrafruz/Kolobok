@@ -12,14 +12,14 @@ import SpriteKit
 
 
 
-var items2: [CategoriesItem] = [CategoriesItem(imageName:"Image5_0"),
-                                CategoriesItem(imageName:"Image5_1"),
-                                CategoriesItem(imageName:"Image5_2"),
-                                CategoriesItem(imageName:"Image5_3"),
-                                CategoriesItem(imageName:"Image5_4"),
-                                CategoriesItem(imageName:"Image5_5"),
-                                CategoriesItem(imageName:"Image5_6"),
-                                CategoriesItem(imageName:"Image5_7")]
+var items2: [CategoriesItem] = [CategoriesItem(imageName:"ParkCategoryImage"),
+                                CategoriesItem(imageName:"QuestroomCategoryImage"),
+                                CategoriesItem(imageName:"ArtSpaceCategoryImage"),
+                                CategoriesItem(imageName:"MuseumCategoryImage"),
+                                CategoriesItem(imageName:"RestaurantCategoryImage"),
+                                CategoriesItem(imageName:"BarCategoryImage"),
+                                CategoriesItem(imageName:"ClubCategoryImage"),
+                                CategoriesItem(imageName:"AttractionCategoryImage")]
 
 
 
@@ -54,6 +54,15 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        let context = SearchContext()
+        let container = SearchContainer.assemble(with: context)
+        self.navigationController?.pushViewController(container.viewController, animated: false)
+        self.navigationController?.navigationBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationController?.navigationBar.topItem?.title = "Отмена"
+        searchBar.endEditing(true)
     }
     
     override func viewDidLayoutSubviews() {

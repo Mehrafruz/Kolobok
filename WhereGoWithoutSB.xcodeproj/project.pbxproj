@@ -28,6 +28,15 @@
 		EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3EF575256AF352007E6E33 /* NetworkManager.swift */; };
 		EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */; };
 		EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */; };
+		EF405D482588F71E00588EC8 /* SearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D422588F71E00588EC8 /* SearchPresenter.swift */; };
+		EF405D492588F71E00588EC8 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D432588F71E00588EC8 /* SearchRouter.swift */; };
+		EF405D4A2588F71E00588EC8 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D442588F71E00588EC8 /* SearchViewController.swift */; };
+		EF405D4B2588F71E00588EC8 /* SearchProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D452588F71E00588EC8 /* SearchProtocols.swift */; };
+		EF405D4C2588F71E00588EC8 /* SearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D462588F71E00588EC8 /* SearchInteractor.swift */; };
+		EF405D4D2588F71E00588EC8 /* SearchContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D472588F71E00588EC8 /* SearchContainer.swift */; };
+		EF405D4F2588FE3700588EC8 /* SearchNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D4E2588FE3700588EC8 /* SearchNetworkManager.swift */; };
+		EF405D512589419800588EC8 /* SearchElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D502589419800588EC8 /* SearchElements.swift */; };
+		EF405D53258A24D300588EC8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */; };
 		EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */; };
 		EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDD2585162900E6D034 /* MapPresenter.swift */; };
 		EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDE2585162A00E6D034 /* MapRouter.swift */; };
@@ -41,7 +50,6 @@
 		EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */; };
 		EFAEA30C25770FB300F4FB7D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */; };
 		EFAEA30E257716C900F4FB7D /* POEVeticaVanta.otf in Resources */ = {isa = PBXBuildFile; fileRef = EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */; };
-		EFD24CDA25826D6D002320E5 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD24CD925826D6D002320E5 /* SearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +78,15 @@
 		EF3EF575256AF352007E6E33 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		EF405D422588F71E00588EC8 /* SearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenter.swift; sourceTree = "<group>"; };
+		EF405D432588F71E00588EC8 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		EF405D442588F71E00588EC8 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		EF405D452588F71E00588EC8 /* SearchProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocols.swift; sourceTree = "<group>"; };
+		EF405D462588F71E00588EC8 /* SearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractor.swift; sourceTree = "<group>"; };
+		EF405D472588F71E00588EC8 /* SearchContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchContainer.swift; sourceTree = "<group>"; };
+		EF405D4E2588FE3700588EC8 /* SearchNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNetworkManager.swift; sourceTree = "<group>"; };
+		EF405D502589419800588EC8 /* SearchElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchElements.swift; sourceTree = "<group>"; };
+		EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInMapViewController.swift; sourceTree = "<group>"; };
 		EF5ADBDD2585162900E6D034 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
 		EF5ADBDE2585162A00E6D034 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
@@ -83,7 +100,6 @@
 		EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContainer.swift; sourceTree = "<group>"; };
 		EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = POEVeticaVanta.otf; sourceTree = "<group>"; };
-		EFD24CD925826D6D002320E5 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				EF33F59425430F9500593C46 /* CategoryElements.swift */,
+				EF405D502589419800588EC8 /* SearchElements.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -222,6 +239,14 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		EF405D54258A24E100588EC8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		EFAAB0662564643000900DE0 /* CategoryElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +273,14 @@
 		EFD24CD8258153AF002320E5 /* SearchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				EFD24CD925826D6D002320E5 /* SearchController.swift */,
+				EF405D54258A24E100588EC8 /* Views */,
+				EF405D422588F71E00588EC8 /* SearchPresenter.swift */,
+				EF405D432588F71E00588EC8 /* SearchRouter.swift */,
+				EF405D442588F71E00588EC8 /* SearchViewController.swift */,
+				EF405D452588F71E00588EC8 /* SearchProtocols.swift */,
+				EF405D462588F71E00588EC8 /* SearchInteractor.swift */,
+				EF405D472588F71E00588EC8 /* SearchContainer.swift */,
+				EF405D4E2588FE3700588EC8 /* SearchNetworkManager.swift */,
 			);
 			path = SearchScreen;
 			sourceTree = "<group>";
@@ -407,24 +439,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF405D4A2588F71E00588EC8 /* SearchViewController.swift in Sources */,
 				EF355AF025409F7300B260E6 /* CustomLayoutSwift.swift in Sources */,
+				EF405D4C2588F71E00588EC8 /* SearchInteractor.swift in Sources */,
 				EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */,
 				EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */,
 				EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */,
+				EF405D512589419800588EC8 /* SearchElements.swift in Sources */,
+				EF405D492588F71E00588EC8 /* SearchRouter.swift in Sources */,
 				EF355AEA2540474300B260E6 /* CategoriesViewController.swift in Sources */,
+				EF405D53258A24D300588EC8 /* SearchTableViewCell.swift in Sources */,
+				EF405D4B2588F71E00588EC8 /* SearchProtocols.swift in Sources */,
 				EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */,
+				EF405D482588F71E00588EC8 /* SearchPresenter.swift in Sources */,
 				EF5ADBE42585162A00E6D034 /* MapProtocols.swift in Sources */,
 				EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */,
 				EF355AEC2540518600B260E6 /* MapViewController.swift in Sources */,
 				EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */,
 				EF33F58F254207E800593C46 /* CategoryItem.swift in Sources */,
 				EF33F59325430F4400593C46 /* CategoryViewController.swift in Sources */,
+				EF405D4D2588F71E00588EC8 /* SearchContainer.swift in Sources */,
 				EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */,
 				EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */,
 				EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */,
 				EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */,
 				EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */,
 				EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */,
+				EF405D4F2588FE3700588EC8 /* SearchNetworkManager.swift in Sources */,
 				EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */,
 				EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,
@@ -432,7 +473,6 @@
 				EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,
 				EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */,
-				EFD24CDA25826D6D002320E5 /* SearchController.swift in Sources */,
 				EF355AD3254045AD00B260E6 /* AppDelegate.swift in Sources */,
 				EFAEA30C25770FB300F4FB7D /* WelcomeViewController.swift in Sources */,
 			);

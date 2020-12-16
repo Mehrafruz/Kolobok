@@ -27,7 +27,6 @@ extension MapInteractor: MapInteractorInput {
                 switch result {
                 case .success(let categoryElements):
                     self?.output?.didLoadCategoriesElements(categoriesElements: categoryElements)
-//                    print (categoryElements)
                 case .failure(let error):
                     self?.output?.didFail(with: error)
                 }
