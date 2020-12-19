@@ -13,7 +13,8 @@ import PinLayout
 final class CategoryViewController: UIViewController{
     private let tableView = UITableView()
     private let output: CategoryViewOutput
-
+    private var filterValue: String = ""
+    
     init(output: CategoryViewOutput) {
         self.output = output
         super.init(nibName: nil, bundle: nil)
@@ -31,11 +32,11 @@ final class CategoryViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        output.tableView()
+        
+        output.tableView(filter: "")
         setup()
     }
     
-   
     
     private func setup() {
         tableView.dataSource = self
@@ -48,18 +49,24 @@ final class CategoryViewController: UIViewController{
     }
     
     private func editBurButtons(){
-        let rightBaButton = UIBarButtonItem.init(title: "filter", style: .done, target: self, action: #selector(filter))
-        rightBaButton.image = UIImage(systemName: "slider.horizontal.3")
-        rightBaButton.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-        self.navigationItem.rightBarButtonItem = rightBaButton
+        let rightBarButton = UIBarButtonItem.init(title: "filter", style: .done, target: self, action: #selector(filter))
+        rightBarButton.image = UIImage(systemName: "slider.horizontal.3")
+        rightBarButton.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationItem.rightBarButtonItem = rightBarButton
     }
     
     @objc private func filter(){
-        
+        print ("filter is tapd")
+        output.didSelectFilter()
+        //тут переходим в раздел фильтр
     }
 }
 
 extension CategoryViewController: CategoryViewInput{
+    func upplyFilter(with filterValue: String) {
+        output.tableView(filter: filterValue)
+    }
+    
     func update() {
         tableView.reloadData()
     }

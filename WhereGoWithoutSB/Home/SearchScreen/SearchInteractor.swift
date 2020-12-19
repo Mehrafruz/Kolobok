@@ -19,14 +19,26 @@ final class SearchInteractor {
 }
 
 extension SearchInteractor: SearchInteractorInput {
-
+    
     func loadSearchElements(with keyword: String) {
         networkManager.searchElements(keyword: keyword) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let searchElements):
                     self?.output?.didLoadSearchElements(searchElements: searchElements)
-                    print ("searchElements is____________ \(searchElements)")
+                case .failure(let error):
+                    self?.output?.didFail(with: error)
+                }
+            }
+        }
+    }
+    
+    func loadCurrentSearchElement(with id: Int) {
+        networkManager.searchElement(id: id) { [weak self] (result) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let searchElement):
+                    self?.output?.didLoadCurrentSearchElement(searchElement: searchElement)
                 case .failure(let error):
                     self?.output?.didFail(with: error)
                 }

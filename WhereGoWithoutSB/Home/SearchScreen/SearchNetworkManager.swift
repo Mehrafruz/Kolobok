@@ -26,6 +26,7 @@ enum SearchNetworkError: Error {
 
 protocol SearchNetworkManagerDescription: AnyObject {
     func searchElements(keyword: String, completion: @escaping (Result<SearchElements, Error>) -> Void)
+    func searchElement(id: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void)
 }
 
 
@@ -65,6 +66,36 @@ final class SearchNetworkManager: SearchNetworkManagerDescription {
     }
     
     
+    func searchElement(id: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void){
+        let stringId = String(id)
+        let urlString = "https://kudago.com/public-api/v1.4/places/?lang=&fields=title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title&expand=&order_by=&text_format=&ids=\(stringId)&location=&has_showings=&showing_since=&showing_until=&categories=&lon=&lat=&radius=".encodeUrl
+        
+        guard let url = URL(string: urlString) else {
+                   completion(.failure(SearchNetworkError.invalidURL))
+                   return
+               }
+               
+               URLSession.shared.dataTask(with: url) { (data, response, error) in
+                   if let error = error {
+                       completion(.failure(error))
+                       return
+                   }
+                   
+                   guard let data = data, !data.isEmpty else {
+                       completion(.failure(SearchNetworkError.emptyData))
+                       return
+                   }
+                   
+                   let decoder = JSONDecoder()
+                   
+                   do {
+                       let categoryElements = try decoder.decode(CategoryElements.self, from: data)
+                       completion(.success(categoryElements))
+                   } catch let error {
+                       completion(.failure(error))
+                   }
+               }.resume()
+    }
 }
 
 

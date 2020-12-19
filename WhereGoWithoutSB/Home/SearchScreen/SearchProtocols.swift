@@ -23,16 +23,21 @@ protocol SearchViewOutput: class {
     var itemsCount: Int { get }
     func item(at index: Int) -> SearchTableViewCellModel
     func makeLoadSearchElements(with keyword: String)
+    func didSelect(with index: Int)
 }
 
 protocol SearchInteractorInput: class {
     func loadSearchElements(with keyword: String)
+    func loadCurrentSearchElement(with id: Int)
 }
 
 protocol SearchInteractorOutput: class {
     func didLoadSearchElements( searchElements: SearchElements?)
+    func didLoadCurrentSearchElement( searchElement: CategoryElements?)
     func didFail(with error: Error)
 }
 
 protocol SearchRouterInput: class {
+    func show(_ currentElements: CategoryElements.Results)
+    func show(_ error: Error)
 }

@@ -34,8 +34,8 @@ extension CategoryPresenter: CategoryViewOutput {
         
     func didSelect(at index: Int) {
         if !categoryElements.isEmpty{
-            let category = categoryElements[index]
-            router.show(category)
+            let element = categoryElements[index]
+            router.show(element)
         }else{
             return
         }

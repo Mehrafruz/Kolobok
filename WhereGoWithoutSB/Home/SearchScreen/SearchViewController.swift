@@ -9,6 +9,7 @@
 import UIKit
 
 var globalSearchElements: [SearchElements.Results] = []
+var globalSearchElement: [CategoryElements.Results] = []
 
 final class SearchViewController: UIViewController{
 	private let output: SearchViewOutput
@@ -44,6 +45,7 @@ final class SearchViewController: UIViewController{
         searchController.searchResultsUpdater = self
         searchController.delegate = self
         searchController.searchBar.delegate = self
+        //searchController.dimsBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
         
         
@@ -83,6 +85,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource{
         return 40
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        output.didSelect(with: indexPath.row)
+    }
     
 }
 
@@ -95,14 +100,16 @@ extension SearchViewController: UISearchResultsUpdating, UISearchControllerDeleg
     
     
     func updateSearchResults(for searchController: UISearchController) {
-        if searchController.searchBar.text?.count ?? 0 > 2 {
+        if searchController.searchBar.text?.count ?? 0 > 1 {
             output.makeLoadSearchElements(with: searchController.searchBar.text ?? "")
+        } else {
+            output.makeLoadSearchElements(with: "")
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.navigationController?.popViewController(animated: false)
-        globalSearchElements.removeAll()
+       // globalSearchElements.removeAll()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
