@@ -24,11 +24,7 @@ class WelcomeViewController: UIViewController{
     private var welcomeLabel = UILabel()
     private var withoutSingUpTextView = UITextView()
     private let cornerRadius: CGFloat = 20
-    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
-   
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -46,7 +42,7 @@ class WelcomeViewController: UIViewController{
         let exitButtonImage = UIImage(systemName: "xmark")
         exitButton.setBackgroundImage( exitButtonImage, for: UIControl.State.normal)
         exitButton.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        exitButton.tintColor = customBlackColor
+        exitButton.tintColor = ColorPalette.black
         exitButton.addTarget(self, action: #selector(didClickedExitButton), for: .touchUpInside)
         
         view.addSubview(animationView)
@@ -57,7 +53,7 @@ class WelcomeViewController: UIViewController{
         
         welcomeLabel.font = UIFont(name: "POEVeticaVanta", size: 40)
         welcomeLabel.layer.zPosition = 1.5
-        welcomeLabel.textColor = customBlackColor
+        welcomeLabel.textColor = ColorPalette.black
         welcomeLabel.text = "Привет!"
         welcomeLabel.textAlignment = .center
         
@@ -65,16 +61,16 @@ class WelcomeViewController: UIViewController{
         withoutSingUpTextView.delegate = self
         let withoutSingUpText = NSMutableAttributedString(string: "Хочешь продолжить без регистрации?", attributes: attribute as [NSAttributedString.Key : Any])
         withoutSingUpText.addAttribute(.link, value: "withoutSignUp", range: NSRange(location: 6, length: withoutSingUpText.string.count-7))
-        UITextView.appearance().linkTextAttributes = [ .foregroundColor: customGrayColor]
+        UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.gray]
         withoutSingUpTextView.attributedText = withoutSingUpText
         
         
         setupButton(button: signInButton, title: "Войти",
-                    color: customGrayColor, textColor: UIColor.white)
+                    color: ColorPalette.gray, textColor: UIColor.white)
         signInButton.addTarget(self, action: #selector(didClickedSignInButton), for: .touchUpInside)
         
         setupButton(button: signUpButton, title: "Зарегистрироваться",
-                    color: customYellowColor,  textColor: customBlackColor)
+                    color: ColorPalette.yellow,  textColor: ColorPalette.black)
         signUpButton.addTarget(self, action: #selector(didClickedSignUpButton), for: .touchUpInside)
         
         [exitButton, welcomeLabel, signInButton, signUpButton, withoutSingUpTextView].forEach {
@@ -150,7 +146,7 @@ class WelcomeViewController: UIViewController{
     //MARK: не применяю данную функцию но пусть побудет тут
     func drawDottedLine(start p0: CGPoint, end p1: CGPoint, view: UIView) {
         let shapeLayer = CAShapeLayer()
-        shapeLayer.strokeColor = customBlackColor.cgColor
+        shapeLayer.strokeColor = ColorPalette.black.cgColor
         shapeLayer.lineWidth = 1
         shapeLayer.zPosition = 1
         shapeLayer.lineDashPattern = [7, 3] // 7 is the length of dash, 3 is length of the gap.
@@ -204,27 +200,21 @@ class WelcomeViewController: UIViewController{
     }
     
     @objc func didClickedExitButton(){
-        //present(CategoriesViewController(), animated: true)
         self.dismiss(animated: true, completion: nil)
         didDismissViewFlag = true
-        //navigationController?.popViewController(animated: true)
-        //  navigationController?.pushViewController(CategoriesViewController(), animated: true)
-        
     }
     
     @objc func didClickedSignUpButton(){
         signUpButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        self.dismiss(animated: true, completion: nil)
-       // navigationController?.pushViewController(signUpNavigationViewController!, animated: true)
         present(signUpNavigationViewController!, animated: true)
-        
+        WelcomeViewController().dismiss(animated: true, completion: nil)
     }
     
     @objc func didClickedSignInButton(){
         signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         signInNavigationViewController!.modalPresentationStyle = .overCurrentContext
-        navigationController?.present(signInNavigationViewController!, animated: true)
-        //present(signInNavigationViewController!, animated: true, completion: WelcomeViewController().dismiss(animated: false))
+        present(signInNavigationViewController!, animated: true)
+        WelcomeViewController().dismiss(animated: true, completion: nil)
         
     }
     
@@ -236,7 +226,6 @@ extension WelcomeViewController: UITextViewDelegate{
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "withoutSignUp"{
-            print ("_______cliced to link")
             didClickedExitButton()
         }
         return false

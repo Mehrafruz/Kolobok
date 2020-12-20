@@ -12,7 +12,7 @@ import SpriteKit
 
 
 
-var items2: [CategoriesItem] = [CategoriesItem(imageName:"ParkCategoryImage"),
+var categoriesItems: [CategoriesItem] = [CategoriesItem(imageName:"ParkCategoryImage"),
                                 CategoriesItem(imageName:"QuestroomCategoryImage"),
                                 CategoriesItem(imageName:"ArtSpaceCategoryImage"),
                                 CategoriesItem(imageName:"MuseumCategoryImage"),
@@ -126,12 +126,12 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
 extension CategoriesViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items2.count
+        return categoriesItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
-        let item = items2[indexPath.row]
+        let item = categoriesItems[indexPath.row]
         cell.setup(with: item)
         return cell
     }
@@ -164,7 +164,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         let context = CategoryContext()
         let container = CategoryContainer.assemble(with: category, with: context)
         navigationController?.pushViewController(container.viewController, animated: true)
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = ColorPalette.black//UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
         self.navigationController?.navigationBar.topItem?.title = "К категориям"
     }
 }
@@ -176,7 +176,7 @@ extension CategoriesViewController: UICollectionViewDelegate{
 
 extension CategoriesViewController: CustomLayoutDelegate{
     func collectionView(_ collectionView: UICollectionView, sizeOfPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
-        return UIImage(named: items2[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
+        return UIImage(named: categoriesItems[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
     }
 }
 

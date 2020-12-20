@@ -29,9 +29,6 @@ class SignInViewController: UIViewController {
     private var signUpWithAppleButton = UIButton()
     private let signUpTextView = UITextView()
     private var flag = true
-    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -48,6 +45,7 @@ class SignInViewController: UIViewController {
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        passwordTextField.isSecureTextEntry = true
         setup()
     }
     
@@ -83,23 +81,23 @@ class SignInViewController: UIViewController {
         setupLabel(label: loginLabel, text: "Вход", fontSize: 40)
         setupLabel(label: rememberMeLabel, text: "Запомнить?", fontSize: 16)
         setupLabel(label: signUpWithLabel, text: "или авторизоваться с", fontSize: 16)
-        signUpWithLabel.textColor = customGrayColor
+        signUpWithLabel.textColor = ColorPalette.gray
         
         setupImageView(imageView: emailImageView, imageNamed: "envelope.fill")
         setupImageView(imageView: lockImageView, imageNamed: "lock.fill")
         setupTextField(textField: emailTextField, placeholder: "Email")
         setupTextField(textField: passwordTextField, placeholder: "Пароль")
         
-        setupButton(button: signInButton, title: "Войти", color: customGrayColor, textColor: UIColor.white)
-        setupLittleButton(button: rememberMeButton, image: UIImage(systemName: "square")!, tintColor: customGrayColor)
-        setupLittleButton(button: goBackButton, image: UIImage(systemName: "arrow.left")!, tintColor: customBlackColor)
+        setupButton(button: signInButton, title: "Войти", color: ColorPalette.gray, textColor: UIColor.white)
+        setupLittleButton(button: rememberMeButton, image: UIImage(systemName: "square")!, tintColor: ColorPalette.gray)
+        setupLittleButton(button: goBackButton, image: UIImage(systemName: "arrow.left")!, tintColor: ColorPalette.black)
         setupLittleButton(button: signUpWithFacebookButton, image: UIImage(named: "facebooklogo")!, tintColor: .white)
         setupLittleButton(button: signUpWithAppleButton, image: UIImage(named: "applelogo")!, tintColor: .white)
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
         rememberMeButton.addTarget(self, action: #selector(didClickedRememberMeButton), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(didClickedSignInButton), for: .touchUpInside)
         [customLine0, customLine1].forEach {
-            ($0).backgroundColor =  customGrayColor
+            ($0).backgroundColor =  ColorPalette.gray
         }
         
         setupTextView(textView: forgotPassTextView, text: "Забыли пароль?", value: "forgotPass", location: 0, length: "Забыли пароль?".count)
@@ -115,6 +113,7 @@ class SignInViewController: UIViewController {
     
     @objc func didClickedGoBackButton() {
         present(WelcomeViewController(), animated: true)
+        SignInViewController().dismiss(animated: true, completion: nil)
     }
     
     @objc func didClickedRememberMeButton() {
@@ -150,6 +149,7 @@ class SignInViewController: UIViewController {
         if (!email.isEmpty && !password.isEmpty){
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 if error == nil {
+                    appUser.name = email
                     self.dismiss(animated: true, completion: nil)
                 }
             }
@@ -167,7 +167,7 @@ class SignInViewController: UIViewController {
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){
         label.font = UIFont(name: "POEVeticaVanta", size: fontSize)
         //label.layer.zPosition = 1.5
-        label.textColor = customBlackColor
+        label.textColor = ColorPalette.black
         label.text = text
         label.textAlignment = .center
     }
@@ -175,13 +175,13 @@ class SignInViewController: UIViewController {
     func setupTextField(textField: UITextField, placeholder: String) {
         textField.placeholder = placeholder
         textField.font = UIFont(name: "POEVeticaVanta", size: 16)
-        textField.textColor = customBlackColor
+        textField.textColor = ColorPalette.black
         textField.backgroundColor = UIColor.white
     }
     
     func setupImageView(imageView: UIImageView, imageNamed: String){
         imageView.image = UIImage(systemName: imageNamed)
-        imageView.tintColor = customYellowColor
+        imageView.tintColor = ColorPalette.yellow
     }
     
     func setupTextView(textView: UITextView, text: String, value: String, location: Int, length: Int) {
@@ -189,7 +189,7 @@ class SignInViewController: UIViewController {
         textView.delegate = self
         let text = NSMutableAttributedString(string: text, attributes: attribute as [NSAttributedString.Key : Any])
         text.addAttribute(.link, value: value, range: NSRange(location: location, length: length))
-        UITextView.appearance().linkTextAttributes = [ .foregroundColor: customYellowColor]
+        UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.yellow]
         textView.attributedText = text
     }
     
@@ -342,11 +342,8 @@ extension SignInViewController: UITextFieldDelegate, UITextViewDelegate{
             //didClickedExitButton()
         }
         if URL.absoluteString == "signUp"{
-//            navigationController?.popViewController(animated: true)
-//            navigationController?.pushViewController(signUpNavigationViewController!, animated: true)
-//            self.dismiss(animated: true, completion: nil)
+          self.dismiss(animated: true, completion: nil)
             present(SignUpViewController(), animated: true)
-            //didClickedExitButton()
         }
         return false
     }

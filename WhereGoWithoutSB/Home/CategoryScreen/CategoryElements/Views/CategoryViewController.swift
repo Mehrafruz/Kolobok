@@ -51,7 +51,7 @@ final class CategoryViewController: UIViewController{
     private func editBurButtons(){
         let rightBarButton = UIBarButtonItem.init(title: "filter", style: .done, target: self, action: #selector(filter))
         rightBarButton.image = UIImage(systemName: "slider.horizontal.3")
-        rightBarButton.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        rightBarButton.tintColor = ColorPalette.black
         self.navigationItem.rightBarButtonItem = rightBarButton
     }
     

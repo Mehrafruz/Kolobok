@@ -7,3 +7,21 @@
 //
 
 import Foundation
+
+
+struct User {
+    var name: String
+    var surname: String
+    var favorites: [Int]
+    
+    
+    init(name: String, surname: String, favorites: [Int]) {
+        self.name = name
+        self.surname = surname
+        self.favorites = favorites
+    }
+    
+}
+
+
+var appUser = User(name: "", surname: "", favorites: [])

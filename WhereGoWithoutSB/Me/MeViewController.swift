@@ -170,7 +170,7 @@ class MeViewController: UIViewController {
     func setupTitleView() {
         view.addSubview(titleLabel)
         titleLabel.backgroundColor = .white
-        titleLabel.text = "Колобок"
+        titleLabel.text = appUser.name
         
         titleLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         titleLabel.adjustsFontSizeToFitWidth = true
@@ -260,30 +260,16 @@ class MeViewController: UIViewController {
         
         NSLayoutConstraint.activate(constraints)
     }
-    
-    
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to
-     do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
 }
 extension MeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items2.count
+        return categoriesItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
-        let item = items2[indexPath.row]
+        let item = categoriesItems[indexPath.row]
         cell.setup(with: item)
         return cell
     }
@@ -297,7 +283,7 @@ extension MeViewController: UICollectionViewDelegate {
 
 extension MeViewController: CustomLayoutDelegate{
     func collectionView(_ collectionView: UICollectionView, sizeOfPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
-        return UIImage(named: items2[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
+        return UIImage(named: categoriesItems[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
     }
 }
 

@@ -32,10 +32,7 @@ class SignUpViewController: UIViewController {
     private var signUpWithAppleButton = UIButton()
     private let signInTextView = UITextView()
     private var flag = true
-    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
-    
+
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -51,6 +48,9 @@ class SignUpViewController: UIViewController {
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        confirmPasswordTextField.delegate = self
+        passwordTextField.isSecureTextEntry = true
+        confirmPasswordTextField.isSecureTextEntry = true
         setup()
     }
     
@@ -85,7 +85,7 @@ class SignUpViewController: UIViewController {
         
         setupLabel(label: signinLabel, text: "Регистрация", fontSize: 40)
         setupLabel(label: signUpWithLabel, text: "или зарегистрироваться с", fontSize: 16)
-        signUpWithLabel.textColor = customGrayColor
+        signUpWithLabel.textColor = ColorPalette.gray
         
         setupImageView(imageView: personImageView, imageNamed: "person.fill")
         setupImageView(imageView: emailImageView, imageNamed: "envelope.fill")
@@ -97,14 +97,14 @@ class SignUpViewController: UIViewController {
         setupTextField(textField: passwordTextField, placeholder: "Пароль")
         setupTextField(textField: confirmPasswordTextField, placeholder: "Повторите пароль")
         
-        setupButton(button: signUpButton, title: "Зарегистрироваться", color: customYellowColor, textColor: customBlackColor)
-        setupLittleButton(button: goBackButton, image: UIImage(systemName: "arrow.left")!, tintColor: customBlackColor)
+        setupButton(button: signUpButton, title: "Зарегистрироваться", color: ColorPalette.yellow, textColor: ColorPalette.black)
+        setupLittleButton(button: goBackButton, image: UIImage(systemName: "arrow.left")!, tintColor: ColorPalette.black)
         setupLittleButton(button: signUpWithFacebookButton, image: UIImage(named: "facebooklogo")!, tintColor: .white)
         setupLittleButton(button: signUpWithAppleButton, image: UIImage(named: "applelogo")!, tintColor: .white)
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
         signUpButton.addTarget(self, action: #selector(didClickedSignUpButton), for: .touchUpInside)
         [customLine0, customLine1, customLine2, customLine3].forEach {
-            ($0).backgroundColor =  customGrayColor
+            ($0).backgroundColor =  ColorPalette.gray
         }
         
         setupTextView(textView: signInTextView, text: "Есть аккаунт? Войти.", value: "signIn", location: 14, length: "Есть аккаунт? Войти.".count-14)
@@ -118,7 +118,9 @@ class SignUpViewController: UIViewController {
     }
     
     @objc func didClickedGoBackButton() {
+        self.navigationController?.popViewController(animated: true)
         present(WelcomeViewController(), animated: true)
+        //self.dismiss(animated: true, completion: nil)
     }
     
     @objc func didClickedSignUpButton() {
@@ -175,7 +177,7 @@ class SignUpViewController: UIViewController {
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){
         label.font = UIFont(name: "POEVeticaVanta", size: fontSize)
         //label.layer.zPosition = 1.5
-        label.textColor = customBlackColor
+        label.textColor = ColorPalette.black
         label.text = text
         label.textAlignment = .center
     }
@@ -183,13 +185,13 @@ class SignUpViewController: UIViewController {
     func setupTextField(textField: UITextField, placeholder: String) {
         textField.placeholder = placeholder
         textField.font = UIFont(name: "POEVeticaVanta", size: 16)
-        textField.textColor = customBlackColor
+        textField.textColor = ColorPalette.black
         textField.backgroundColor = UIColor.white
     }
     
     func setupImageView(imageView: UIImageView, imageNamed: String){
         imageView.image = UIImage(systemName: imageNamed)
-        imageView.tintColor = customBlackColor
+        imageView.tintColor = ColorPalette.black
     }
     
     func setupTextView(textView: UITextView, text: String, value: String, location: Int, length: Int) {
@@ -197,7 +199,7 @@ class SignUpViewController: UIViewController {
         textView.delegate = self
         let text = NSMutableAttributedString(string: text, attributes: attribute as [NSAttributedString.Key : Any])
         text.addAttribute(.link, value: value, range: NSRange(location: location, length: length))
-        UITextView.appearance().linkTextAttributes = [ .foregroundColor: customYellowColor]
+        UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.yellow]
         textView.attributedText = text
     }
     
@@ -370,9 +372,7 @@ class SignUpViewController: UIViewController {
 extension SignUpViewController: UITextFieldDelegate, UITextViewDelegate, UIAdaptivePresentationControllerDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "signIn"{
-            //            navigationController?.popViewController(animated: true)
-            //            navigationController?.pushViewController(signInNavigationViewController!, animated: true)
-            //            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
             present(SignInViewController(), animated: true)
         }
         return false

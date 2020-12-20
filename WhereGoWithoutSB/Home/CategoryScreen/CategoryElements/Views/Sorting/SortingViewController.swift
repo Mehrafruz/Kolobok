@@ -21,10 +21,7 @@ class SortingViewController: UIViewController {
     private var customLine0 = UITableViewCell()
     private var customLine1 = UITableViewCell()
     
-    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
-    
+   
     private var flagPopularPlaces = false
     private var flagRankPlaces = false
     
@@ -41,11 +38,11 @@ class SortingViewController: UIViewController {
         contentView.layer.cornerRadius = 15
         contentView.layer.masksToBounds = true
         
-        setupLittleButton(button: popularPlacesButton, image: UIImage(systemName: "square")!, tintColor: customGrayColor)
-        setupLittleButton(button: rankPlacesButton, image: UIImage(systemName: "square")!, tintColor: customGrayColor)
-        setupLittleButton(button: exitButton, image: UIImage(systemName: "xmark")!, tintColor: customBlackColor)
+        setupLittleButton(button: popularPlacesButton, image: UIImage(systemName: "square")!, tintColor: ColorPalette.gray)
+        setupLittleButton(button: rankPlacesButton, image: UIImage(systemName: "square")!, tintColor: ColorPalette.gray)
+        setupLittleButton(button: exitButton, image: UIImage(systemName: "xmark")!, tintColor: ColorPalette.black)
         
-        setupButton(button: emplyButton, title: "Применить", color: customYellowColor, textColor: customBlackColor)
+        setupButton(button: emplyButton, title: "Применить", color: ColorPalette.yellow, textColor: ColorPalette.black)
         
         setupLabel(label: popularPlacesLabel, text: "По популярности", fontSize: 20)
         setupLabel(label: rankPlacesLabel, text: "По рангу", fontSize: 20)
@@ -56,7 +53,7 @@ class SortingViewController: UIViewController {
         emplyButton.addTarget(self, action: #selector(didClickedEmplyButton), for: .touchUpInside)
         
         [customLine0, customLine1].forEach {
-            ($0).backgroundColor =  customGrayColor
+            ($0).backgroundColor =  ColorPalette.gray
         }
         
         view.addSubview(contentView)
@@ -143,7 +140,7 @@ class SortingViewController: UIViewController {
     
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){
         label.font = UIFont(name: "POEVeticaVanta", size: fontSize)
-        label.textColor = customBlackColor
+        label.textColor = ColorPalette.black
         label.text = text
         label.textAlignment = .center
     }

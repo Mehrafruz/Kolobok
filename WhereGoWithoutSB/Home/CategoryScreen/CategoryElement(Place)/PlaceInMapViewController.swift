@@ -20,9 +20,6 @@ class PlaceInMapViewController: UIViewController {
     private let userLocationButton = UIButton()
     private var trafficLayer : YMKTrafficLayer!
     
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    
     init(lat: Double, lon: Double){
         self.lat = lat
         self.lon = lon
@@ -63,11 +60,11 @@ class PlaceInMapViewController: UIViewController {
     
     
     private func setup(){
-        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: customBlackColor)
-        setupLittleButton(button: userLocationButton, imageName: "location.fill", bgImageName: "", tintColor: customBlackColor)
+        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: ColorPalette.black)
+        setupLittleButton(button: userLocationButton, imageName: "location.fill", bgImageName: "", tintColor: ColorPalette.black)
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
         userLocationButton.addTarget(self, action: #selector(didClickedUserLocationButton), for: .touchUpInside)
-        userLocationButton.backgroundColor = customGrayColor
+        userLocationButton.backgroundColor = ColorPalette.gray
         userLocationButton.alpha = 0.75
         
         contentView.layer.cornerRadius = 15

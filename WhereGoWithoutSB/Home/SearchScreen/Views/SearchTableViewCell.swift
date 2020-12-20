@@ -16,7 +16,7 @@ struct SearchTableViewCellModel {
 class SearchTableViewCell: UITableViewCell {
     
     private let titleLabel = UILabel()
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+   // private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,7 +30,7 @@ class SearchTableViewCell: UITableViewCell {
     
     private func setup(){
         titleLabel.font = UIFont(name: "POEVeticaVanta", size: 20)
-        titleLabel.textColor = customBlackColor
+        titleLabel.textColor = ColorPalette.black
         [titleLabel].forEach{
             contentView.addSubview($0)
         }

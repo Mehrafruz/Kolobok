@@ -51,6 +51,8 @@
 		EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */; };
 		EFAEA30C25770FB300F4FB7D /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */; };
 		EFAEA30E257716C900F4FB7D /* POEVeticaVanta.otf in Resources */ = {isa = PBXBuildFile; fileRef = EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */; };
+		EFD28F5D258E62E300878C30 /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD28F5C258E62E300878C30 /* ColorPalette.swift */; };
+		EFD28F61258EB49800878C30 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD28F60258EB49800878C30 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +104,8 @@
 		EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryContainer.swift; sourceTree = "<group>"; };
 		EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		EFAEA30D257716C900F4FB7D /* POEVeticaVanta.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = POEVeticaVanta.otf; sourceTree = "<group>"; };
+		EFD28F5C258E62E300878C30 /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		EFD28F60258EB49800878C30 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +154,7 @@
 			children = (
 				EF33F59425430F9500593C46 /* CategoryElements.swift */,
 				EF405D502589419800588EC8 /* SearchElements.swift */,
+				EFD28F60258EB49800878C30 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -178,10 +183,12 @@
 			children = (
 				EFFE0EBC25671F9A009943B9 /* Fonts */,
 				EF33F59625430F9B00593C46 /* Models */,
+				EFD28F5B258E62C200878C30 /* Constants */,
 				EF355AE8254046F600B260E6 /* Me */,
 				EF355AE7254046C300B260E6 /* Map */,
 				EF355AE6254046B100B260E6 /* Home */,
 				EF3F8C5925782D2F00B103A1 /* Auth */,
+				EFD28F5A258E171100878C30 /* Networking */,
 				EF355AD2254045AD00B260E6 /* AppDelegate.swift */,
 				EFAEA30B25770FB300F4FB7D /* WelcomeViewController.swift */,
 				EF355ADD254045B000B260E6 /* LaunchScreen.storyboard */,
@@ -260,7 +267,6 @@
 		EFAAB0662564643000900DE0 /* CategoryElements */ = {
 			isa = PBXGroup;
 			children = (
-				EF3EF575256AF352007E6E33 /* NetworkManager.swift */,
 				EFAAB0712564677000900DE0 /* Views */,
 				EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */,
 				EFAAB06B256465F300900DE0 /* CategoryRouter.swift */,
@@ -291,9 +297,25 @@
 				EF405D452588F71E00588EC8 /* SearchProtocols.swift */,
 				EF405D462588F71E00588EC8 /* SearchInteractor.swift */,
 				EF405D472588F71E00588EC8 /* SearchContainer.swift */,
-				EF405D4E2588FE3700588EC8 /* SearchNetworkManager.swift */,
 			);
 			path = SearchScreen;
+			sourceTree = "<group>";
+		};
+		EFD28F5A258E171100878C30 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				EF3EF575256AF352007E6E33 /* NetworkManager.swift */,
+				EF405D4E2588FE3700588EC8 /* SearchNetworkManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		EFD28F5B258E62C200878C30 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				EFD28F5C258E62E300878C30 /* ColorPalette.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		EFFE0EBC25671F9A009943B9 /* Fonts */ = {
@@ -467,6 +489,7 @@
 				EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */,
 				EF355AEC2540518600B260E6 /* MapViewController.swift in Sources */,
 				EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */,
+				EFD28F5D258E62E300878C30 /* ColorPalette.swift in Sources */,
 				EF33F58F254207E800593C46 /* CategoryItem.swift in Sources */,
 				EF33F59325430F4400593C46 /* CategoryViewController.swift in Sources */,
 				EF405D4D2588F71E00588EC8 /* SearchContainer.swift in Sources */,
@@ -475,6 +498,7 @@
 				EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */,
 				EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */,
 				EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */,
+				EFD28F61258EB49800878C30 /* User.swift in Sources */,
 				EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */,
 				EF405D4F2588FE3700588EC8 /* SearchNetworkManager.swift in Sources */,
 				EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */,

@@ -47,19 +47,15 @@ class PlaceViewController: UIViewController {
         viewLayout.itemSize = CGSize.init(width: UIScreen.main.bounds.width, height: 412)
         viewLayout.minimumInteritemSpacing = 0
         viewLayout.minimumLineSpacing = 0
-        collectionView.backgroundColor = .gray
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
     var currentElement: CategoryElements.Results!
-    private let customYellowColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
-    private let customDarkGrayColor = UIColor(red: 94/255, green: 97/255, blue: 101/255, alpha: 1)
-    private let customBlueColor =  UIColor(red: 119/255, green: 152/255, blue: 162/255, alpha: 1)
+
     
     override func viewDidAppear(_ animated: Bool) {
-        //MARK: чтобы прокрутка скрола заработала сонтентсайз вызывай тут
+        //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
     }
     
@@ -72,21 +68,21 @@ class PlaceViewController: UIViewController {
     func setup(){
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         placeImagesURLs = currentElement.images
-        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: customGrayColor)
+        setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: ColorPalette.gray)
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
         showOnMapButton.addTarget(self, action: #selector(didClickedShowOnMapButton), for: .touchUpInside)
         imageCollectionView.layer.zPosition = -0.1
         
         
        
-        setupLittleButton(button: showOnMapButton, imageName: "location.fill", bgImageName: "", tintColor: customBlackColor)
-        showOnMapButton.backgroundColor = customGrayColor
+        setupLittleButton(button: showOnMapButton, imageName: "location.fill", bgImageName: "", tintColor: ColorPalette.black)
+        showOnMapButton.backgroundColor = ColorPalette.gray
         showOnMapButton.alpha = 0.8
     
-        setupButton(button: reviewButton, title: "Оставить отзыв", color: customGrayColor, textColor: .white)
-        setupButton(button: likeButton, title: "", color: customYellowColor, textColor: .white)
+        setupButton(button: reviewButton, title: "Оставить отзыв", color: ColorPalette.gray, textColor: .white)
+        setupButton(button: likeButton, title: "", color: ColorPalette.yellow, textColor: .white)
         likeImage.image = UIImage(systemName: "heart")
-        likeImage.tintColor = customBlackColor
+        likeImage.tintColor = ColorPalette.black
         likeImage.layer.zPosition = 2
         
         titleLabel.text = currentElement.short_title
@@ -103,7 +99,7 @@ class PlaceViewController: UIViewController {
         setupImageView(imageView: timeImageView, imageName: "timeTable")
         setupImageView(imageView: subwayImageView, imageName: "subway")
         phoneImageView.image = UIImage(systemName: "phone.circle.fill")
-        phoneImageView.tintColor = customBlueColor
+        phoneImageView.tintColor = ColorPalette.blue
             
         subwayLabel.text = currentElement.subway
         
@@ -112,11 +108,11 @@ class PlaceViewController: UIViewController {
         }
         
         [adressLabel, timeTableLabel, phoneLabel, subwayLabel].forEach {
-            ($0).textColor = customBlackColor
+            ($0).textColor = ColorPalette.black
         }
         
         [customLine0, customLine1, customLine2, customLine3, customLine4, customLine5].forEach {
-            ($0).backgroundColor = customGrayColor
+            ($0).backgroundColor = ColorPalette.gray
         }
         
         setupCollectionView(imageCollectionView)
@@ -128,8 +124,9 @@ class PlaceViewController: UIViewController {
             imageCollectionView.addSubview($0)
         }
         
-        [imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewButton, reviewLabel, likeImage, showOnMapButton].forEach { scrollView.addSubview($0) }
-        addConstraints()
+        [imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewLabel, likeImage, showOnMapButton].forEach { scrollView.addSubview($0) }
+        addConstraints() //reviewButton
+                         //MARK: решено пока без отзывов(
     }
     
     func setupImageView(imageView: UIImageView, imageName: String) {
@@ -138,12 +135,10 @@ class PlaceViewController: UIViewController {
     
     func setupDescriptionTextView(){
         let descriptionText = currentElement.description + currentElement.body_text
-        //descriptionText = String(descriptionText.dropFirst(3))
-        //descriptionText = String(descriptionText.dropLast(5))
         descriptionTextView.text = descriptionText
         descriptionTextView.font = UIFont(name: "POEVeticaVanta", size: 18)
         descriptionTextView.isEditable = false
-        descriptionTextView.textColor = customDarkGrayColor
+        descriptionTextView.textColor = ColorPalette.darkGray
     }
     
     func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
@@ -185,14 +180,15 @@ class PlaceViewController: UIViewController {
         pageControl.backgroundColor = UIColor.clear
         pageControl.numberOfPages = currentElement.images.count
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = customBlackColor
+        pageControl.pageIndicatorTintColor = ColorPalette.black
     }
     
     
     
     func addConstraints(){
-        [goBackButton, imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewButton, reviewLabel, likeImage, showOnMapButton].forEach {
-            ($0).translatesAutoresizingMaskIntoConstraints = false
+        [goBackButton, imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewLabel, likeImage, showOnMapButton].forEach {
+            ($0).translatesAutoresizingMaskIntoConstraints = false      //reviewButton
+                                                                        //MARK: решено пока без отзывов(
         }
         
         NSLayoutConstraint.activate([
@@ -344,7 +340,7 @@ class PlaceViewController: UIViewController {
             likeButton.heightAnchor.constraint(equalToConstant: 50),
             likeButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/2-50),
             likeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30),
-            likeButton.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 32),
+            likeButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -32),
         ])
         
         NSLayoutConstraint.activate([
@@ -354,12 +350,12 @@ class PlaceViewController: UIViewController {
             likeImage.centerYAnchor.constraint(equalTo: likeButton.centerYAnchor),
         ])
         
-        NSLayoutConstraint.activate([
-            reviewButton.heightAnchor.constraint(equalToConstant: 50),
-            reviewButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/2-50),
-            reviewButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30),
-            reviewButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -32),
-        ])
+//        NSLayoutConstraint.activate([
+//            reviewButton.heightAnchor.constraint(equalToConstant: 50),
+//            reviewButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width/2-50),
+//            reviewButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30),
+//            reviewButton.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -32),
+//        ])
         
     }
     
