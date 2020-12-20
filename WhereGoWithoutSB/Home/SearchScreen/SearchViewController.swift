@@ -61,7 +61,6 @@ final class SearchViewController: UIViewController{
 extension SearchViewController: SearchViewInput {
     func update() {
         tableView.reloadData()
-        //апдейтим tableView
     }
     
 }
@@ -100,10 +99,14 @@ extension SearchViewController: UISearchResultsUpdating, UISearchControllerDeleg
     
     
     func updateSearchResults(for searchController: UISearchController) {
+        globalSearchElement.removeAll()
+        tableView.reloadData()
         if searchController.searchBar.text?.count ?? 0 > 1 {
             output.makeLoadSearchElements(with: searchController.searchBar.text ?? "")
         } else {
-            output.makeLoadSearchElements(with: "")
+           // output.makeLoadSearchElements(with: "")
+            globalSearchElement.removeAll()
+            tableView.reloadData()
         }
     }
     

@@ -16,7 +16,6 @@ extension CategoryRouter: CategoryRouterInput{
     func show(_ currentElements: CategoryElements.Results) {
         let placeViewController = PlaceViewController()
         placeViewController.currentElement = currentElements
-       // placeViewController.title = currentElements.title
         viewController?.present(placeViewController, animated: true, completion: nil)
     }
     
@@ -28,6 +27,12 @@ extension CategoryRouter: CategoryRouterInput{
         alertController.addAction(cancelAction)
         
         viewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showFilter(){
+        let sortingViewController = SortingViewController()
+        sortingViewController.categoryView = viewController as? CategoryViewInput
+        viewController?.present(sortingViewController, animated: true, completion: nil)
     }
     
     

@@ -43,6 +43,7 @@
 		EF5ADBE42585162A00E6D034 /* MapProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */; };
 		EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBE02585162A00E6D034 /* MapInteractor.swift */; };
 		EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBE12585162A00E6D034 /* MapContainer.swift */; };
+		EF73ADE1258CF04000A86044 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73ADE0258CF04000A86044 /* SortingViewController.swift */; };
 		EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */; };
 		EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB0692564651800900DE0 /* CategoryProtocols.swift */; };
 		EFAAB06C256465F300900DE0 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB06B256465F300900DE0 /* CategoryRouter.swift */; };
@@ -93,6 +94,7 @@
 		EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProtocols.swift; sourceTree = "<group>"; };
 		EF5ADBE02585162A00E6D034 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		EF5ADBE12585162A00E6D034 /* MapContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainer.swift; sourceTree = "<group>"; };
+		EF73ADE0258CF04000A86044 /* SortingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		EFAAB0692564651800900DE0 /* CategoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProtocols.swift; sourceTree = "<group>"; };
 		EFAAB06B256465F300900DE0 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
@@ -247,6 +249,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		EF73ADDF258CEFF900A86044 /* Sorting */ = {
+			isa = PBXGroup;
+			children = (
+				EF73ADE0258CF04000A86044 /* SortingViewController.swift */,
+			);
+			path = Sorting;
+			sourceTree = "<group>";
+		};
 		EFAAB0662564643000900DE0 /* CategoryElements */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,7 +264,6 @@
 				EFAAB0712564677000900DE0 /* Views */,
 				EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */,
 				EFAAB06B256465F300900DE0 /* CategoryRouter.swift */,
-				EF33F59225430F4400593C46 /* CategoryViewController.swift */,
 				EFAAB0692564651800900DE0 /* CategoryProtocols.swift */,
 				EFAAB06D2564660500900DE0 /* CategoryInteractor.swift */,
 				EFAAB06F2564662B00900DE0 /* CategoryContainer.swift */,
@@ -265,6 +274,8 @@
 		EFAAB0712564677000900DE0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EF73ADDF258CEFF900A86044 /* Sorting */,
+				EF33F59225430F4400593C46 /* CategoryViewController.swift */,
 				EF33F597254360BA00593C46 /* CategoryTableViewCell.swift */,
 			);
 			path = Views;
@@ -469,6 +480,7 @@
 				EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */,
 				EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,
+				EF73ADE1258CF04000A86044 /* SortingViewController.swift in Sources */,
 				EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */,
 				EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,

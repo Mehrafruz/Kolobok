@@ -21,8 +21,8 @@ final class CategoryInteractor {
 }
 
 extension CategoryInteractor: CategoryInteractorInput{
-    func loadCurrentCategoryElements() {
-        networkManager.categoryElements(category: self.category) { [weak self] (result) in
+    func loadCurrentCategoryElements(with filter: String) {
+        networkManager.categoryElements(category: self.category, filter: filter) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categoryElements):

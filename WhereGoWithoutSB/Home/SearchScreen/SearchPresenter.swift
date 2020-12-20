@@ -55,8 +55,7 @@ extension SearchPresenter: SearchInteractorOutput {
             view?.update()
         }
     }
-    
-    
+
     
     func didFail(with error: Error) {
         

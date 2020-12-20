@@ -16,18 +16,20 @@ protocol CategoryModuleOutput: AnyObject {
 }
 
 protocol CategoryViewInput: AnyObject {
-     func update()
+    func update()
+    func upplyFilter(with filterValue: String)
 }
 
 protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
     func item(at index: Int) -> CategoryTableViewCellModel
-    func tableView()
+    func tableView(filter: String)
     func didSelect(at index: Int)
+    func didSelectFilter()
 }
 
 protocol CategoryInteractorInput: AnyObject {
-    func loadCurrentCategoryElements()
+    func loadCurrentCategoryElements(with filter: String)
 }
 
 protocol CategoryInteractorOutput: AnyObject {
@@ -37,6 +39,8 @@ protocol CategoryInteractorOutput: AnyObject {
 
 protocol CategoryRouterInput: AnyObject {
     func show(_ currentElements: CategoryElements.Results)
+    func showFilter ()
     func show(_ error: Error)
 }
+
 

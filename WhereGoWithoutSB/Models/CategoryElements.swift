@@ -16,6 +16,7 @@ struct CategoryElements: Codable {
         let timetable: String
         let phone: String
         let description: String
+        let body_text: String
         let subway: String
         let favorites_count: Int
         let images: [Images]

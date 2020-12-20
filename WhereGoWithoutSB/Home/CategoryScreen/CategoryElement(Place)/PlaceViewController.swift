@@ -137,9 +137,9 @@ class PlaceViewController: UIViewController {
     }
     
     func setupDescriptionTextView(){
-        var descriptionText = currentElement.description
-        descriptionText = String(descriptionText.dropFirst(3))
-        descriptionText = String(descriptionText.dropLast(5))
+        let descriptionText = currentElement.description + currentElement.body_text
+        //descriptionText = String(descriptionText.dropFirst(3))
+        //descriptionText = String(descriptionText.dropLast(5))
         descriptionTextView.text = descriptionText
         descriptionTextView.font = UIFont(name: "POEVeticaVanta", size: 18)
         descriptionTextView.isEditable = false

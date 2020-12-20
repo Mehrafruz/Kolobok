@@ -16,7 +16,8 @@ final class CategoryPresenter {
     private let interactor: CategoryInteractorInput
 
     private var categoryElements: [CategoryElements.Results] = []
-
+    
+    
     init(router: CategoryRouterInput, interactor: CategoryInteractorInput) {
            self.router = router
            self.interactor = interactor
@@ -27,8 +28,8 @@ extension CategoryPresenter: CategoryModuleInput {
 }
 
 extension CategoryPresenter: CategoryViewOutput {
-    func tableView() {
-        interactor.loadCurrentCategoryElements()
+    func tableView(filter: String) {
+        interactor.loadCurrentCategoryElements(with: filter)
     }
     
         
@@ -41,12 +42,16 @@ extension CategoryPresenter: CategoryViewOutput {
         }
     }
     
+    func didSelectFilter(){
+        router.showFilter()
+    }
+    
     func item(at index: Int) -> CategoryTableViewCellModel {
         if !categoryElements.isEmpty{
             let categoryElement = categoryElements[index]
             return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.short_title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
-            interactor.loadCurrentCategoryElements()
+            interactor.loadCurrentCategoryElements(with: "") //MARK: тут заглушка
         }
         return CategoryTableViewCellModel(imageURL: nil, title: "someTitle", adress: "", timeString: "", subway: "")
     }

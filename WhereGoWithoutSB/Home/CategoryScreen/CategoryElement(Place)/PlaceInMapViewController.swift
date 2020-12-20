@@ -131,11 +131,7 @@ class PlaceInMapViewController: UIViewController {
     
     @objc func didClickedGoBackButton() {
         self.dismiss(animated: true, completion: nil)
-        // navigationController?.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
 }
 
 extension PlaceInMapViewController:YMKLayersGeoObjectTapListener, YMKMapInputListener, YMKTrafficDelegate,YMKMapCameraListener, YMKUserLocationObjectListener{ //MKUserLocationObjectListener

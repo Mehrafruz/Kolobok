@@ -79,7 +79,6 @@ class CustomLayout: UICollectionViewLayout {
                         break
                     }
                 }
-                
                 if isColumnChanged {
                     continue
                 }
