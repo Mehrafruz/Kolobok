@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Firebase
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
     private var loginLabel = UILabel()
@@ -135,33 +135,55 @@ class SignInViewController: UIViewController {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         
+        let reason = "Заполните все поля"
         guard let email = emailTextField.text, email != "" else{
             print ("emailTextField is empty")
-            showAlert()
+            showAlert(reason: reason)
             return
         }
         guard let password = passwordTextField.text, password != "" else{
             print ("passwordTextField is empty")
-            showAlert()
+            showAlert(reason: reason)
             return
         }
         
         if (!email.isEmpty && !password.isEmpty){
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 if error == nil {
-                    appUser.name = email
+                    let currentUserId = Auth.auth().currentUser?.uid
+                    self.getInfo(id: currentUserId ?? "", key: "name") { resultString in
+                        globalAppUser.id = String(currentUserId ?? "")
+                        globalAppUser.name = resultString
+                        globalAppUser.email = email
+                        //self.addUserData(name: name, email: "")   //MARK: пока непонятно нужно ли хранить email
+                    }
+                    self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
+                        globalAppUser.avatarURL = resultString
+                        MeViewController().loadAvatarURL(avatarURL: globalAppUser.avatarURL)
+                    }
+                    
                     self.dismiss(animated: true, completion: nil)
                 }
             }
         } else {
-            showAlert()
+            showAlert(reason: reason)
         }
     }
     
-    func showAlert(){
-        let alert = UIAlertController(title: "Ошибка", message: "Заполните все поля", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+    func getInfo(id: String, key: String, completion: @escaping (String) -> Void) {
+        var result = ""
+        let rootReference = Database.database().reference()
+        let nameReference = rootReference.child("users").child(id).child(key)
+        nameReference.observeSingleEvent(of: .value) { (DataSnapshot) in
+            result = DataSnapshot.value as? String ?? "0"
+            completion(result)
+        }
+    }
+    
+    func showAlert(reason: String){
+        let title = "Ошибка"
+        let action = UIAlertAction(title: "OK", style: .default)
+        displayAlert(with: title , message: reason, actions: [action])
     }
     
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){

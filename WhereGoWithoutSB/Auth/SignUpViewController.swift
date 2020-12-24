@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import Firebase
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
     private var signinLabel = UILabel()
@@ -128,58 +128,75 @@ class SignUpViewController: UIViewController {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         confirmPasswordTextField.resignFirstResponder()
-        
+        let reason = "Заполните все поля"
         guard let name = nameTextField.text, name != "" else{
             print ("nameTextField is empty")
-            showAlert()
+            showAlert(reason: reason)
             return
         }
         
         guard let email = emailTextField.text, email != "" else{
             print ("emailTextField is empty")
-            showAlert()
+            showAlert(reason: reason)
             return
         }
         guard let password0 = passwordTextField.text, password0 != "" else{
             print ("passwordTextField is empty")
-            showAlert()
+            showAlert(reason: reason)
             return
         }
         
         guard let password1 = confirmPasswordTextField.text, password1 != "" else{
             print ("passwordTextField is empty")
-            showAlert()
+            showAlert(reason: reason)
             return
         }
-        // MARK: Парольдолжен состоять минимум из 6 элементов
+        // MARK: Пароль должен состоять минимум из 6 элементов
         if (!name.isEmpty && !email.isEmpty && !password0.isEmpty && !password1.isEmpty){
-            Auth.auth().createUser(withEmail: email, password: password0)  { (result, error) in
-                if error == nil{
-                    if let result = result{
-                        print(result.user.uid)
-                        let referenceUsers = Database.database().reference().child("users")
-                        referenceUsers.child(result.user.uid).updateChildValues(["name" : name, "email" : email])
-                        self.dismiss(animated: true, completion: nil)
+            if isMathingPass(pasword0: password0, pasword1: password1){
+                Auth.auth().createUser(withEmail: email, password: password0)  { (result, error) in
+                    if error == nil{
+//                        self.addUserData(name: name, email: "")
+                        if let result = result{
+                            globalAppUser.id = result.user.uid
+                            globalAppUser.name = name
+                            globalAppUser.email = email
+                            let referenceUsers = Database.database().reference().child("users")
+                            referenceUsers.child(result.user.uid).updateChildValues(["name" : name, "email" : email, "avatarURL": globalAppUser.avatarURL, "favoritePlaces": globalAppUser.favoritePlaces, "viewedPlaces" : globalAppUser.viewedPlaces])
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    }
+                    else {
+                        self.showAlert(reason: "Такой пользовятель уже существует")
                     }
                 }
             }
-        } else {
-            showAlert()
+            else{
+                self.showAlert(reason: "Пароли не совпадают")
+            }
         }
     }
     
-    func showAlert(){
-        let alert = UIAlertController(title: "Ошибка", message: "Заполните все поля", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
+     func showAlert(reason: String){
+           let title = "Ошибка"
+           let action = UIAlertAction(title: "OK", style: .default)
+           displayAlert(with: title , message: reason, actions: [action])
+       }
+    
     
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){
         label.font = UIFont(name: "POEVeticaVanta", size: fontSize)
-        //label.layer.zPosition = 1.5
         label.textColor = ColorPalette.black
         label.text = text
         label.textAlignment = .center
+    }
+    
+    func isMathingPass(pasword0: String, pasword1: String) ->Bool {
+        if pasword0 == pasword1{
+            return true
+        } else {
+            return false
+        }
     }
     
     func setupTextField(textField: UITextField, placeholder: String) {

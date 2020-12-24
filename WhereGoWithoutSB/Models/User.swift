@@ -10,18 +10,23 @@ import Foundation
 
 
 struct User {
+    var id: String
     var name: String
-    var surname: String
-    var favorites: [Int]
+    var email: String
+    var avatarURL: String
+    var favoritePlaces: [Int]
+    var viewedPlaces:[Int]
     
     
-    init(name: String, surname: String, favorites: [Int]) {
+    init(id: String, name: String, email: String, avatarURL: String, favoritePlaces: [Int], viewedPlaces: [Int]) {
+        self.id = id
         self.name = name
-        self.surname = surname
-        self.favorites = favorites
+        self.email = email
+        self.avatarURL = avatarURL
+        self.favoritePlaces = favoritePlaces
+        self.viewedPlaces = viewedPlaces
     }
     
 }
 
 
-var appUser = User(name: "", surname: "", favorites: [])

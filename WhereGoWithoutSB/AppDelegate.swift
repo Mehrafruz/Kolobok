@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         YMKMapKit.setApiKey("3ed69a38-a2d6-43ec-ac3e-a79da5bd277d")
         
+        
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
         
         let context = MapContext()
@@ -80,5 +81,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+}
+
+extension AppDelegate: UITabBarControllerDelegate{
+    private func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        let tabBarIndex = tabBarController.selectedIndex
+        if tabBarIndex == 2{
+            print ("___________Some--------------")
+            
+        }
+    }
 }
 

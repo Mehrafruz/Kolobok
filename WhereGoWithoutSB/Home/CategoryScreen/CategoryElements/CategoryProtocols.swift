@@ -29,7 +29,8 @@ protocol CategoryViewOutput: AnyObject {
 }
 
 protocol CategoryInteractorInput: AnyObject {
-    func loadCurrentCategoryElements(with filter: String)
+    func loadCurrentCategoryElements(with filter: String, with page: Int)
+    
 }
 
 protocol CategoryInteractorOutput: AnyObject {

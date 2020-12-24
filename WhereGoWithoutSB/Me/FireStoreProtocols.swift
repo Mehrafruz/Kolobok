@@ -10,5 +10,7 @@ import Foundation
 
 protocol FireStoreInput{
     func uploadAvatarImage(currentUserId: String, photo: UIImage, completion: @escaping (Result<URL, Error>) -> Void)
+    func uploadAvatarURL (currentUserId: String)
+    func loadAvatarURL (avatarURL: String)
 }
 

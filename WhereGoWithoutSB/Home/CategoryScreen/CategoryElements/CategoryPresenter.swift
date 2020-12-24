@@ -29,7 +29,7 @@ extension CategoryPresenter: CategoryModuleInput {
 
 extension CategoryPresenter: CategoryViewOutput {
     func tableView(filter: String) {
-        interactor.loadCurrentCategoryElements(with: filter)
+        interactor.loadCurrentCategoryElements(with: filter, with: 1)
     }
     
         
@@ -51,7 +51,7 @@ extension CategoryPresenter: CategoryViewOutput {
             let categoryElement = categoryElements[index]
             return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.short_title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
-            interactor.loadCurrentCategoryElements(with: "") //MARK: тут заглушка
+            interactor.loadCurrentCategoryElements(with: "", with: 1) //MARK: тут заглушка
         }
         return CategoryTableViewCellModel(imageURL: nil, title: "someTitle", adress: "", timeString: "", subway: "")
     }
