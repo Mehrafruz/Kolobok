@@ -104,7 +104,6 @@ extension SearchViewController: UISearchResultsUpdating, UISearchControllerDeleg
         if searchController.searchBar.text?.count ?? 0 > 1 {
             output.makeLoadSearchElements(with: searchController.searchBar.text ?? "")
         } else {
-           // output.makeLoadSearchElements(with: "")
             globalSearchElement.removeAll()
             tableView.reloadData()
         }

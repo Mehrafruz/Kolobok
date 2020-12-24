@@ -68,7 +68,7 @@ final class SearchNetworkManager: SearchNetworkManagerDescription {
     
     func searchElement(id: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void){
         let stringId = String(id)
-        let urlString = "https://kudago.com/public-api/v1.4/places/?lang=&fields=title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text&expand=&order_by=&text_format=text&ids=\(stringId)&location=&has_showings=&showing_since=&showing_until=&categories=&lon=&lat=&radius=".encodeUrl
+        let urlString = "https://kudago.com/public-api/v1.4/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text&expand=&order_by=&text_format=text&ids=\(stringId)&location=&has_showings=&showing_since=&showing_until=&categories=&lon=&lat=&radius=".encodeUrl
         
         guard let url = URL(string: urlString) else {
                    completion(.failure(SearchNetworkError.invalidURL))

@@ -11,4 +11,4 @@ var globalFavoriteUserPlaces: [Int] = [122,133]
 
 var globalIsSingIn: Bool = false
 
-var globalAppUser = User(id: "", name: "", email: "", avatarURL: "", favoritePlaces: [1,2], viewedPlaces: [])
+var globalAppUser = User(id: "", name: "", email: "", avatarURL: "", favoritePlaces: [], viewedPlaces: [])

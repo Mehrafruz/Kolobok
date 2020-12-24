@@ -41,3 +41,10 @@ protocol SearchRouterInput: class {
     func show(_ currentElements: CategoryElements.Results)
     func show(_ error: Error)
 }
+
+
+//class Storage {
+//    static let shared = Storage()
+//}
+//Storage.shared
+//Storage.shared.saveUser(user)

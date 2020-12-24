@@ -9,6 +9,8 @@
 import UIKit
 import PinLayout
 import Foundation
+import Firebase
+import FirebaseStorage
 
 class PlaceViewController: UIViewController {
     private var scrollView = UIScrollView()
@@ -81,7 +83,8 @@ class PlaceViewController: UIViewController {
     
         setupButton(button: reviewButton, title: "Оставить отзыв", color: ColorPalette.gray, textColor: .white)
         setupButton(button: likeButton, title: "", color: ColorPalette.yellow, textColor: .white)
-        likeImage.image = UIImage(systemName: "heart")
+        likeButton.addTarget(self, action: #selector(didClickedLikeButton), for: .touchUpInside)
+        setupLikeImage()
         likeImage.tintColor = ColorPalette.black
         likeImage.layer.zPosition = 2
         
@@ -131,6 +134,15 @@ class PlaceViewController: UIViewController {
     
     func setupImageView(imageView: UIImageView, imageName: String) {
         imageView.image = UIImage(named: imageName)
+    }
+    
+    func setupLikeImage(){
+        let currentId = currentElement.id
+        if globalAppUser.favoritePlaces.contains(currentId){
+            likeImage.image = UIImage(systemName: "heart.fill")
+        } else {
+            likeImage.image = UIImage(systemName: "heart")
+        }
     }
     
     func setupDescriptionTextView(){
@@ -372,6 +384,24 @@ class PlaceViewController: UIViewController {
         imagesPageControl.currentPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
     
+    @objc
+    func didClickedLikeButton(){
+        if globalAppUser.email.isEmpty || globalAppUser.name.isEmpty{
+            present(SignInViewController(), animated: true)
+        } else {
+            let currentId = currentElement.id
+            if globalAppUser.favoritePlaces.contains(currentId){
+                guard let index = globalAppUser.favoritePlaces.firstIndex(of: currentId) else { return }
+                globalAppUser.favoritePlaces.remove(at: index)
+                likeImage.image = UIImage(systemName: "heart")
+                uploadFavoritePlaces(currentUserId: globalAppUser.id)
+            } else {
+                globalAppUser.favoritePlaces.append(currentId)
+                likeImage.image = UIImage(systemName: "heart.fill")
+                uploadFavoritePlaces(currentUserId: globalAppUser.id)
+            }
+        }
+    }
 }
 
 extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -385,6 +415,15 @@ extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSou
         }
         cell.setupImage(imageURL: currentElement.images[indexPath.row].image)
         return cell
+    }
+    
+    
+}
+
+extension PlaceViewController: FireStoreFavoritePlacesInput{
+    func uploadFavoritePlaces(currentUserId: String) {
+        let referenceUsers = Database.database().reference()
+        referenceUsers.child("users/\(currentUserId)/favoritePlaces").setValue(globalAppUser.favoritePlaces)
     }
     
     

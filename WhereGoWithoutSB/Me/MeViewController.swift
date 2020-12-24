@@ -3,7 +3,9 @@ import Firebase
 import FirebaseStorage
 
 
-class MeViewController: UIViewController {
+class MeViewController: UIViewController{
+    
+    private let output: MeViewOutput
     
     let tempButton = UIButton()
     let titleLabel = UILabel()
@@ -18,9 +20,9 @@ class MeViewController: UIViewController {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         viewLayout.scrollDirection = .horizontal
-        viewLayout.itemSize = CGSize.init(width: 70, height: 70)
-        viewLayout.minimumInteritemSpacing = 10
-        collectionView.backgroundColor = ColorPalette.gray
+        viewLayout.itemSize = CGSize.init(width: 180, height: 130)
+        viewLayout.minimumInteritemSpacing = 3
+        collectionView.backgroundColor = .white
         
         return collectionView
     }()
@@ -30,10 +32,9 @@ class MeViewController: UIViewController {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         viewLayout.scrollDirection = .horizontal
-        viewLayout.itemSize = CGSize.init(width: 70, height: 70)
-        viewLayout.minimumInteritemSpacing = 10
-        collectionView.backgroundColor = ColorPalette.gray
-        
+        viewLayout.itemSize = CGSize.init(width: 180, height: 130)
+        viewLayout.minimumInteritemSpacing = 3
+        collectionView.backgroundColor = .white
         return collectionView
     }()
     
@@ -42,6 +43,18 @@ class MeViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
+    
+    init(output: MeViewOutput) {
+        self.output = output
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -65,7 +78,7 @@ class MeViewController: UIViewController {
         setupView("Просмотреное:", visitedView)
         constraintsForVisited(to: avatarImageView, by: 20, visitedView)
         setupView("Избранное:", favoriteView)
-        constraintsForVisited(to: avatarImageView, by: 160, favoriteView)
+        constraintsForVisited(to: avatarImageView, by: 230, favoriteView)
         
         setupCollectionView(visitedCollectionView)
         setupLayouts(visitedCollectionView, visitedView)
@@ -138,21 +151,10 @@ class MeViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        collectionView.register(MeCollectionViewCell.self, forCellWithReuseIdentifier: MeCollectionViewCell.identifier)
     }
     
-    private func setupCollectionViewItemSize (){
-        let customLayout = CustomLayout()
-        customLayout.delegate = self
-        customLayout.numberOfColumns = 5
-        customLayout.cellPadding = 1
-        visitedCollectionView.collectionViewLayout = customLayout
-        if let layout = visitedCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            print("f")
-        }
-        
-    }
+    
     
     private func setupLayouts(_ collectionView: UICollectionView, _ upperView: UILabel) {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -161,7 +163,7 @@ class MeViewController: UIViewController {
             collectionView.topAnchor.constraint(equalTo: upperView.bottomAnchor, constant: -10),
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 90)
+            collectionView.heightAnchor.constraint(equalToConstant: 130)
         ])
     }
     
@@ -173,7 +175,6 @@ class MeViewController: UIViewController {
         viewLabel.font = UIFont(name: "POEVeticaVanta", size: 20)
         viewLabel.adjustsFontSizeToFitWidth = true
         viewLabel.translatesAutoresizingMaskIntoConstraints = false
-        print(viewLabel)
         
     }
     
@@ -199,17 +200,6 @@ class MeViewController: UIViewController {
         constrainsForAva(indent, width)
     }
     
-    func setupButton() {
-        tempButton.backgroundColor = #colorLiteral(red: 0.8078431487, green: 0.02745098062, blue: 0.3333333433, alpha: 1)
-        tempButton.addTarget(self, action: #selector(tempButtonTapped), for: .touchUpInside)
-        view.addSubview(tempButton)
-        
-        tempButton.translatesAutoresizingMaskIntoConstraints = false
-        tempButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true// left side
-        tempButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true //right side
-        tempButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        tempButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-    }
     
     func setupTitleView() {
         view.addSubview(titleLabel)
@@ -222,11 +212,7 @@ class MeViewController: UIViewController {
         
     }
     
-    @objc func tempButtonTapped () {
-        let secondViewController = PlaceViewController()
-        navigationController?.pushViewController(secondViewController, animated: true)
-    }
-    
+   
     
     func constraintsForTitle() {
         let horizontalConstraint = NSLayoutConstraint(item: titleLabel,
@@ -300,13 +286,13 @@ class MeViewController: UIViewController {
 }
 extension MeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return categoriesItems.count
+        return output.itemsCount
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as! CategoryCollectionViewCell
-        let item = categoriesItems[indexPath.row]
-        cell.setup(with: item)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MeCollectionViewCell.identifier, for: indexPath) as! MeCollectionViewCell
+        let item = output.item(at: indexPath.row)
+        cell.configure(with: item)
         return cell
     }
     
@@ -315,12 +301,6 @@ extension MeViewController: UICollectionViewDataSource{
 
 extension MeViewController: UICollectionViewDelegate {
     
-}
-
-extension MeViewController: CustomLayoutDelegate{
-    func collectionView(_ collectionView: UICollectionView, sizeOfPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
-        return UIImage(named: categoriesItems[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
-    }
 }
 
 extension MeViewController: UITableViewDelegate, UITableViewDataSource{
@@ -358,7 +338,7 @@ extension MeViewController: UIImagePickerControllerDelegate, UINavigationControl
     }
 }
 
-extension MeViewController: FireStoreInput{
+extension MeViewController: FireStoreAvatarInput{
 
     func uploadAvatarImage(currentUserId: String, photo: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         
@@ -386,6 +366,10 @@ extension MeViewController: FireStoreInput{
         referenceUsers.child("users/\(currentUserId)/avatarURL").setValue(globalAppUser.avatarURL)
     }
     
+}
+
+extension MeViewController: FireStoreAvatarOutput{
+    
     func loadAvatarURL (avatarURL: String){
         let referenceUsers = Storage.storage().reference(forURL: avatarURL)
         let mByte = Int64(2*1024*1024)
@@ -394,7 +378,24 @@ extension MeViewController: FireStoreInput{
             let image = UIImage(data: imageData)
             self.avatarImageView.image = image
         }
-        
-        
     }
+    
+}
+
+extension MeViewController: FireStoreFavoritePlacesInput{
+    func uploadFavoritePlaces(currentUserId: String) {
+        let referenceUsers = Database.database().reference()
+        referenceUsers.child("users/\(currentUserId)/favoritePlaces").setValue(globalAppUser.favoritePlaces)
+    }
+    
+    
+}
+
+extension MeViewController: MeViewInput{
+    func update(at index: Int) {
+        favoriteCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+        visitedCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+    }
+    
+    
 }

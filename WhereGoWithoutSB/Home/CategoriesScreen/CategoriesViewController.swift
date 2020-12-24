@@ -9,8 +9,8 @@
 
 import UIKit
 import SpriteKit
-
-
+import FirebaseStorage
+import Firebase
 
 var categoriesItems: [CategoriesItem] = [CategoriesItem(imageName:"ParkCategoryImage"),
                                 CategoriesItem(imageName:"QuestroomCategoryImage"),
@@ -179,6 +179,3 @@ extension CategoriesViewController: CustomLayoutDelegate{
         return UIImage(named: categoriesItems[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
     }
 }
-
-
-

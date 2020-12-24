@@ -10,6 +10,7 @@ import Foundation
 
 struct CategoryElements: Codable {
     struct Results: Codable {
+        let id: Int
         let title: String
         let short_title: String
         let address: String

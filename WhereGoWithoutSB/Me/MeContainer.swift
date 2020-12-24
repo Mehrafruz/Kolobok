@@ -15,11 +15,11 @@ final class MeContainer {
 
 	class func assemble(with context: MeContext) -> MeContainer {
         let router = MeRouter()
-        let interactor = MeInteractor()
+        let interactor = MeInteractor(networkManager: SearchNetworkManager.shared)
         let presenter = MePresenter(router: router, interactor: interactor)
 		let viewController = MeViewController(output: presenter)
 
-		presenter.view = viewController
+        presenter.view = viewController
 		presenter.moduleOutput = context.moduleOutput
 
 		interactor.output = presenter

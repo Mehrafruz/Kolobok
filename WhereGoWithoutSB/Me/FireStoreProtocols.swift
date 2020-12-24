@@ -8,9 +8,23 @@
 import UIKit
 import Foundation
 
-protocol FireStoreInput{
+protocol FireStoreAvatarInput{
     func uploadAvatarImage(currentUserId: String, photo: UIImage, completion: @escaping (Result<URL, Error>) -> Void)
     func uploadAvatarURL (currentUserId: String)
+}
+
+
+protocol FireStoreAvatarOutput{
     func loadAvatarURL (avatarURL: String)
 }
+
+protocol FireStoreFavoritePlacesInput{
+    func uploadFavoritePlaces(currentUserId: String)
+}
+
+protocol FireStoreFavoritePlacesOutput{
+    func loadFavoritePlaces(currentUserId: String)
+     func getArrayInfo(id: String, key: String, completion: @escaping ([Int]) -> Void)
+}
+
 

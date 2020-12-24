@@ -28,10 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
         
-        let context = MapContext()
-        let container = MapContainer.assemble(with: "park,questroom,art-space,museums,bar,clubs,attractions", with: context)
-        mapViewNavigationController =  UINavigationController(rootViewController: container.viewController)
-        meNavigationViewController = UINavigationController(rootViewController: MeViewController())
+        let mapContext = MapContext()
+        let mapContainer = MapContainer.assemble(with: "park,questroom,art-space,museums,bar,clubs,attractions", with: mapContext)
+        
+        let meContext = MeContext()
+        let meContainer = MeContainer.assemble(with: meContext)
+        
+        mapViewNavigationController =  UINavigationController(rootViewController: mapContainer.viewController)
+        meNavigationViewController = UINavigationController(rootViewController: meContainer.viewController)
         welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
     
         

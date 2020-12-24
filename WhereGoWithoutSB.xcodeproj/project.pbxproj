@@ -44,6 +44,12 @@
 		EF5ADBE52585162A00E6D034 /* MapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBE02585162A00E6D034 /* MapInteractor.swift */; };
 		EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBE12585162A00E6D034 /* MapContainer.swift */; };
 		EF73ADE1258CF04000A86044 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF73ADE0258CF04000A86044 /* SortingViewController.swift */; };
+		EF7E56102593F4B0009B7257 /* MePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7E560B2593F4B0009B7257 /* MePresenter.swift */; };
+		EF7E56112593F4B0009B7257 /* MeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7E560C2593F4B0009B7257 /* MeRouter.swift */; };
+		EF7E56122593F4B0009B7257 /* MeProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7E560D2593F4B0009B7257 /* MeProtocols.swift */; };
+		EF7E56132593F4B0009B7257 /* MeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7E560E2593F4B0009B7257 /* MeInteractor.swift */; };
+		EF7E56142593F4B0009B7257 /* MeContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7E560F2593F4B0009B7257 /* MeContainer.swift */; };
+		EF7E56162593FBA9009B7257 /* MeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7E56152593FBA9009B7257 /* MeCollectionViewCell.swift */; };
 		EF95B2B22590E50C002A9BFB /* FireStoreProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF95B2B12590E50C002A9BFB /* FireStoreProtocols.swift */; };
 		EFAAB068256464EC00900DE0 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */; };
 		EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFAAB0692564651800900DE0 /* CategoryProtocols.swift */; };
@@ -102,6 +108,12 @@
 		EF5ADBE02585162A00E6D034 /* MapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapInteractor.swift; sourceTree = "<group>"; };
 		EF5ADBE12585162A00E6D034 /* MapContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapContainer.swift; sourceTree = "<group>"; };
 		EF73ADE0258CF04000A86044 /* SortingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
+		EF7E560B2593F4B0009B7257 /* MePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MePresenter.swift; sourceTree = "<group>"; };
+		EF7E560C2593F4B0009B7257 /* MeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeRouter.swift; sourceTree = "<group>"; };
+		EF7E560D2593F4B0009B7257 /* MeProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeProtocols.swift; sourceTree = "<group>"; };
+		EF7E560E2593F4B0009B7257 /* MeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeInteractor.swift; sourceTree = "<group>"; };
+		EF7E560F2593F4B0009B7257 /* MeContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeContainer.swift; sourceTree = "<group>"; };
+		EF7E56152593FBA9009B7257 /* MeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeCollectionViewCell.swift; sourceTree = "<group>"; };
 		EF95B2B12590E50C002A9BFB /* FireStoreProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireStoreProtocols.swift; sourceTree = "<group>"; };
 		EFAAB067256464EC00900DE0 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		EFAAB0692564651800900DE0 /* CategoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProtocols.swift; sourceTree = "<group>"; };
@@ -237,8 +249,14 @@
 		EF355AE8254046F600B260E6 /* Me */ = {
 			isa = PBXGroup;
 			children = (
-				EF355AED254051A400B260E6 /* MeViewController.swift */,
 				EF95B2B12590E50C002A9BFB /* FireStoreProtocols.swift */,
+				EF355AED254051A400B260E6 /* MeViewController.swift */,
+				EF7E560B2593F4B0009B7257 /* MePresenter.swift */,
+				EF7E560C2593F4B0009B7257 /* MeRouter.swift */,
+				EF7E560D2593F4B0009B7257 /* MeProtocols.swift */,
+				EF7E560E2593F4B0009B7257 /* MeInteractor.swift */,
+				EF7E560F2593F4B0009B7257 /* MeContainer.swift */,
+				EF7E56152593FBA9009B7257 /* MeCollectionViewCell.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -508,9 +526,12 @@
 				EF405D4C2588F71E00588EC8 /* SearchInteractor.swift in Sources */,
 				EFAAB06A2564651800900DE0 /* CategoryProtocols.swift in Sources */,
 				EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */,
+				EF7E56122593F4B0009B7257 /* MeProtocols.swift in Sources */,
 				EFAEC6F9258F9F8100AF154B /* AlertControllerExtension.swift in Sources */,
 				EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */,
 				EF405D512589419800588EC8 /* SearchElements.swift in Sources */,
+				EF7E56112593F4B0009B7257 /* MeRouter.swift in Sources */,
+				EF7E56142593F4B0009B7257 /* MeContainer.swift in Sources */,
 				EF405D492588F71E00588EC8 /* SearchRouter.swift in Sources */,
 				EF355AEA2540474300B260E6 /* CategoriesViewController.swift in Sources */,
 				EF405D53258A24D300588EC8 /* SearchTableViewCell.swift in Sources */,
@@ -527,6 +548,7 @@
 				EF33F59325430F4400593C46 /* CategoryViewController.swift in Sources */,
 				EF405D4D2588F71E00588EC8 /* SearchContainer.swift in Sources */,
 				EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */,
+				EF7E56132593F4B0009B7257 /* MeInteractor.swift in Sources */,
 				EFAEC6F6258F98B500AF154B /* GlobalVariables.swift in Sources */,
 				EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */,
 				EFAEC6FB258FCD8900AF154B /* UserSettings.swift in Sources */,
@@ -540,6 +562,8 @@
 				EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,
 				EF73ADE1258CF04000A86044 /* SortingViewController.swift in Sources */,
+				EF7E56102593F4B0009B7257 /* MePresenter.swift in Sources */,
+				EF7E56162593FBA9009B7257 /* MeCollectionViewCell.swift in Sources */,
 				EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */,
 				EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,

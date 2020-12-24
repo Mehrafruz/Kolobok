@@ -10,7 +10,14 @@ import UIKit
 import Foundation
 import Firebase
 
+protocol SignInDelegate: AnyObject{
+   func openSignUp()
+}
+
 class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
+    
+    weak var delegate: SignInDelegate?
+    
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
     private var loginLabel = UILabel()
@@ -112,8 +119,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     }
     
     @objc func didClickedGoBackButton() {
-        present(WelcomeViewController(), animated: true)
-        SignInViewController().dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func didClickedRememberMeButton() {
@@ -159,9 +165,9 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                     }
                     self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
                         globalAppUser.avatarURL = resultString
-                        MeViewController().loadAvatarURL(avatarURL: globalAppUser.avatarURL)
+                        //MeViewController().loadAvatarURL(avatarURL: globalAppUser.avatarURL)
                     }
-                    
+                    self.loadFavoritePlaces(currentUserId: currentUserId ?? "")
                     self.dismiss(animated: true, completion: nil)
                 }
             }
@@ -361,11 +367,11 @@ extension SignInViewController: UITextFieldDelegate, UITextViewDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "forgotPass"{
             print ("_______cliced to link")
-            //didClickedExitButton()
         }
-        if URL.absoluteString == "signUp"{
-          self.dismiss(animated: true, completion: nil)
-            present(SignUpViewController(), animated: true)
+       if URL.absoluteString == "signUp"{
+            self.dismiss(animated: true, completion: {
+                self.delegate?.openSignUp()
+            })
         }
         return false
     }
@@ -377,3 +383,26 @@ extension SignInViewController: UITextFieldDelegate, UITextViewDelegate{
     
     
 }
+
+
+
+extension SignInViewController: FireStoreFavoritePlacesOutput{
+    
+    func loadFavoritePlaces(currentUserId: String) {
+        self.getArrayInfo(id: currentUserId, key: "favoritePlaces") { resultString in
+            globalAppUser.favoritePlaces = resultString
+        }
+    }
+    
+    func getArrayInfo(id: String, key: String, completion: @escaping ([Int]) -> Void) {
+        var result: [Int] = []
+        let rootReference = Database.database().reference()
+        let nameReference = rootReference.child("users").child(id).child(key)
+        nameReference.observeSingleEvent(of: .value) { (DataSnapshot) in
+            result = DataSnapshot.value as? [Int] ?? []
+            completion(result)
+        }
+    }
+    
+}
+

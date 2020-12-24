@@ -32,7 +32,7 @@ final class NetworkManager: NetworkManagerDescription {
     
     func categoryElements(category: String, filter: String, pageInt: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void) {
         let pageStr = String(pageInt)
-        let urlString = "https://kudago.com/public-api/v1.4/places/?lang=&fields=title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since&showing_until&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=10"
+        let urlString = "https://kudago.com/public-api/v1.4/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since&showing_until&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=10"
         
         guard let url = URL(string: urlString) else {
             completion(.failure(NetworkError.invalidURL))

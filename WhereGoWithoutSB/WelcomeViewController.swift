@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-var signInNavigationViewController: UINavigationController?
+//var signInNavigationViewController: UINavigationController?
 var signUpNavigationViewController: UINavigationController?
 
 var didDismissViewFlag = false
@@ -28,7 +28,7 @@ class WelcomeViewController: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
-        signInNavigationViewController = UINavigationController(rootViewController: SignInViewController())
+        
         signUpNavigationViewController = UINavigationController(rootViewController: SignUpViewController())
     }
     
@@ -210,10 +210,13 @@ class WelcomeViewController: UIViewController{
         WelcomeViewController().dismiss(animated: true, completion: nil)
     }
     
+    let signInViewController = SignInViewController()
     @objc func didClickedSignInButton(){
         signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        signInNavigationViewController!.modalPresentationStyle = .overCurrentContext
-        present(signInNavigationViewController!, animated: true)
+        signInViewController.delegate = self
+        let signInNavigationViewController = UINavigationController(rootViewController: signInViewController)
+        signInNavigationViewController.modalPresentationStyle = .overCurrentContext
+        present(signInNavigationViewController, animated: true)
         WelcomeViewController().dismiss(animated: true, completion: nil)
         
     }
@@ -230,4 +233,12 @@ extension WelcomeViewController: UITextViewDelegate{
         }
         return false
     }
+}
+
+extension WelcomeViewController: SignInDelegate{
+    func openSignUp() {
+        present(SignUpViewController(), animated: true)
+    }
+    
+    
 }
