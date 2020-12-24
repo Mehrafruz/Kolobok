@@ -59,17 +59,19 @@ class MeCollectionViewCell: UICollectionViewCell {
         }
     
         NSLayoutConstraint.activate([
-            favoritePlaceImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            favoritePlaceImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            favoritePlaceImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            favoritePlaceImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
+            favoritePlaceImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            favoritePlaceImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            favoritePlaceImageView.topAnchor.constraint(equalTo: topAnchor),
+            favoritePlaceImageView.heightAnchor.constraint(equalToConstant: 110)
         ])
         
+        favoritePlaceImageView.clipsToBounds = true
+        
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 1),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 1),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 1),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 1),
             titleLabel.topAnchor.constraint(equalTo: favoritePlaceImageView.bottomAnchor),
-            //titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
         
     }
