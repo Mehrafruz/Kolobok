@@ -61,6 +61,7 @@ class MeViewController: UIViewController{
         if globalAppUser.name.isEmpty{
             present(SignInViewController(), animated: true)
         }
+        
     }
     
     override func viewDidLoad() {

@@ -9,9 +9,6 @@
 import UIKit
 import SpriteKit
 
-//var signInNavigationViewController: UINavigationController?
-var signUpNavigationViewController: UINavigationController?
-
 var didDismissViewFlag = false
 
 class WelcomeViewController: UIViewController{
@@ -27,9 +24,6 @@ class WelcomeViewController: UIViewController{
 
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        
-        
-        signUpNavigationViewController = UINavigationController(rootViewController: SignUpViewController())
     }
     
     override func viewDidLoad() {
@@ -203,19 +197,23 @@ class WelcomeViewController: UIViewController{
         self.dismiss(animated: true, completion: nil)
         didDismissViewFlag = true
     }
-    
-    @objc func didClickedSignUpButton(){
+   
+    let signUpViewController = SignUpViewController()
+    @objc
+    func didClickedSignUpButton(){
         signUpButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-        present(signUpNavigationViewController!, animated: true)
+        signUpViewController.delegate = self
+        let signUpNavigationViewController = UINavigationController(rootViewController: signUpViewController)
+        present(signUpNavigationViewController, animated: true)
         WelcomeViewController().dismiss(animated: true, completion: nil)
     }
     
     let signInViewController = SignInViewController()
-    @objc func didClickedSignInButton(){
+    @objc
+    func didClickedSignInButton(){
         signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         signInViewController.delegate = self
         let signInNavigationViewController = UINavigationController(rootViewController: signInViewController)
-        signInNavigationViewController.modalPresentationStyle = .overCurrentContext
         present(signInNavigationViewController, animated: true)
         WelcomeViewController().dismiss(animated: true, completion: nil)
         
@@ -240,5 +238,18 @@ extension WelcomeViewController: SignInDelegate{
         present(SignUpViewController(), animated: true)
     }
     
+    func dismissWelcomeView() {
+        self.dismiss(animated: false, completion: nil)
+    }
+}
+
+extension WelcomeViewController: SignUpDelegate{
+    func openSignIn() {
+        present(SignInViewController(), animated: true)
+    }
+    
+    func dismissWelcomeView1() {
+        self.dismiss(animated: false, completion: nil)
+    }
     
 }

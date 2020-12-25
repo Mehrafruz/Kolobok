@@ -11,7 +11,8 @@ import Foundation
 import Firebase
 
 protocol SignInDelegate: AnyObject{
-   func openSignUp()
+    func openSignUp()
+    func dismissWelcomeView()//MARK: интересная ситуация, нельзя называть одинаково функции 2 разных делегатов от которых наследуется 1 класс, ошибки не будет но и работать не будет 1 из функций
 }
 
 class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
@@ -156,6 +157,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         if (!email.isEmpty && !password.isEmpty){
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 if error == nil {
+                   
                     let currentUserId = Auth.auth().currentUser?.uid
                     self.getInfo(id: currentUserId ?? "", key: "name") { resultString in
                         globalAppUser.id = String(currentUserId ?? "")
@@ -165,10 +167,11 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                     }
                     self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
                         globalAppUser.avatarURL = resultString
-                        //MeViewController().loadAvatarURL(avatarURL: globalAppUser.avatarURL)
                     }
                     self.loadFavoritePlaces(currentUserId: currentUserId ?? "")
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        self.delegate?.dismissWelcomeView()
+                    })
                 }
             }
         } else {

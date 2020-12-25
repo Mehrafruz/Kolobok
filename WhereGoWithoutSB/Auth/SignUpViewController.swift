@@ -10,7 +10,15 @@ import UIKit
 import Foundation
 import Firebase
 
+protocol SignUpDelegate: AnyObject{
+    func openSignIn()
+    func dismissWelcomeView1()
+}
+
 class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
+    
+    weak var delegate: SignUpDelegate?
+    
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
     private var signinLabel = UILabel()
@@ -156,15 +164,18 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
             if isMathingPass(pasword0: password0, pasword1: password1){
                 Auth.auth().createUser(withEmail: email, password: password0)  { (result, error) in
                     if error == nil{
-//                        self.addUserData(name: name, email: "")
+                        //                        self.addUserData(name: name, email: "")
                         if let result = result{
                             globalAppUser.id = result.user.uid
                             globalAppUser.name = name
                             globalAppUser.email = email
                             let referenceUsers = Database.database().reference().child("users")
                             referenceUsers.child(result.user.uid).updateChildValues(["name" : name, "email" : email, "avatarURL": globalAppUser.avatarURL, "favoritePlaces": globalAppUser.favoritePlaces, "viewedPlaces" : globalAppUser.viewedPlaces])
-                            self.dismiss(animated: true, completion: nil)
+                            
                         }
+                        self.dismiss(animated: true, completion:{
+                            self.delegate?.dismissWelcomeView1()
+                        })
                     }
                     else {
                         self.showAlert(reason: "Такой пользовятель уже существует")
@@ -389,8 +400,9 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
 extension SignUpViewController: UITextFieldDelegate, UITextViewDelegate, UIAdaptivePresentationControllerDelegate{
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "signIn"{
-            self.dismiss(animated: true, completion: nil)
-            present(SignInViewController(), animated: true)
+           self.dismiss(animated: true, completion: {
+                self.delegate?.openSignIn()
+            })
         }
         return false
     }
