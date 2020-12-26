@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        let item3 = UITabBarItem(title: "", image: UIImage(systemName: "person.fill"), tag: 2)//"person.fill"
         
         
-        tabBarController.tabBar.barTintColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)//(red: 253/255, green: 247/255, blue: 152/255, alpha: 1)- беклый желтый //(red: 171/255, green: 175/255, blue: 181/255, alpha: 1) - серый
+        tabBarController.tabBar.barTintColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
         tabBarController.tabBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
         tabBarController.tabBar.alpha = 0.9
         

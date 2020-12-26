@@ -15,7 +15,7 @@ final class MePresenter {
 	private let router: MeRouterInput
 	private let interactor: MeInteractorInput
     
-    private var currentFavoritePlacesById: [Int: CategoryElements.Results] = [:]
+    private var currentPlacesById: [Int: CategoryElements.Results] = [:]
 
     init(router: MeRouterInput, interactor: MeInteractorInput) {
         self.router = router
@@ -27,16 +27,16 @@ extension MePresenter: MeModuleInput {
 }
 
 extension MePresenter: MeViewOutput {
-    var itemsCount: Int {
-        globalAppUser.favoritePlaces.count
+    func itemsCount (arr: [Int]) -> Int {
+        return arr.count
     }
     
-    func item(at index: Int) -> FavoretiPlaceViewCellModel {
-        let currentId = globalAppUser.favoritePlaces[index]
-        if let currentElement = currentFavoritePlacesById[currentId] {
+    func item(at index: Int, at arr: [Int]) -> FavoretiPlaceViewCellModel {
+        let currentId = arr[index]
+        if let currentElement = currentPlacesById[currentId] {
             return FavoretiPlaceViewCellModel(imageURL: currentElement.imageURL, title: currentElement.short_title)
         } else {
-            interactor.loadCurrentCategoryElements(with: currentId)
+            interactor.loadCurrentCategoryElements(with: currentId, with: arr)
         }
         
         return FavoretiPlaceViewCellModel(imageURL: nil, title: String(currentId))
@@ -45,9 +45,9 @@ extension MePresenter: MeViewOutput {
 }
 
 extension MePresenter: MeInteractorOutput {
-    func didLoadCurrentElement( for id: Int, favoriteElement: CategoryElements?) {
-        currentFavoritePlacesById[id] = favoriteElement!.results[0]
-        if let index = globalAppUser.favoritePlaces.firstIndex(of: id){
+    func didLoadCurrentElement( for id: Int, for arr: [Int], element: CategoryElements?) {
+        currentPlacesById[id] = element!.results[0]
+        if let index = arr.firstIndex(of: id){
             view?.update(at: index)
         }
     }

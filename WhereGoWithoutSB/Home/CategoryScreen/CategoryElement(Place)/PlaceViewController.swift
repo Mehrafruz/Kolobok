@@ -59,12 +59,14 @@ class PlaceViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
+       
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setup()
+        didAddPlaceToVisited()
     }
     
     func setup(){
@@ -402,6 +404,24 @@ class PlaceViewController: UIViewController {
             }
         }
     }
+    
+    func didAddPlaceToVisited(){
+        if !globalAppUser.email.isEmpty || !globalAppUser.name.isEmpty{
+            if globalAppUser.viewedPlaces.count > 10{
+                globalAppUser.viewedPlaces.removeFirst()
+                uploadViewedPlaces(currentUserId: globalAppUser.id)
+            }
+            if !(globalAppUser.viewedPlaces.contains(currentElement.id)){
+                globalAppUser.viewedPlaces.append(currentElement.id)
+                uploadViewedPlaces(currentUserId: globalAppUser.id)
+            } else {
+                globalAppUser.viewedPlaces.firstIndex(of: currentElement.id).map { _ = globalAppUser.viewedPlaces.remove(at: $0) }
+                globalAppUser.viewedPlaces.append(currentElement.id)
+                uploadViewedPlaces(currentUserId: globalAppUser.id)
+            }
+        }
+    }
+    
 }
 
 extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -421,6 +441,11 @@ extension PlaceViewController: UICollectionViewDelegate, UICollectionViewDataSou
 }
 
 extension PlaceViewController: FireStoreFavoritePlacesInput{
+    func uploadViewedPlaces(currentUserId: String) {
+        let referenceUsers = Database.database().reference()
+        referenceUsers.child("users/\(currentUserId)/viewedPlaces").setValue(globalAppUser.viewedPlaces)
+    }
+    
     func uploadFavoritePlaces(currentUserId: String) {
         let referenceUsers = Database.database().reference()
         referenceUsers.child("users/\(currentUserId)/favoritePlaces").setValue(globalAppUser.favoritePlaces)

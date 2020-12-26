@@ -19,12 +19,13 @@ final class MeInteractor {
 }
 
 extension MeInteractor: MeInteractorInput {
-    func loadCurrentCategoryElements(with id: Int) {
+
+    func loadCurrentCategoryElements(with id: Int, with arr: [Int]) {
         networkManager.searchElement(id: id) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let searchElement):
-                    self?.output?.didLoadCurrentElement(for: id, favoriteElement: searchElement)
+                    self?.output?.didLoadCurrentElement(for: id, for: arr, element: searchElement)
                 case .failure(let error):
                     self?.output?.didFail(with: error)
                 }

@@ -13,18 +13,19 @@ protocol FireStoreAvatarInput{
     func uploadAvatarURL (currentUserId: String)
 }
 
-
 protocol FireStoreAvatarOutput{
     func loadAvatarURL (avatarURL: String)
 }
 
 protocol FireStoreFavoritePlacesInput{
-    func uploadFavoritePlaces(currentUserId: String)
+    func uploadFavoritePlaces (currentUserId: String)
+    func uploadViewedPlaces (currentUserId: String)
 }
 
 protocol FireStoreFavoritePlacesOutput{
-    func loadFavoritePlaces(currentUserId: String)
-     func getArrayInfo(id: String, key: String, completion: @escaping ([Int]) -> Void)
+    func loadFavoritePlaces (currentUserId: String)
+    func loadViewedPlaces (currentUserId: String)
+    func getArrayInfo (id: String, key: String, completion: @escaping ([Int]) -> Void)
 }
 
 

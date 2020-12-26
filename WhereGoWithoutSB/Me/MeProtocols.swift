@@ -20,16 +20,16 @@ protocol MeViewInput: class {
 }
 
 protocol MeViewOutput: class {
-    var itemsCount: Int { get }
-    func item(at index: Int) -> FavoretiPlaceViewCellModel
+    func itemsCount (arr: [Int]) -> Int
+    func item(at index: Int, at arr: [Int]) -> FavoretiPlaceViewCellModel
 }
 
 protocol MeInteractorInput: class {
-    func loadCurrentCategoryElements(with id: Int)
+    func loadCurrentCategoryElements(with id: Int, with arr: [Int])
 }
 
 protocol MeInteractorOutput: class {
-    func didLoadCurrentElement (for id: Int, favoriteElement: CategoryElements?)
+    func didLoadCurrentElement (for id: Int, for arr: [Int], element: CategoryElements?)
     func didFail(with error: Error)
 }
 

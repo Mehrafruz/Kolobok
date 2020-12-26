@@ -11,7 +11,9 @@ import Foundation
 final class UserSettings{
     
     private enum SettingsKeys: String{
+        case id
         case userName
+        case imageData
     }
     
     static var userName: String!{
@@ -29,5 +31,6 @@ final class UserSettings{
             }
         }
     }
-      //MARK: пока непонятно нужно ли хранить email
+    
+      
 }

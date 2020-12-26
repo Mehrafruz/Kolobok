@@ -164,7 +164,6 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
             if isMathingPass(pasword0: password0, pasword1: password1){
                 Auth.auth().createUser(withEmail: email, password: password0)  { (result, error) in
                     if error == nil{
-                        //                        self.addUserData(name: name, email: "")
                         if let result = result{
                             globalAppUser.id = result.user.uid
                             globalAppUser.name = name

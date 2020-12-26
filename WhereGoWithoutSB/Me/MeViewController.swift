@@ -61,7 +61,8 @@ class MeViewController: UIViewController{
         if globalAppUser.name.isEmpty{
             present(SignInViewController(), animated: true)
         }
-        
+        favoriteCollectionView.reloadData()
+        visitedCollectionView.reloadData()
     }
     
     override func viewDidLoad() {
@@ -79,7 +80,7 @@ class MeViewController: UIViewController{
         setupView("Просмотреное:", visitedView)
         constraintsForVisited(to: avatarImageView, by: 20, visitedView)
         setupView("Избранное:", favoriteView)
-        constraintsForVisited(to: avatarImageView, by: 230, favoriteView)
+        constraintsForVisited(to: avatarImageView, by: 200, favoriteView)
         
         setupCollectionView(visitedCollectionView)
         setupLayouts(visitedCollectionView, visitedView)
@@ -147,9 +148,7 @@ class MeViewController: UIViewController{
     }
     
     private func setupCollectionView(_ collectionView: UICollectionView) {
-        
         view.addSubview(collectionView)
-        
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(MeCollectionViewCell.self, forCellWithReuseIdentifier: MeCollectionViewCell.identifier)
@@ -287,12 +286,24 @@ class MeViewController: UIViewController{
 }
 extension MeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return output.itemsCount
+        if collectionView == favoriteCollectionView{
+            return output.itemsCount(arr: globalAppUser.favoritePlaces)
+        }
+        else if collectionView == visitedCollectionView{
+            return output.itemsCount(arr: globalAppUser.viewedPlaces)
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MeCollectionViewCell.identifier, for: indexPath) as! MeCollectionViewCell
-        let item = output.item(at: indexPath.row)
+        var item = FavoretiPlaceViewCellModel(imageURL: nil, title: "")
+        if collectionView == favoriteCollectionView{
+           item = output.item(at: indexPath.row, at: globalAppUser.favoritePlaces)
+        }
+        else if collectionView == visitedCollectionView{
+           item = output.item(at: indexPath.row, at: globalAppUser.viewedPlaces)
+        }
         cell.configure(with: item)
         return cell
     }
@@ -384,6 +395,11 @@ extension MeViewController: FireStoreAvatarOutput{
 }
 
 extension MeViewController: FireStoreFavoritePlacesInput{
+    func uploadViewedPlaces(currentUserId: String) {
+        let referenceUsers = Database.database().reference()
+        referenceUsers.child("users/\(currentUserId)/viewedPlaces").setValue(globalAppUser.viewedPlaces)
+    }
+    
     func uploadFavoritePlaces(currentUserId: String) {
         let referenceUsers = Database.database().reference()
         referenceUsers.child("users/\(currentUserId)/favoritePlaces").setValue(globalAppUser.favoritePlaces)

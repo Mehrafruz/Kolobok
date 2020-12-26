@@ -168,7 +168,9 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                     self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
                         globalAppUser.avatarURL = resultString
                     }
+
                     self.loadFavoritePlaces(currentUserId: currentUserId ?? "")
+                    self.loadViewedPlaces(currentUserId: currentUserId ?? "")
                     self.dismiss(animated: true, completion: {
                         self.delegate?.dismissWelcomeView()
                     })
@@ -390,6 +392,12 @@ extension SignInViewController: UITextFieldDelegate, UITextViewDelegate{
 
 
 extension SignInViewController: FireStoreFavoritePlacesOutput{
+    func loadViewedPlaces(currentUserId: String) {
+       self.getArrayInfo(id: currentUserId, key: "viewedPlaces") { resultString in
+            globalAppUser.viewedPlaces = resultString
+        }
+    }
+    
     
     func loadFavoritePlaces(currentUserId: String) {
         self.getArrayInfo(id: currentUserId, key: "favoritePlaces") { resultString in
