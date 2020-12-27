@@ -11,6 +11,7 @@ import PinLayout
 
 
 final class CategoryViewController: UIViewController{
+    private var indicatorView = UIActivityIndicatorView(style: .large)
     private let tableView = UITableView()
     private let output: CategoryViewOutput
     private var filterValue: String = ""
@@ -32,7 +33,7 @@ final class CategoryViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        view.backgroundColor = .white
         output.tableView(filter: "")
         setup()
     }
@@ -43,9 +44,16 @@ final class CategoryViewController: UIViewController{
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
-        view.addSubview(tableView)
         tableView.frame = view.frame
+        indicatorView.center = view.center
+        indicatorView.color = ColorPalette.black
         editBurButtons()
+        [tableView, indicatorView].forEach{
+            view.addSubview($0)
+        }
+        
+        tableView.isHidden = true
+        indicatorView.startAnimating()
     }
     
     private func editBurButtons(){
@@ -58,7 +66,6 @@ final class CategoryViewController: UIViewController{
     @objc private func filter(){
         print ("filter is tapd")
         output.didSelectFilter()
-        //тут переходим в раздел фильтр
     }
 }
 
@@ -68,6 +75,8 @@ extension CategoryViewController: CategoryViewInput{
     }
     
     func update() {
+        indicatorView.stopAnimating()
+        tableView.isHidden = false
         tableView.reloadData()
     }
     

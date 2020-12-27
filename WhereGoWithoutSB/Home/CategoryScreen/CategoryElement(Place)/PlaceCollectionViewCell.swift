@@ -10,6 +10,7 @@ import UIKit
 import Kingfisher
 
 class PlaceCollectionViewCell: UICollectionViewCell {
+    private var indicatorView = UIActivityIndicatorView(style: .large)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +32,14 @@ class PlaceCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 12.0
         contentView.backgroundColor = .white
-        contentView.addSubview(placeImageView)
+        indicatorView.center = contentView.center
+        indicatorView.color = ColorPalette.black
+        [placeImageView, indicatorView].forEach{
+            contentView.addSubview($0)
+        }
+        
+        placeImageView.isHidden = true
+        indicatorView.startAnimating()
     }
     
     private func setupLayouts(){
@@ -54,6 +62,8 @@ class PlaceCollectionViewCell: UICollectionViewCell {
             return
         }
         placeImageView.kf.setImage(with: url)
+        placeImageView.isHidden = false
+        indicatorView.stopAnimating()
     }
     
 }

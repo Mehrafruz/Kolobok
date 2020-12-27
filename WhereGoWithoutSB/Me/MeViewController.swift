@@ -120,6 +120,7 @@ class MeViewController: UIViewController{
         settingsTableView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
         settingsTableView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
         settingsTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 20).isActive = true
+        
         settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
