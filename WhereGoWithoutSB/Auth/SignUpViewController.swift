@@ -170,7 +170,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                             globalAppUser.email = email
                             let referenceUsers = Database.database().reference().child("users")
                             referenceUsers.child(result.user.uid).updateChildValues(["name" : name, "email" : email, "avatarURL": globalAppUser.avatarURL, "favoritePlaces": globalAppUser.favoritePlaces, "viewedPlaces" : globalAppUser.viewedPlaces])
-                            
+                            self.saveUser(id: globalAppUser.id, name: name, rememberUser: true)
                         }
                         self.dismiss(animated: true, completion:{
                             self.delegate?.dismissWelcomeView1()
@@ -193,6 +193,9 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
            displayAlert(with: title , message: reason, actions: [action])
        }
     
+    func saveUser(id: String, name: String, rememberUser: Bool){
+        self.addUserData(id: id, name: name, imageData: "", rememberUser: rememberUser)
+    }
     
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){
         label.font = UIFont(name: "POEVeticaVanta", size: fontSize)

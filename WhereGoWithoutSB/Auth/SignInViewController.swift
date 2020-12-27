@@ -16,9 +16,8 @@ protocol SignInDelegate: AnyObject{
 }
 
 class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
-    
+
     weak var delegate: SignInDelegate?
-    
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
     private var loginLabel = UILabel()
@@ -119,7 +118,8 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         addConstraint()
     }
     
-    @objc func didClickedGoBackButton() {
+    @objc
+    func didClickedGoBackButton() {
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -138,7 +138,8 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         }
     }
     
-    @objc func didClickedSignInButton() {
+    @objc
+    func didClickedSignInButton() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
         
@@ -157,18 +158,17 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         if (!email.isEmpty && !password.isEmpty){
             Auth.auth().signIn(withEmail: email, password: password) { (result, error) in
                 if error == nil {
-                   
                     let currentUserId = Auth.auth().currentUser?.uid
                     self.getInfo(id: currentUserId ?? "", key: "name") { resultString in
                         globalAppUser.id = String(currentUserId ?? "")
                         globalAppUser.name = resultString
                         globalAppUser.email = email
-                        //self.addUserData(name: name, email: "")   //MARK: пока непонятно нужно ли хранить email
+                        self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
+                            globalAppUser.avatarURL = resultString
+                            self.saveUser(id: globalAppUser.id, name: globalAppUser.name, imageData: globalAppUser.avatarURL, rememberUser: !self.flag)
+                        }
                     }
-                    self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
-                        globalAppUser.avatarURL = resultString
-                    }
-
+                   
                     self.loadFavoritePlaces(currentUserId: currentUserId ?? "")
                     self.loadViewedPlaces(currentUserId: currentUserId ?? "")
                     self.dismiss(animated: true, completion: {
@@ -189,6 +189,11 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
             result = DataSnapshot.value as? String ?? "0"
             completion(result)
         }
+    }
+    
+    func saveUser(id: String, name: String, imageData: String, rememberUser: Bool){
+        self.addUserData(id: id, name: name, imageData: imageData, rememberUser: rememberUser)
+    
     }
     
     func showAlert(reason: String){

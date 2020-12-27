@@ -38,6 +38,7 @@
 		EF405D512589419800588EC8 /* SearchElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D502589419800588EC8 /* SearchElements.swift */; };
 		EF405D53258A24D300588EC8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */; };
 		EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */; };
+		EF43D61B25980EC100B4529E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43D61A25980EC100B4529E /* SettingsViewController.swift */; };
 		EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDD2585162900E6D034 /* MapPresenter.swift */; };
 		EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDE2585162A00E6D034 /* MapRouter.swift */; };
 		EF5ADBE42585162A00E6D034 /* MapProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */; };
@@ -102,6 +103,7 @@
 		EF405D502589419800588EC8 /* SearchElements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchElements.swift; sourceTree = "<group>"; };
 		EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInMapViewController.swift; sourceTree = "<group>"; };
+		EF43D61A25980EC100B4529E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		EF5ADBDD2585162900E6D034 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
 		EF5ADBDE2585162A00E6D034 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
 		EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProtocols.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				EF7E560E2593F4B0009B7257 /* MeInteractor.swift */,
 				EF7E560F2593F4B0009B7257 /* MeContainer.swift */,
 				EF7E56152593FBA9009B7257 /* MeCollectionViewCell.swift */,
+				EF43D61A25980EC100B4529E /* SettingsViewController.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				EFAAB0702564662B00900DE0 /* CategoryContainer.swift in Sources */,
 				EF7E56132593F4B0009B7257 /* MeInteractor.swift in Sources */,
 				EFAEC6F6258F98B500AF154B /* GlobalVariables.swift in Sources */,
+				EF43D61B25980EC100B4529E /* SettingsViewController.swift in Sources */,
 				EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */,
 				EFAEC6FB258FCD8900AF154B /* UserSettings.swift in Sources */,
 				EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */,

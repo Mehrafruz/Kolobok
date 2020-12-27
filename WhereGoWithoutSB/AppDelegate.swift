@@ -42,11 +42,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         // MARK: Содержимое кномки выйти из аккаунта, пока не решено куда ее лепить
-        do{
-            try Auth.auth().signOut()
-        } catch {
-            print ("не удалось выйти из аккаунта")
+        if UserSettings.rememberUser != nil {
+            if UserSettings.rememberUser{
+                globalAppUser.id = UserSettings.id
+                globalAppUser.name = UserSettings.userName
+                globalAppUser.avatarURL = UserSettings.imageData
+                self.loadFavoritePlaces(currentUserId: UserSettings.id)
+                self.loadViewedPlaces(currentUserId: UserSettings.id)
+            }
+            if !UserSettings.rememberUser{
+                do{
+                    try Auth.auth().signOut()
+                    let domain = Bundle.main.bundleIdentifier!
+                    UserDefaults.standard.removePersistentDomain(forName: domain)
+                    UserDefaults.standard.synchronize()
+                    print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+                    
+                } catch {
+                    print ("не удалось выйти из аккаунта")
+                }
+            }
+        } else if UserSettings.userName == nil {
+            do{
+                try Auth.auth().signOut()
+                let domain = Bundle.main.bundleIdentifier!
+                UserDefaults.standard.removePersistentDomain(forName: domain)
+                UserDefaults.standard.synchronize()
+                print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+                
+            } catch {
+                print ("не удалось выйти из аккаунта")
+            }
         }
+
         
         Auth.auth().addStateDidChangeListener { (auth, user) in
             if user == nil{
@@ -91,9 +119,34 @@ extension AppDelegate: UITabBarControllerDelegate{
     private func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         let tabBarIndex = tabBarController.selectedIndex
         if tabBarIndex == 2{
-            print ("___________Some--------------")
-            
         }
     }
+}
+
+
+extension AppDelegate: FireStoreFavoritePlacesOutput{
+    func loadViewedPlaces(currentUserId: String) {
+        self.getArrayInfo(id: currentUserId, key: "viewedPlaces") { resultString in
+            globalAppUser.viewedPlaces = resultString
+        }
+    }
+    
+    
+    func loadFavoritePlaces(currentUserId: String) {
+        self.getArrayInfo(id: currentUserId, key: "favoritePlaces") { resultString in
+            globalAppUser.favoritePlaces = resultString
+        }
+    }
+    
+    func getArrayInfo(id: String, key: String, completion: @escaping ([Int]) -> Void) {
+        var result: [Int] = []
+        let rootReference = Database.database().reference()
+        let nameReference = rootReference.child("users").child(id).child(key)
+        nameReference.observeSingleEvent(of: .value) { (DataSnapshot) in
+            result = DataSnapshot.value as? [Int] ?? []
+            completion(result)
+        }
+    }
+    
 }
 

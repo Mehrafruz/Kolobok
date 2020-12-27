@@ -388,7 +388,7 @@ class PlaceViewController: UIViewController {
     
     @objc
     func didClickedLikeButton(){
-        if globalAppUser.email.isEmpty || globalAppUser.name.isEmpty{
+        if globalAppUser.name.isEmpty{
             present(SignInViewController(), animated: true)
         } else {
             let currentId = currentElement.id

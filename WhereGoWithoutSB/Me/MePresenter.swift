@@ -27,6 +27,14 @@ extension MePresenter: MeModuleInput {
 }
 
 extension MePresenter: MeViewOutput {
+    func didSelect(at id: Int) {
+        guard let currentPlace = currentPlacesById[id] else {
+            return
+        }
+        router.show(currentPlace)
+       
+    }
+    
     func itemsCount (arr: [Int]) -> Int {
         return arr.count
     }
@@ -39,7 +47,7 @@ extension MePresenter: MeViewOutput {
             interactor.loadCurrentCategoryElements(with: currentId, with: arr)
         }
         
-        return FavoretiPlaceViewCellModel(imageURL: nil, title: String(currentId))
+        return FavoretiPlaceViewCellModel(imageURL: nil, title: "")
     }
     
 }

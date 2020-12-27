@@ -22,6 +22,7 @@ protocol MeViewInput: class {
 protocol MeViewOutput: class {
     func itemsCount (arr: [Int]) -> Int
     func item(at index: Int, at arr: [Int]) -> FavoretiPlaceViewCellModel
+    func didSelect(at id: Int)
 }
 
 protocol MeInteractorInput: class {

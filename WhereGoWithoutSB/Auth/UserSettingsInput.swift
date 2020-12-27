@@ -9,12 +9,15 @@
 import Foundation
 
 protocol UserSettingsInput {
-    func addUserData(name: String, email: String)
+    func addUserData(id: String, name: String, imageData: String, rememberUser: Bool)
 }
 
 extension UserSettingsInput{
-    func addUserData(name: String, email: String){
+    func addUserData(id: String, name: String, imageData: String, rememberUser: Bool){
+        UserSettings.id = id
         UserSettings.userName = name
-        //MARK: пока непонятно нужно ли хранить email
+        UserSettings.imageData = imageData
+        UserSettings.rememberUser = rememberUser
     }
+    
 }

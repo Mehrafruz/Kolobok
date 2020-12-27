@@ -7,14 +7,14 @@ class MeViewController: UIViewController{
     
     private let output: MeViewOutput
     
-    let tempButton = UIButton()
+    private var scrollView = UIScrollView()
     let titleLabel = UILabel()
     let avatarImageView = UIImageView()
     let avatarImagPickerController = UIImagePickerController()
     let changeAvatarButton = UIButton()
     let visitedView = UILabel()
     let favoriteView = UILabel()
-    let settings: [String] = ["Настройки", "Помощь"]
+    let settings: [String] = ["Настройки", "Выйти"]
     
     private let visitedCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
@@ -40,6 +40,7 @@ class MeViewController: UIViewController{
     
     private var settingsTableView : UITableView = {
         let tableView = UITableView()
+        tableView.tableFooterView = UIView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -65,6 +66,12 @@ class MeViewController: UIViewController{
         visitedCollectionView.reloadData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+           //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
+           scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 800)
+          
+       }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Аккаунт"
@@ -73,13 +80,14 @@ class MeViewController: UIViewController{
     }
     
     func setup(){
+        //scrollView.contentOffset = CGPoint.zero
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        
         setupTitleView()
-        
-        
         setupAvatarImage()
-        setupView("Просмотреное:", visitedView)
+        setupView("Просмотреное", visitedView)
         constraintsForVisited(to: avatarImageView, by: 20, visitedView)
-        setupView("Избранное:", favoriteView)
+        setupView("Избранное", favoriteView)
         constraintsForVisited(to: avatarImageView, by: 200, favoriteView)
         
         setupCollectionView(visitedCollectionView)
@@ -90,8 +98,10 @@ class MeViewController: UIViewController{
         setupLittleButton(button: changeAvatarButton, imageName: "", bgImageName: "square.and.pencil", tintColor: ColorPalette.blue)
         changeAvatarButton.addTarget(self, action: #selector(didChangeAvatar), for: .touchUpInside)
         
+        view.addSubview(scrollView)
+        
         [changeAvatarButton].forEach{
-            view.addSubview(($0))
+            scrollView.addSubview(($0))
         }
         addConstraints()
     }
@@ -101,15 +111,15 @@ class MeViewController: UIViewController{
     }
     
     func setupTableView() {
-        view.addSubview(settingsTableView)
+        scrollView.addSubview(settingsTableView)
         
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
         
         settingsTableView.topAnchor.constraint(equalTo: favoriteCollectionView.bottomAnchor, constant: 16).isActive = true
-        settingsTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        settingsTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        settingsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
+        settingsTableView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
+        settingsTableView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
+        settingsTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 20).isActive = true
         settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
@@ -148,7 +158,7 @@ class MeViewController: UIViewController{
     }
     
     private func setupCollectionView(_ collectionView: UICollectionView) {
-        view.addSubview(collectionView)
+        scrollView.addSubview(collectionView)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(MeCollectionViewCell.self, forCellWithReuseIdentifier: MeCollectionViewCell.identifier)
@@ -161,18 +171,18 @@ class MeViewController: UIViewController{
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: upperView.bottomAnchor, constant: -10),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            collectionView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 130)
         ])
     }
     
     
     func setupView(_ titleName: String, _ viewLabel: UILabel) {
-        view.addSubview(viewLabel)
+        scrollView.addSubview(viewLabel)
         viewLabel.backgroundColor = .white
         viewLabel.text = titleName
-        viewLabel.font = UIFont(name: "POEVeticaVanta", size: 20)
+        viewLabel.font = UIFont(name: "POEVeticaVanta", size: 22)
         viewLabel.adjustsFontSizeToFitWidth = true
         viewLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -187,7 +197,7 @@ class MeViewController: UIViewController{
         } else {
             loadAvatarURL(avatarURL: globalAppUser.avatarURL)
         }
-        view.addSubview(avatarImageView)
+        scrollView.addSubview(avatarImageView)
         let indent: CGFloat = 144.0
         let width = UIScreen.main.bounds.width - indent * 2
         
@@ -202,7 +212,7 @@ class MeViewController: UIViewController{
     
     
     func setupTitleView() {
-        view.addSubview(titleLabel)
+        scrollView.addSubview(titleLabel)
         titleLabel.backgroundColor = .white
         titleLabel.text = globalAppUser.name
         titleLabel.font = UIFont(name: "POEVeticaVanta", size: 30)
@@ -212,20 +222,20 @@ class MeViewController: UIViewController{
         
     }
     
-   
+    
     
     func constraintsForTitle() {
         let horizontalConstraint = NSLayoutConstraint(item: titleLabel,
                                                       attribute: .top,
                                                       relatedBy: .equal,
-                                                      toItem: view.safeAreaLayoutGuide,
+                                                      toItem: scrollView.safeAreaLayoutGuide,
                                                       attribute: .top,
                                                       multiplier: 1,
-                                                      constant: 20)
+                                                      constant: 35)
         let verticalCenter = NSLayoutConstraint(item: titleLabel,
                                                 attribute: .centerX,
                                                 relatedBy: .equal,
-                                                toItem: view,
+                                                toItem: scrollView,
                                                 attribute: .centerX,
                                                 multiplier: 1,
                                                 constant: 0)
@@ -245,7 +255,7 @@ class MeViewController: UIViewController{
     fileprivate func constrainsForAva(_ indent: CGFloat, _ width: CGFloat) {
         
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.centerXAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.centerXAnchor, multiplier: 1).isActive = true //
+        avatarImageView.centerXAnchor.constraint(equalToSystemSpacingAfter: scrollView.safeAreaLayoutGuide.centerXAnchor, multiplier: 1).isActive = true //
         avatarImageView.heightAnchor.constraint(equalToConstant: width).isActive = true
         avatarImageView.widthAnchor.constraint(equalToConstant: width).isActive = true
         avatarImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
@@ -265,7 +275,7 @@ class MeViewController: UIViewController{
         let verticalConstraint = NSLayoutConstraint(item: sendView,
                                                     attribute: .leading,
                                                     relatedBy: .equal,
-                                                    toItem: view,
+                                                    toItem: scrollView,
                                                     attribute: .leading,
                                                     multiplier: 1,
                                                     constant: 20)
@@ -286,10 +296,10 @@ class MeViewController: UIViewController{
 }
 extension MeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == favoriteCollectionView{
+        if collectionView === favoriteCollectionView{
             return output.itemsCount(arr: globalAppUser.favoritePlaces)
         }
-        else if collectionView == visitedCollectionView{
+        else if collectionView === visitedCollectionView{
             return output.itemsCount(arr: globalAppUser.viewedPlaces)
         }
         return 0
@@ -298,17 +308,28 @@ extension MeViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MeCollectionViewCell.identifier, for: indexPath) as! MeCollectionViewCell
         var item = FavoretiPlaceViewCellModel(imageURL: nil, title: "")
-        if collectionView == favoriteCollectionView{
-           item = output.item(at: indexPath.row, at: globalAppUser.favoritePlaces)
+        if collectionView === favoriteCollectionView{
+            item = output.item(at: indexPath.row, at: globalAppUser.favoritePlaces)
         }
-        else if collectionView == visitedCollectionView{
-           item = output.item(at: indexPath.row, at: globalAppUser.viewedPlaces)
+        else if collectionView === visitedCollectionView{
+            item = output.item(at: indexPath.row, at: globalAppUser.viewedPlaces)
         }
         cell.configure(with: item)
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView === favoriteCollectionView{
+            output.didSelect(at: globalAppUser.favoritePlaces[indexPath.row])
+        }
+        if collectionView === visitedCollectionView{
+            output.didSelect(at: globalAppUser.viewedPlaces[indexPath.row])
+        }
+    }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
 }
 
 extension MeViewController: UICollectionViewDelegate {
@@ -323,9 +344,23 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel!.text = settings[indexPath.row]
+        cell.textLabel?.textAlignment = .right
+        if indexPath.row == 1{
+            cell.textLabel?.textColor = .red
+        }
         cell.textLabel?.font = UIFont(name: "POEVeticaVanta", size: 16)
         cell.accessoryType = .disclosureIndicator
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            present(SettingsViewController(), animated: true)
+        }
+        
+        if indexPath.row == 1{
+            showAlert(reason: "")
+        }
     }
     
 }
@@ -351,7 +386,7 @@ extension MeViewController: UIImagePickerControllerDelegate, UINavigationControl
 }
 
 extension MeViewController: FireStoreAvatarInput{
-
+    
     func uploadAvatarImage(currentUserId: String, photo: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
         
         let ref = Storage.storage().reference().child("avatars").child(currentUserId)
@@ -414,5 +449,26 @@ extension MeViewController: MeViewInput{
         visitedCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
     }
     
+    
+}
+
+extension MeViewController: AlertDisplayer{
+    func showAlert(reason: String){
+        let title = "Вы дейсвительно хотите выйти?"
+        let exit = UIAlertAction(title: "Выйти", style: .default, handler: { action in
+            do{
+                try Auth.auth().signOut()
+                let domain = Bundle.main.bundleIdentifier!
+                UserDefaults.standard.removePersistentDomain(forName: domain)
+                UserDefaults.standard.synchronize()
+                print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
+                
+            } catch {
+                print ("не удалось выйти из аккаунта")
+            }
+        })
+        let cancel = UIAlertAction(title: "Отмена", style: .default)
+        displayAlert(with: title , message: reason, actions: [exit,cancel])
+    }
     
 }
