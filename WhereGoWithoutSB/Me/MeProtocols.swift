@@ -16,7 +16,8 @@ protocol MeModuleOutput: class {
 }
 
 protocol MeViewInput: class {
-    func update(at index: Int)
+    func updateFavoriteCollectionViewCell(at index: Int)
+    func updateVisitedCollectionViewCell(at index: Int)
 }
 
 protocol MeViewOutput: class {

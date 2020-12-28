@@ -445,11 +445,14 @@ extension MeViewController: FireStoreFavoritePlacesInput{
 }
 
 extension MeViewController: MeViewInput{
-    func update(at index: Int) {
+    func updateFavoriteCollectionViewCell(at index: Int) {
         favoriteCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-        visitedCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+       
     }
     
+    func updateVisitedCollectionViewCell(at index: Int){
+        visitedCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
+    }
     
 }
 

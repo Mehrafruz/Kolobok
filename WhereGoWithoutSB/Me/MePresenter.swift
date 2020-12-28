@@ -40,7 +40,7 @@ extension MePresenter: MeViewOutput {
     }
     
     func item(at index: Int, at arr: [Int]) -> FavoretiPlaceViewCellModel {
-        let currentId = arr[index]
+        let currentId = arr.reversed()[index]
         if let currentElement = currentPlacesById[currentId] {
             return FavoretiPlaceViewCellModel(imageURL: currentElement.imageURL, title: currentElement.short_title)
         } else {
@@ -56,7 +56,13 @@ extension MePresenter: MeInteractorOutput {
     func didLoadCurrentElement( for id: Int, for arr: [Int], element: CategoryElements?) {
         currentPlacesById[id] = element!.results[0]
         if let index = arr.firstIndex(of: id){
-            view?.update(at: index)
+            if arr == globalAppUser.favoritePlaces{
+                view?.updateFavoriteCollectionViewCell(at: index)
+            }
+            if arr == globalAppUser.viewedPlaces{
+                view?.updateVisitedCollectionViewCell(at: index)
+            }
+            
         }
     }
     

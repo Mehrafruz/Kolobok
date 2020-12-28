@@ -58,7 +58,7 @@ class PlaceViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1080)
        
     }
     
@@ -291,14 +291,14 @@ class PlaceViewController: UIViewController {
             adressImageView.heightAnchor.constraint(equalToConstant: 30),
             adressImageView.widthAnchor.constraint(equalToConstant: 30),
             adressImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 750),
-            adressImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 20),
+            adressImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
         ])
         
         NSLayoutConstraint.activate([
             adressLabel.heightAnchor.constraint(equalToConstant: 60),
             adressLabel.widthAnchor.constraint(equalToConstant: 350),
             adressLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 740),
-            adressLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 50),
+            adressLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
             adressLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
@@ -312,15 +312,15 @@ class PlaceViewController: UIViewController {
         NSLayoutConstraint.activate([
             timeImageView.heightAnchor.constraint(equalToConstant: 25),
             timeImageView.widthAnchor.constraint(equalToConstant: 25),
-            timeImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 798),
-            timeImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 20),
+            timeImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 810),
+            timeImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
         ])
         
         NSLayoutConstraint.activate([
             timeTableLabel.heightAnchor.constraint(equalToConstant: 60),
             timeTableLabel.widthAnchor.constraint(equalToConstant: 350),
             timeTableLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 795),
-            timeTableLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 50),
+            timeTableLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
             timeTableLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
@@ -334,15 +334,15 @@ class PlaceViewController: UIViewController {
         NSLayoutConstraint.activate([
             subwayImageView.heightAnchor.constraint(equalToConstant: 25),
             subwayImageView.widthAnchor.constraint(equalToConstant: 25),
-            subwayImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 842),
-            subwayImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 20),
+            subwayImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 865),
+            subwayImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
         ])
         
         NSLayoutConstraint.activate([
             subwayLabel.heightAnchor.constraint(equalToConstant: 60),
             subwayLabel.widthAnchor.constraint(equalToConstant: 350),
-            subwayLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 860),
-            subwayLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 50),
+            subwayLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 850),
+            subwayLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
             subwayLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
@@ -356,15 +356,15 @@ class PlaceViewController: UIViewController {
         NSLayoutConstraint.activate([
             phoneImageView.heightAnchor.constraint(equalToConstant: 25),
             phoneImageView.widthAnchor.constraint(equalToConstant: 25),
-            phoneImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 886),
-            phoneImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 20),
+            phoneImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 920),
+            phoneImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
         ])
         
         NSLayoutConstraint.activate([
             phoneLabel.heightAnchor.constraint(equalToConstant: 60),
             phoneLabel.widthAnchor.constraint(equalToConstant: 350),
             phoneLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 905),
-            phoneLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 50),
+            phoneLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
             phoneLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
