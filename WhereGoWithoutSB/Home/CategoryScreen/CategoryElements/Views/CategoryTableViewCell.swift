@@ -117,8 +117,17 @@ class CategoryTableViewCell: UITableViewCell {
         categoryImageView.kf.setImage(with: model.imageURL)
         titleLabel.text = model.title
         adressLabel.text = model.adress
-        timeLabel.text = model.timeString
-        subwayLabel.text = model.subway
+        if !model.timeString!.isEmpty{
+            timeLabel.text = model.timeString
+        } else {
+            timeLabel.text = "не регламентированно"
+        }
+        if !model.subway!.isEmpty{
+            subwayLabel.text = model.subway
+        } else {
+            subwayLabel.text = "далеко от метро"
+        }
+        
         setNeedsLayout()
     }
 

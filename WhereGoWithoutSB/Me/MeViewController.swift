@@ -27,6 +27,15 @@ class MeViewController: UIViewController{
         return collectionView
     }()
     
+    //var timer = Timer()
+    
+    @objc
+    func timerAction() {
+        favoriteCollectionView.reloadData()
+        visitedCollectionView.reloadData()
+        print ("1")
+    }
+    
     private let favoriteCollectionView: UICollectionView = {
         let viewLayout = UICollectionViewFlowLayout()
         
@@ -62,8 +71,7 @@ class MeViewController: UIViewController{
         if globalAppUser.name.isEmpty{
             present(SignInViewController(), animated: true)
         }
-        favoriteCollectionView.reloadData()
-        visitedCollectionView.reloadData()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -77,6 +85,8 @@ class MeViewController: UIViewController{
         navigationItem.title = "Аккаунт"
         view.backgroundColor = .systemBackground
         setup()
+        _ = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+
     }
     
     func setup(){
@@ -316,15 +326,18 @@ extension MeViewController: UICollectionViewDataSource{
             item = output.item(at: indexPath.row, at: globalAppUser.viewedPlaces)
         }
         cell.configure(with: item)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView === favoriteCollectionView{
-            output.didSelect(at: globalAppUser.favoritePlaces[indexPath.row])
+            let id = globalAppUser.favoritePlaces[indexPath.row]
+            output.didSelect(at: id)
         }
         if collectionView === visitedCollectionView{
-            output.didSelect(at: globalAppUser.viewedPlaces[indexPath.row])
+            let id = globalAppUser.viewedPlaces.reversed()[indexPath.row]
+            output.didSelect(at: id)
         }
     }
     
@@ -358,11 +371,12 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource{
         if indexPath.row == 0{
             present(SettingsViewController(), animated: true)
         }
-        
         if indexPath.row == 1{
             showAlert(reason: "")
         }
+        tableView.deselectRow(at: indexPath, animated: false)
     }
+    
     
 }
 
@@ -447,7 +461,6 @@ extension MeViewController: FireStoreFavoritePlacesInput{
 extension MeViewController: MeViewInput{
     func updateFavoriteCollectionViewCell(at index: Int) {
         favoriteCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-       
     }
     
     func updateVisitedCollectionViewCell(at index: Int){
