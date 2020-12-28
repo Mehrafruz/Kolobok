@@ -188,7 +188,6 @@ class SortingViewController: UIViewController {
     
     @objc
     func didClickedEmplyButton() {
-        self.dismiss(animated: true, completion: nil)
         if !flagRankPlaces && flagPopularPlaces{
             categoryView?.upplyFilter(with: "-favorites_count")
             categoryView?.update()
@@ -201,6 +200,7 @@ class SortingViewController: UIViewController {
             categoryView?.upplyFilter(with: "-favorites_count,rank")
             categoryView?.update()
         }
+         self.dismiss(animated: true, completion: nil)
     }
 }
 

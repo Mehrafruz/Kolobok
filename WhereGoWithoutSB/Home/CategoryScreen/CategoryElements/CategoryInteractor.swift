@@ -22,10 +22,11 @@ final class CategoryInteractor {
 
 extension CategoryInteractor: CategoryInteractorInput{
     func loadCurrentCategoryElements(with filter: String, with page: Int) {
-        networkManager.categoryElements(category: self.category, filter: filter, pageInt: 1) { [weak self] (result) in
+        networkManager.categoryElements(category: self.category, filter: filter, pageInt: page) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categoryElements):
+                    print (categoryElements)
                     self?.output?.didLoadCurrentCategoryElements(currentCategoryElements: categoryElements)
                 case .failure(let error):
                     self?.output?.didFail(with: error)

@@ -69,7 +69,7 @@ extension CategoryPresenter: CategoryViewOutput {
 
 extension CategoryPresenter: CategoryInteractorOutput {
     func didLoadCurrentCategoryElements(currentCategoryElements: CategoryElements?) {
-        categoryElements.append(contentsOf: currentCategoryElements!.results)
+        categoryElements = currentCategoryElements!.results
         if !categoryElements.isEmpty{
             view?.update()
         }
