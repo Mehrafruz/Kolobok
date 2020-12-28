@@ -60,16 +60,16 @@ extension CategoryPresenter: CategoryViewOutput {
         return categoryElements.count
        }
     
-    func isLoadingCell(for indexPath: IndexPath) -> Bool {
-      return indexPath.row >= itemsCount
-    }
+//    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+//      return indexPath.row >= itemsCount
+//    }
     
     
 }
 
 extension CategoryPresenter: CategoryInteractorOutput {
     func didLoadCurrentCategoryElements(currentCategoryElements: CategoryElements?) {
-        categoryElements = currentCategoryElements!.results
+        categoryElements.append(contentsOf: currentCategoryElements!.results)
         if !categoryElements.isEmpty{
             view?.update()
         }

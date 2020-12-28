@@ -13,7 +13,7 @@ class PlaceInMapViewController: UIViewController {
     
     private var lat: Double
     private var lon: Double
-    
+    private let routeButton = UIButton()
     private let contentView = UIView()
     private let mapView = YMKMapView()
     private let goBackButton = UIButton()
@@ -62,10 +62,14 @@ class PlaceInMapViewController: UIViewController {
     private func setup(){
         setupLittleButton(button: goBackButton, imageName: "", bgImageName: "arrow.left", tintColor: ColorPalette.black)
         setupLittleButton(button: userLocationButton, imageName: "location.fill", bgImageName: "", tintColor: ColorPalette.black)
+        setupButton(button: routeButton, title: "Маршрут", color: ColorPalette.gray, textColor: ColorPalette.black)
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
+        routeButton.addTarget(self, action: #selector(didclickedRouteButton), for: .touchUpInside)
+        
         userLocationButton.addTarget(self, action: #selector(didClickedUserLocationButton), for: .touchUpInside)
         userLocationButton.backgroundColor = ColorPalette.gray
         userLocationButton.alpha = 0.75
+        routeButton.alpha = 0.75
         
         contentView.layer.cornerRadius = 15
         contentView.layer.masksToBounds = true
@@ -73,7 +77,7 @@ class PlaceInMapViewController: UIViewController {
         view.addSubview(contentView)
         contentView.addSubview(mapView)
         
-        [goBackButton, userLocationButton].forEach {
+        [goBackButton, userLocationButton, routeButton].forEach {
             mapView.addSubview($0)
         }
         
@@ -81,7 +85,7 @@ class PlaceInMapViewController: UIViewController {
     }
     
     private func addConstraints(){
-        [contentView, mapView, goBackButton, userLocationButton].forEach{
+        [contentView, mapView, goBackButton, userLocationButton, routeButton].forEach{
             ($0).translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -107,8 +111,15 @@ class PlaceInMapViewController: UIViewController {
         NSLayoutConstraint.activate([
             userLocationButton.widthAnchor.constraint(equalToConstant: 50),
             userLocationButton.heightAnchor.constraint(equalToConstant: 50),
-            userLocationButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -100),
+            userLocationButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -170),
             userLocationButton.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -30)
+        ])
+        
+        NSLayoutConstraint.activate([
+            routeButton.widthAnchor.constraint(equalToConstant: 80),
+            routeButton.heightAnchor.constraint(equalToConstant: 45),
+            routeButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -100),
+            routeButton.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -15)
         ])
         
     }
@@ -126,9 +137,31 @@ class PlaceInMapViewController: UIViewController {
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
     
-    @objc func didClickedGoBackButton() {
+    func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
+        button.setTitle(title, for: UIControl.State.normal)
+        button.setTitleColor(textColor, for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont(name: "POEVeticaVanta", size: 15)
+        button.backgroundColor = color
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.layer.shadowRadius = 3.0
+        button.layer.shadowOpacity = 0.5
+        button.layer.masksToBounds = false
+        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+    }
+    
+    @objc
+    func didClickedGoBackButton() {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    @objc
+    func didclickedRouteButton(){
+        if let url = URL(string: "https://yandex.ru/maps/?rtext=~\(lat),\(lon)") {
+            UIApplication.shared.open(url)
+        }
+    }
+    
 }
 
 extension PlaceInMapViewController:YMKLayersGeoObjectTapListener, YMKMapInputListener, YMKTrafficDelegate,YMKMapCameraListener, YMKUserLocationObjectListener{ //MKUserLocationObjectListener

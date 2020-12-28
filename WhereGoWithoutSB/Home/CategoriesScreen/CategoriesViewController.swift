@@ -57,12 +57,13 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         let context = SearchContext()
         let container = SearchContainer.assemble(with: context)
         self.navigationController?.pushViewController(container.viewController, animated: false)
         self.navigationController?.navigationBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
         self.navigationController?.navigationBar.topItem?.title = "Отмена"
-        searchBar.endEditing(true)
+        
     }
     
     override func viewDidLayoutSubviews() {

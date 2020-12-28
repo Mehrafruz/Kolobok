@@ -65,7 +65,7 @@ class MapViewController: UIViewController{
     }
     
     private func addConstraints() {
-        [mapView, userLocationButton].forEach {
+        [mapView, userLocationButton ].forEach {
             ($0).translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -79,9 +79,10 @@ class MapViewController: UIViewController{
         NSLayoutConstraint.activate([
             userLocationButton.widthAnchor.constraint(equalToConstant: 50),
             userLocationButton.heightAnchor.constraint(equalToConstant: 50),
-            userLocationButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -100),
+            userLocationButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -160),
             userLocationButton.rightAnchor.constraint(equalTo: self.mapView.rightAnchor, constant: -30)
         ])
+        
     }
     
     
@@ -97,6 +98,20 @@ class MapViewController: UIViewController{
         button.layer.masksToBounds = false
         button.layer.shadowOffset = CGSize(width: 0, height: 3)
     }
+    
+    func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
+           button.setTitle(title, for: UIControl.State.normal)
+           button.setTitleColor(textColor, for: UIControl.State.normal)
+           button.titleLabel?.font = UIFont(name: "POEVeticaVanta", size: 15)
+           button.backgroundColor = color
+           button.layer.zPosition = 1.5
+           button.layer.cornerRadius = 20
+           button.clipsToBounds = true
+           button.layer.shadowRadius = 4.0
+           button.layer.shadowOpacity = 0.6
+           button.layer.masksToBounds = false
+           button.layer.shadowOffset = CGSize(width: 0, height: 4)
+       }
     
 }
 
@@ -147,6 +162,8 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
         userLocationLayer.setObjectListenerWith(self)
     }
     
+    
+    
     func onClusterAdded(with cluster: YMKCluster) {
         
     }
@@ -154,6 +171,7 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
     
     func onMapObjectTap(with mapObject: YMKMapObject, point: YMKPoint) -> Bool {
         guard let userPoint = mapObject as? YMKPlacemarkMapObject else {
+            print (point)
             return true
         }
         output.didSelect(at: userPoint.userData as! Int)

@@ -42,7 +42,7 @@ final class CategoryViewController: UIViewController{
     private func setup() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.prefetchDataSource = self
+       // tableView.prefetchDataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         tableView.frame = view.frame
@@ -84,13 +84,13 @@ extension CategoryViewController: CategoryViewInput{
     
 }
 
-extension CategoryViewController: UITableViewDataSource, UITableViewDelegate, UITableViewDataSourcePrefetching {
-    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
-        if indexPaths.contains(where: output.isLoadingCell) {
-            print ("some")
-         // viewModel.fetchModerators()
-        }
-    }
+extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {  //UITableViewDataSourcePrefetching
+//    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+//        if indexPaths.contains(where: output.isLoadingCell) {
+//            print ("some")
+//         // viewModel.fetchModerators()
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return output.itemsCount
