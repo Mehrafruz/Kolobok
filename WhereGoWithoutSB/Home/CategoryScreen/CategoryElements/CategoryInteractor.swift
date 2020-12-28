@@ -26,7 +26,6 @@ extension CategoryInteractor: CategoryInteractorInput{
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categoryElements):
-                    print (categoryElements)
                     self?.output?.didLoadCurrentCategoryElements(currentCategoryElements: categoryElements)
                 case .failure(let error):
                     self?.output?.didFail(with: error)
