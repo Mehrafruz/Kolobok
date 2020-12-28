@@ -60,6 +60,10 @@ extension CategoryPresenter: CategoryViewOutput {
         return categoryElements.count
        }
     
+    func isLoadingCell(for indexPath: IndexPath) -> Bool {
+      return indexPath.row >= itemsCount
+    }
+    
     
 }
 

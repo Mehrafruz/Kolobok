@@ -8,12 +8,12 @@ class MeViewController: UIViewController{
     private let output: MeViewOutput
     
     private var scrollView = UIScrollView()
-    let titleLabel = UILabel()
+    let nameLabel = UILabel()
     let avatarImageView = UIImageView()
     let avatarImagPickerController = UIImagePickerController()
     let changeAvatarButton = UIButton()
-    let visitedView = UILabel()
-    let favoriteView = UILabel()
+    let visitedLabel = UILabel()
+    let favoriteLabel = UILabel()
     let settings: [String] = ["Настройки", "Выйти"]
     
     private let visitedCollectionView: UICollectionView = {
@@ -68,7 +68,7 @@ class MeViewController: UIViewController{
     
     override func viewDidAppear(_ animated: Bool) {
            //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
-           scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 800)
+           scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
           
        }
     
@@ -80,28 +80,29 @@ class MeViewController: UIViewController{
     }
     
     func setup(){
-        //scrollView.contentOffset = CGPoint.zero
+        scrollView.contentOffset = CGPoint.zero
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+        
         
         setupTitleView()
         setupAvatarImage()
-        setupView("Просмотреное", visitedView)
-        constraintsForVisited(to: avatarImageView, by: 20, visitedView)
-        setupView("Избранное", favoriteView)
-        constraintsForVisited(to: avatarImageView, by: 200, favoriteView)
+        setupView("Просмотреное", visitedLabel)
+        constraintsForVisited(to: avatarImageView, by: 10, visitedLabel)
+        setupView("Избранное", favoriteLabel)
+        constraintsForVisited(to: avatarImageView, by: 200, favoriteLabel)
         
         setupCollectionView(visitedCollectionView)
-        setupLayouts(visitedCollectionView, visitedView)
+        setupLayouts(visitedCollectionView, visitedLabel)
         setupCollectionView(favoriteCollectionView)
-        setupLayouts(favoriteCollectionView, favoriteView)
+        setupLayouts(favoriteCollectionView, favoriteLabel)
         setupTableView()
         setupLittleButton(button: changeAvatarButton, imageName: "", bgImageName: "square.and.pencil", tintColor: ColorPalette.blue)
         changeAvatarButton.addTarget(self, action: #selector(didChangeAvatar), for: .touchUpInside)
         
-        view.addSubview(scrollView)
+        //view.addSubview(scrollView)
         
         [changeAvatarButton].forEach{
-            scrollView.addSubview(($0))
+            view.addSubview(($0))
         }
         addConstraints()
     }
@@ -111,16 +112,15 @@ class MeViewController: UIViewController{
     }
     
     func setupTableView() {
-        scrollView.addSubview(settingsTableView)
+        view.addSubview(settingsTableView)
         
         settingsTableView.delegate = self
         settingsTableView.dataSource = self
         
         settingsTableView.topAnchor.constraint(equalTo: favoriteCollectionView.bottomAnchor, constant: 16).isActive = true
-        settingsTableView.leftAnchor.constraint(equalTo: scrollView.leftAnchor).isActive = true
-        settingsTableView.rightAnchor.constraint(equalTo: scrollView.rightAnchor).isActive = true
-        settingsTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: 20).isActive = true
-        
+        settingsTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        settingsTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        settingsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
         settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
     
@@ -159,7 +159,7 @@ class MeViewController: UIViewController{
     }
     
     private func setupCollectionView(_ collectionView: UICollectionView) {
-        scrollView.addSubview(collectionView)
+        view.addSubview(collectionView)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(MeCollectionViewCell.self, forCellWithReuseIdentifier: MeCollectionViewCell.identifier)
@@ -172,18 +172,18 @@ class MeViewController: UIViewController{
         
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: upperView.bottomAnchor, constant: -10),
-            collectionView.leftAnchor.constraint(equalTo: scrollView.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: scrollView.rightAnchor),
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
             collectionView.heightAnchor.constraint(equalToConstant: 130)
         ])
     }
     
     
     func setupView(_ titleName: String, _ viewLabel: UILabel) {
-        scrollView.addSubview(viewLabel)
+        view.addSubview(viewLabel)
         viewLabel.backgroundColor = .white
         viewLabel.text = titleName
-        viewLabel.font = UIFont(name: "POEVeticaVanta", size: 22)
+        viewLabel.font = UIFont(name: "POEVeticaVanta", size: 19)
         viewLabel.adjustsFontSizeToFitWidth = true
         viewLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -198,7 +198,7 @@ class MeViewController: UIViewController{
         } else {
             loadAvatarURL(avatarURL: globalAppUser.avatarURL)
         }
-        scrollView.addSubview(avatarImageView)
+        view.addSubview(avatarImageView)
         let indent: CGFloat = 144.0
         let width = UIScreen.main.bounds.width - indent * 2
         
@@ -213,12 +213,12 @@ class MeViewController: UIViewController{
     
     
     func setupTitleView() {
-        scrollView.addSubview(titleLabel)
-        titleLabel.backgroundColor = .white
-        titleLabel.text = globalAppUser.name
-        titleLabel.font = UIFont(name: "POEVeticaVanta", size: 30)
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(nameLabel)
+        nameLabel.backgroundColor = .white
+        nameLabel.text = globalAppUser.name
+        nameLabel.font = UIFont(name: "POEVeticaVanta", size: 27)
+        nameLabel.adjustsFontSizeToFitWidth = true
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
         constraintsForTitle()
         
     }
@@ -226,21 +226,21 @@ class MeViewController: UIViewController{
     
     
     func constraintsForTitle() {
-        let horizontalConstraint = NSLayoutConstraint(item: titleLabel,
+        let horizontalConstraint = NSLayoutConstraint(item: nameLabel,
                                                       attribute: .top,
                                                       relatedBy: .equal,
-                                                      toItem: scrollView.safeAreaLayoutGuide,
+                                                      toItem: view,
                                                       attribute: .top,
                                                       multiplier: 1,
-                                                      constant: 35)
-        let verticalCenter = NSLayoutConstraint(item: titleLabel,
+                                                      constant: 40)
+        let verticalCenter = NSLayoutConstraint(item: nameLabel,
                                                 attribute: .centerX,
                                                 relatedBy: .equal,
-                                                toItem: scrollView,
+                                                toItem: view,
                                                 attribute: .centerX,
                                                 multiplier: 1,
                                                 constant: 0)
-        let height = NSLayoutConstraint(item: titleLabel,
+        let height = NSLayoutConstraint(item: nameLabel,
                                         attribute: .height,
                                         relatedBy: .equal,
                                         toItem: nil,
@@ -256,10 +256,10 @@ class MeViewController: UIViewController{
     fileprivate func constrainsForAva(_ indent: CGFloat, _ width: CGFloat) {
         
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.centerXAnchor.constraint(equalToSystemSpacingAfter: scrollView.safeAreaLayoutGuide.centerXAnchor, multiplier: 1).isActive = true //
+        avatarImageView.centerXAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.centerXAnchor, multiplier: 1).isActive = true //
         avatarImageView.heightAnchor.constraint(equalToConstant: width).isActive = true
         avatarImageView.widthAnchor.constraint(equalToConstant: width).isActive = true
-        avatarImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
+        avatarImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 7).isActive = true
     }
     
     
@@ -276,10 +276,10 @@ class MeViewController: UIViewController{
         let verticalConstraint = NSLayoutConstraint(item: sendView,
                                                     attribute: .leading,
                                                     relatedBy: .equal,
-                                                    toItem: scrollView,
+                                                    toItem: view,
                                                     attribute: .leading,
                                                     multiplier: 1,
-                                                    constant: 20)
+                                                    constant: 10)
         let height = NSLayoutConstraint(item: sendView,
                                         attribute: .height,
                                         relatedBy: .equal,
@@ -329,7 +329,7 @@ extension MeViewController: UICollectionViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
+        return 30
     }
 }
 

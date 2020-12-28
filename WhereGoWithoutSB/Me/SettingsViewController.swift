@@ -37,7 +37,7 @@ class SettingsViewController: UIViewController {
 
         setupLittleButton(button: exitButton, image: UIImage(systemName: "xmark")!, tintColor: ColorPalette.black)
         exitButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
-        setupLabel(label: popularPlacesLabel, text: "Тут короче можно будет", fontSize: 20)
+        setupLabel(label: popularPlacesLabel, text: "Тут можно будет", fontSize: 20)
         setupLabel(label: rankPlacesLabel, text: "поменять имя и пароль :)", fontSize: 20)
         
         [customLine0, customLine1].forEach {

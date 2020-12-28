@@ -26,6 +26,7 @@ protocol CategoryViewOutput: AnyObject {
     func tableView(filter: String)
     func didSelect(at index: Int)
     func didSelectFilter()
+    func isLoadingCell(for indexPath: IndexPath) -> Bool
 }
 
 protocol CategoryInteractorInput: AnyObject {

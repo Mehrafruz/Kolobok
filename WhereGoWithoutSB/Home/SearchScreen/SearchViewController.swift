@@ -45,6 +45,9 @@ final class SearchViewController: UIViewController{
         searchController.searchResultsUpdater = self
         searchController.delegate = self
         searchController.searchBar.delegate = self
+        searchController.searchBar.setValue("Закрыть", forKey:"cancelButtonText")
+        searchController.searchBar.placeholder = "Поиск"
+        UIBarButtonItem.appearance(whenContainedInInstancesOf:[UISearchBar.self]).tintColor = ColorPalette.yellow
         //searchController.dimsBackgroundDuringPresentation = false
         tableView.tableHeaderView = searchController.searchBar
         
