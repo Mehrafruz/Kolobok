@@ -465,7 +465,7 @@ extension MeViewController: AlertDisplayer{
                 print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
                 
             } catch {
-                print ("не удалось выйти из аккаунта")
+                print ("Не удалось выйти из аккаунта")
             }
         })
         let cancel = UIAlertAction(title: "Отмена", style: .default)

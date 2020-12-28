@@ -96,6 +96,7 @@ class PlaceViewController: UIViewController {
         
         adressLabel.text = currentElement.address
         timeTableLabel.text = currentElement.timetable
+        timeTableLabel.lineBreakMode = .byClipping
         phoneLabel.text = currentElement.phone
         
         setupDescriptionTextView()
