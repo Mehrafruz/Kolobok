@@ -6,6 +6,7 @@ import FirebaseStorage
 class MeViewController: UIViewController{
     
     private let output: MeViewOutput
+ 
     
     private var scrollView = UIScrollView()
     let nameLabel = UILabel()
@@ -23,7 +24,6 @@ class MeViewController: UIViewController{
         viewLayout.itemSize = CGSize.init(width: 180, height: 130)
         viewLayout.minimumInteritemSpacing = 3
         collectionView.backgroundColor = .white
-        
         return collectionView
     }()
     
@@ -33,7 +33,6 @@ class MeViewController: UIViewController{
     func timerAction() {
         favoriteCollectionView.reloadData()
         visitedCollectionView.reloadData()
-        print ("1")
     }
     
     private let favoriteCollectionView: UICollectionView = {
@@ -75,10 +74,13 @@ class MeViewController: UIViewController{
     }
     
     override func viewDidAppear(_ animated: Bool) {
-           //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
-           scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
-          
-       }
+        //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
+        favoriteCollectionView.reloadData()
+        visitedCollectionView.reloadData()
+        _ = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,7 +88,9 @@ class MeViewController: UIViewController{
         view.backgroundColor = .systemBackground
         setup()
         _ = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-
+        _ = Timer.scheduledTimer(timeInterval: 3.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+        favoriteCollectionView.reloadData()
+        visitedCollectionView.reloadData()
     }
     
     func setup(){
@@ -332,7 +336,7 @@ extension MeViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView === favoriteCollectionView{
-            let id = globalAppUser.favoritePlaces[indexPath.row]
+            let id = globalAppUser.favoritePlaces.reversed()[indexPath.row]
             output.didSelect(at: id)
         }
         if collectionView === visitedCollectionView{
@@ -342,7 +346,7 @@ extension MeViewController: UICollectionViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 30
+        return 50
     }
 }
 
@@ -368,10 +372,10 @@ extension MeViewController: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0{
+        if indexPath.row == 0 {
             present(SettingsViewController(), animated: true)
         }
-        if indexPath.row == 1{
+        if indexPath.row == 1 {
             showAlert(reason: "")
         }
         tableView.deselectRow(at: indexPath, animated: false)
@@ -479,7 +483,7 @@ extension MeViewController: AlertDisplayer{
                 UserDefaults.standard.removePersistentDomain(forName: domain)
                 UserDefaults.standard.synchronize()
                 print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
-                
+                globalAppUser.removeUser()
             } catch {
                 print ("Не удалось выйти из аккаунта")
             }

@@ -37,7 +37,7 @@ final class SearchViewController: UIViewController{
 	override func viewDidLoad() {
 		super.viewDidLoad()
         view.backgroundColor = .white
-        //output.tableView()
+        //output.tableView()е
         setup()
 	}
     
@@ -114,7 +114,7 @@ extension SearchViewController: UISearchResultsUpdating, UISearchControllerDeleg
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.navigationController?.popViewController(animated: false)
-       // globalSearchElements.removeAll()
+        globalSearchElements.removeAll()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

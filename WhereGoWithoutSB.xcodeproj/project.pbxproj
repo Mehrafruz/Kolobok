@@ -39,6 +39,8 @@
 		EF405D53258A24D300588EC8 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */; };
 		EF4246752582BF39003FDA58 /* PlaceInMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */; };
 		EF43D61B25980EC100B4529E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF43D61A25980EC100B4529E /* SettingsViewController.swift */; };
+		EF48B4AB25AB9B4B00A7D5C7 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48B4AA25AB9B4B00A7D5C7 /* Observable.swift */; };
+		EF48B4AD25ABA52D00A7D5C7 /* AythProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF48B4AC25ABA52D00A7D5C7 /* AythProtocols.swift */; };
 		EF5ADBE22585162A00E6D034 /* MapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDD2585162900E6D034 /* MapPresenter.swift */; };
 		EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDE2585162A00E6D034 /* MapRouter.swift */; };
 		EF5ADBE42585162A00E6D034 /* MapProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */; };
@@ -104,6 +106,8 @@
 		EF405D52258A24D300588EC8 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		EF4246742582BF39003FDA58 /* PlaceInMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceInMapViewController.swift; sourceTree = "<group>"; };
 		EF43D61A25980EC100B4529E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		EF48B4AA25AB9B4B00A7D5C7 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		EF48B4AC25ABA52D00A7D5C7 /* AythProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AythProtocols.swift; sourceTree = "<group>"; };
 		EF5ADBDD2585162900E6D034 /* MapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPresenter.swift; sourceTree = "<group>"; };
 		EF5ADBDE2585162A00E6D034 /* MapRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRouter.swift; sourceTree = "<group>"; };
 		EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapProtocols.swift; sourceTree = "<group>"; };
@@ -280,6 +284,8 @@
 				EF3F8C5525782D0B00B103A1 /* SignInViewController.swift */,
 				EF3F8C5725782D1B00B103A1 /* SignUpViewController.swift */,
 				EFAEC6FC258FD16800AF154B /* UserSettingsInput.swift */,
+				EF48B4AA25AB9B4B00A7D5C7 /* Observable.swift */,
+				EF48B4AC25ABA52D00A7D5C7 /* AythProtocols.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF48B4AB25AB9B4B00A7D5C7 /* Observable.swift in Sources */,
 				EF405D4A2588F71E00588EC8 /* SearchViewController.swift in Sources */,
 				EF355AF025409F7300B260E6 /* CustomLayoutSwift.swift in Sources */,
 				EF405D4C2588F71E00588EC8 /* SearchInteractor.swift in Sources */,
@@ -558,6 +565,7 @@
 				EFAEC6FB258FCD8900AF154B /* UserSettings.swift in Sources */,
 				EF3EF576256AF352007E6E33 /* NetworkManager.swift in Sources */,
 				EF355AEE254051A400B260E6 /* MeViewController.swift in Sources */,
+				EF48B4AD25ABA52D00A7D5C7 /* AythProtocols.swift in Sources */,
 				EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */,
 				EFD28F61258EB49800878C30 /* User.swift in Sources */,
 				EFAAB06E2564660500900DE0 /* CategoryInteractor.swift in Sources */,

@@ -46,13 +46,13 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         view.backgroundColor = .white
         registerForKeyboardNotifikation()
         
-        if didDismissViewFlag{
-            self.dismiss(animated: false, completion: nil)
-        }
+        presentationController?.delegate = self
+        isModalInPresentation = true
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
         passwordTextField.isSecureTextEntry = true
+        
         setup()
     }
     
@@ -80,6 +80,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         scrollView.contentOffset = CGPoint.zero
     }
     
+
     func setup(){
         
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
@@ -422,3 +423,13 @@ extension SignInViewController: FireStoreFavoritePlacesOutput{
     
 }
 
+
+extension SignInViewController: UIAdaptivePresentationControllerDelegate{
+    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+        print(#function)
+    }
+    
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        print(#function)
+    }
+}

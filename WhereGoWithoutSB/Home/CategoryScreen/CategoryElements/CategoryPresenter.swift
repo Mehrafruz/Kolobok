@@ -16,7 +16,7 @@ final class CategoryPresenter {
     private let interactor: CategoryInteractorInput
 
     private var categoryElements: [CategoryElements.Results] = []
-    
+    private var itemcount: Int = 0
     
     init(router: CategoryRouterInput, interactor: CategoryInteractorInput) {
            self.router = router
@@ -28,8 +28,22 @@ extension CategoryPresenter: CategoryModuleInput {
 }
 
 extension CategoryPresenter: CategoryViewOutput {
-    func tableView(filter: String) {
-        interactor.loadCurrentCategoryElements(with: filter, with: 1)
+    var countElementsToPages: Int {
+        get {
+            itemcount = categoryElements.count
+            return itemcount
+        }
+        set(page){
+            itemcount = categoryElements.count+(page)
+        }
+    }
+    
+    func removeCategoryElements() {
+        categoryElements.removeAll()
+    }
+    
+    func tableView(filter: String, pageInt: Int) {
+        interactor.loadCurrentCategoryElements(with: filter, with: pageInt)
     }
     
         
@@ -51,7 +65,7 @@ extension CategoryPresenter: CategoryViewOutput {
             let categoryElement = categoryElements[index]
             return CategoryTableViewCellModel(imageURL: categoryElement.imageURL,title: categoryElement.short_title, adress: categoryElement.address, timeString: categoryElement.timetable, subway: categoryElement.subway)
         } else {
-            interactor.loadCurrentCategoryElements(with: "", with: 1) //MARK: тут заглушка
+            interactor.loadCurrentCategoryElements(with: "", with: countElementsToPages) //MARK: тут заглушка
         }
         return CategoryTableViewCellModel(imageURL: nil, title: "someTitle", adress: "", timeString: "", subway: "")
     }
@@ -69,12 +83,12 @@ extension CategoryPresenter: CategoryViewOutput {
 
 extension CategoryPresenter: CategoryInteractorOutput {
     func didLoadCurrentCategoryElements(currentCategoryElements: CategoryElements?) {
-        categoryElements = currentCategoryElements!.results
+        categoryElements.append(contentsOf: currentCategoryElements!.results)
         if !categoryElements.isEmpty{
             view?.update()
         }
     }
-    
+   
     
     func didFail(with error: Error) {
     //MARK: кидает ошибку, разобраться

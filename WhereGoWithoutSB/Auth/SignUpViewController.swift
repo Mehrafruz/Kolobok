@@ -50,9 +50,8 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         view.backgroundColor = .white
         registerForKeyboardNotifikation()
         
-        if didDismissViewFlag{
-            self.dismiss(animated: false, completion: nil)
-        }
+        presentationController?.delegate = self
+        isModalInPresentation = true
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
@@ -126,9 +125,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     }
     
     @objc func didClickedGoBackButton() {
-        self.navigationController?.popViewController(animated: true)
-        present(WelcomeViewController(), animated: true)
-        //self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc func didClickedSignUpButton() {
@@ -414,8 +411,10 @@ extension SignUpViewController: UITextFieldDelegate, UITextViewDelegate, UIAdapt
         return true
     }
     
-    func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-        didClickedGoBackButton()
+    func presentationControllerDidAttemptToDismiss(_ presentationController: UIPresentationController) {
+        print(#function)
     }
     
 }
+
+

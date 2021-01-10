@@ -5,7 +5,7 @@
 //  Created by Мехрафруз on 21.10.2020.
 //  Copyright © 2020 Мехрафруз. All rights reserved.
 //
-//MARK: этот раздел с исключительно грязным кодом, возможно когда нибудь я все перепишу. Сори)
+//MARK: этот раздел с исключительно грязным кодом, возможно когда нибудь я все перепишу. Пусть глазам будет не так больно)
 
 import UIKit
 import SpriteKit
@@ -48,6 +48,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     override func viewDidLoad() {
         super.viewDidLoad()
         searcBar.delegate = self
+        
         setup()
     }
     

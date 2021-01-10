@@ -23,10 +23,11 @@ protocol CategoryViewInput: AnyObject {
 protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
     func item(at index: Int) -> CategoryTableViewCellModel
-    func tableView(filter: String)
+    func tableView(filter: String, pageInt: Int)
     func didSelect(at index: Int)
     func didSelectFilter()
- //   func isLoadingCell(for indexPath: IndexPath) -> Bool
+    var countElementsToPages: Int { get set}
+    func removeCategoryElements()
 }
 
 protocol CategoryInteractorInput: AnyObject {

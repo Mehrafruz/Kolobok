@@ -27,6 +27,14 @@ struct User {
         self.viewedPlaces = viewedPlaces
     }
     
+    mutating func removeUser(){
+        self.id = ""
+        self.name = ""
+        self.email = ""
+        self.avatarURL = ""
+        self.favoritePlaces = []
+        self.viewedPlaces = []
+    }
 }
 
 
