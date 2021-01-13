@@ -37,8 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         mapViewNavigationController =  UINavigationController(rootViewController: mapContainer.viewController)
         meNavigationViewController = UINavigationController(rootViewController: meContainer.viewController)
         welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
-    
-        
+        delegate = self
         FirebaseApp.configure()
         
         // MARK: Содержимое кномки выйти из аккаунта, пока не решено куда ее лепить
@@ -150,3 +149,14 @@ extension AppDelegate: FireStoreFavoritePlacesOutput{
     
 }
 
+extension AppDelegate: MainViewDelegate{
+    func openSignIn() {
+        categoriesNavigationViewController?.present(WelcomeViewController(), animated: true)
+    }
+    
+    func dismissMeView() {
+        tabBarController.selectedIndex = 0
+    }
+    
+    
+}

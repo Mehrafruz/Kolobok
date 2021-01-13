@@ -13,21 +13,23 @@ var globalCategoriesElements: [CategoryElements.Results] = []
 
 class MapViewController: UIViewController{
     
+//    let mapKit = YMKMapKit.sharedInstance()
+//    let userLocationLayer = mapKit.createUserLocationLayer(with: mapView.mapWindow)
     
     private let output: MapViewOutput
     let mapView = YMKMapView()
     private let userLocationButton = UIButton()
     private var points = [YMKPoint]()
     var collection: YMKClusterizedPlacemarkCollection?
-    
     private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
     private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-    
+    private var userLocationLayer: YMKUserLocationLayer?
     
     
     
     init(output: MapViewOutput) {
         self.output = output
+        userLocationLayer = YMKMapKit.sharedInstance().createUserLocationLayer(with: mapView.mapWindow)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -48,6 +50,8 @@ class MapViewController: UIViewController{
         mapView.mapWindow.map.addCameraListener(with: self)
         view.addSubview(mapView)
         setup()
+       
+
         
     }
     
@@ -151,15 +155,13 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
     
     @objc func didClickedUserLocationButton(){
         let scale = UIScreen.main.scale
-        let mapKit = YMKMapKit.sharedInstance()
-        let userLocationLayer = mapKit.createUserLocationLayer(with: mapView.mapWindow)
-        
-        userLocationLayer.setVisibleWithOn(true)
-        userLocationLayer.isHeadingEnabled = true
-        userLocationLayer.setAnchorWithAnchorNormal(
+        userLocationLayer?.setVisibleWithOn(true)
+        userLocationLayer?.isHeadingEnabled = true
+        userLocationLayer?.setAnchorWithAnchorNormal(
             CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale),
             anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
-        userLocationLayer.setObjectListenerWith(self)
+        userLocationLayer?.setObjectListenerWith(self)
+        mapView.mapWindow.map.move( with: userLocationLayer?.cameraPosition() ?? YMKCameraPosition.init(target: points[0], zoom: 12, azimuth: 0, tilt: 0))
     }
     
     

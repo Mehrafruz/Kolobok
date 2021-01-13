@@ -2,6 +2,12 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
+protocol MainViewDelegate: AnyObject{
+    func openSignIn()
+    func dismissMeView()
+}
+
+weak var delegate: MainViewDelegate?
 
 class MeViewController: UIViewController{
     
@@ -67,19 +73,24 @@ class MeViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        if globalAppUser.name.isEmpty{
-            present(SignInViewController(), animated: true)
+        if globalAppUser.name.isEmpty {
+            delegate?.dismissMeView()
+            delegate?.openSignIn()
+           // present(SignInViewController(), animated: true)
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        if globalAppUser.name.isEmpty{
+            delegate?.dismissMeView()
+            delegate?.openSignIn()
+          //  present(SignInViewController(), animated: true)
+        }
         //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
         favoriteCollectionView.reloadData()
         visitedCollectionView.reloadData()
         _ = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
-        
     }
     
     override func viewDidLoad() {

@@ -9,7 +9,7 @@
 import UIKit
 import SpriteKit
 
-var didDismissViewFlag = false
+
 
 class WelcomeViewController: UIViewController{
     
@@ -195,7 +195,6 @@ class WelcomeViewController: UIViewController{
     
     @objc func didClickedExitButton(){
         self.dismiss(animated: true, completion: nil)
-        didDismissViewFlag = true
     }
    
     let signUpViewController = SignUpViewController()
