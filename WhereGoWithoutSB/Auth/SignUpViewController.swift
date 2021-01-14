@@ -224,6 +224,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     func setupTextView(textView: UITextView, text: String, value: String, location: Int, length: Int) {
         let attribute = [NSAttributedString.Key.font: UIFont(name: "POEVeticaVanta", size: 16)]
         textView.delegate = self
+        textView.backgroundColor = .white
         let text = NSMutableAttributedString(string: text, attributes: attribute as [NSAttributedString.Key : Any])
         text.addAttribute(.link, value: value, range: NSRange(location: location, length: length))
         UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.yellow]

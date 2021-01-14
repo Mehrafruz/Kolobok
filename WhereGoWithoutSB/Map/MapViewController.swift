@@ -13,16 +13,12 @@ var globalCategoriesElements: [CategoryElements.Results] = []
 
 class MapViewController: UIViewController{
     
-//    let mapKit = YMKMapKit.sharedInstance()
-//    let userLocationLayer = mapKit.createUserLocationLayer(with: mapView.mapWindow)
-    
     private let output: MapViewOutput
     let mapView = YMKMapView()
     private let userLocationButton = UIButton()
     private var points = [YMKPoint]()
     var collection: YMKClusterizedPlacemarkCollection?
-    private let customGrayColor = UIColor(red: 177/255, green: 190/255, blue: 197/255, alpha: 1)
-    private let customBlackColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+   
     private var userLocationLayer: YMKUserLocationLayer?
     
     
@@ -60,9 +56,9 @@ class MapViewController: UIViewController{
             mapView.addSubview($0)
         }
         
-        setupLittleButton(button: userLocationButton, imageName: "location.fill", bgImageName: "", tintColor: customBlackColor)
+        setupLittleButton(button: userLocationButton, imageName: "location.fill", bgImageName: "", tintColor: ColorPalette.black)
         userLocationButton.addTarget(self, action: #selector(didClickedUserLocationButton), for: .touchUpInside)
-        userLocationButton.backgroundColor = customGrayColor
+        userLocationButton.backgroundColor = ColorPalette.gray
         userLocationButton.alpha = 0.75
         
         addConstraints()

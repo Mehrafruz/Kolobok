@@ -84,7 +84,6 @@ class MeViewController: UIViewController{
         if globalAppUser.name.isEmpty{
             delegate?.dismissMeView()
             delegate?.openSignIn()
-          //  present(SignInViewController(), animated: true)
         }
         //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
         favoriteCollectionView.reloadData()
@@ -94,20 +93,26 @@ class MeViewController: UIViewController{
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationItem.title = "Аккаунт"
-        view.backgroundColor = .systemBackground
-        setup()
-        _ = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-        _ = Timer.scheduledTimer(timeInterval: 3.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-        favoriteCollectionView.reloadData()
-        visitedCollectionView.reloadData()
+           super.viewDidLoad()
+        if globalAppUser.name.isEmpty{
+            view.backgroundColor = .white
+            delegate?.dismissMeView()
+            delegate?.openSignIn()
+        }
+        else {
+            navigationItem.title = "Аккаунт"
+            view.backgroundColor = .systemBackground
+            setup()
+            _ = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+            _ = Timer.scheduledTimer(timeInterval: 3.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+            favoriteCollectionView.reloadData()
+            visitedCollectionView.reloadData()
+        }
     }
     
     func setup(){
         scrollView.contentOffset = CGPoint.zero
         scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        
         
         setupTitleView()
         setupAvatarImage()
@@ -124,6 +129,7 @@ class MeViewController: UIViewController{
         setupLittleButton(button: changeAvatarButton, imageName: "", bgImageName: "square.and.pencil", tintColor: ColorPalette.blue)
         changeAvatarButton.addTarget(self, action: #selector(didChangeAvatar), for: .touchUpInside)
         
+        avatarImageView.contentMode = .scaleAspectFill
         //view.addSubview(scrollView)
         
         [changeAvatarButton].forEach{
@@ -216,7 +222,7 @@ class MeViewController: UIViewController{
     
     func setupAvatarImage() {
         if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
-            avatarImageView.contentMode = .scaleAspectFill
+            
             avatarImageView.image = UIImage(systemName: "plus.circle")
             avatarImageView.tintColor = ColorPalette.blue
             
@@ -495,6 +501,8 @@ extension MeViewController: AlertDisplayer{
                 UserDefaults.standard.synchronize()
                 print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
                 globalAppUser.removeUser()
+                delegate?.dismissMeView()
+                delegate?.openSignIn()
             } catch {
                 print ("Не удалось выйти из аккаунта")
             }

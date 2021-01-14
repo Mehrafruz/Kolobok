@@ -18,12 +18,13 @@ class PlaceInMapViewController: UIViewController {
     private let mapView = YMKMapView()
     private let goBackButton = UIButton()
     private let userLocationButton = UIButton()
-    private var trafficLayer : YMKTrafficLayer!
+    private var userLocationLayer: YMKUserLocationLayer?
     
     init(lat: Double, lon: Double){
         self.lat = lat
         self.lon = lon
         super.init(nibName: nil, bundle: nil)
+        userLocationLayer = YMKMapKit.sharedInstance().createUserLocationLayer(with: mapView.mapWindow)
     }
     
     required init?(coder: NSCoder) {
@@ -39,9 +40,6 @@ class PlaceInMapViewController: UIViewController {
         
         let TARGET_LOCATION = YMKPoint(latitude: self.lat, longitude: self.lon)
         
-        
-        trafficLayer = YMKMapKit.sharedInstance().createTrafficLayer(with: mapView.mapWindow)
-        trafficLayer.addTrafficListener(withTrafficListener: self)
         
         mapView.mapWindow.map.addCameraListener(with: self)
         
@@ -164,7 +162,7 @@ class PlaceInMapViewController: UIViewController {
     
 }
 
-extension PlaceInMapViewController:YMKLayersGeoObjectTapListener, YMKMapInputListener, YMKTrafficDelegate,YMKMapCameraListener, YMKUserLocationObjectListener{ //MKUserLocationObjectListener
+extension PlaceInMapViewController: YMKLayersGeoObjectTapListener, YMKMapInputListener, YMKTrafficDelegate,YMKMapCameraListener, YMKUserLocationObjectListener{ //MKUserLocationObjectListener
     func onObjectAdded(with view: YMKUserLocationView) {
 
         let pinPlacemark = view.pin.useCompositeIcon()
@@ -192,17 +190,13 @@ extension PlaceInMapViewController:YMKLayersGeoObjectTapListener, YMKMapInputLis
     
     @objc func didClickedUserLocationButton(){
         let scale = UIScreen.main.scale
-        let mapKit = YMKMapKit.sharedInstance()
-        let userLocationLayer = mapKit.createUserLocationLayer(with: mapView.mapWindow)
-        
-        userLocationLayer.setVisibleWithOn(true)
-        userLocationLayer.isHeadingEnabled = true
-        userLocationLayer.setAnchorWithAnchorNormal(
+        userLocationLayer?.setVisibleWithOn(true)
+        userLocationLayer?.isHeadingEnabled = true
+        userLocationLayer?.setAnchorWithAnchorNormal(
             CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale),
             anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
-        userLocationLayer.setObjectListenerWith(self)
-        
-        print ("didClickedUserLocationButton")
+        userLocationLayer?.setObjectListenerWith(self)
+        mapView.mapWindow.map.move( with: userLocationLayer?.cameraPosition() ?? YMKCameraPosition.init(target: YMKPoint(latitude: self.lat, longitude: self.lon), zoom: 12, azimuth: 0, tilt: 0))
     }
     
     func onTrafficChanged(with trafficLevel: YMKTrafficLevel?) {
@@ -216,6 +210,8 @@ extension PlaceInMapViewController:YMKLayersGeoObjectTapListener, YMKMapInputLis
     func onTrafficExpired() {
         
     }
+    
+    
     
     func onCameraPositionChanged(with map: YMKMap, cameraPosition: YMKCameraPosition, cameraUpdateReason: YMKCameraUpdateReason, finished: Bool) {
         

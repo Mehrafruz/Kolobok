@@ -45,7 +45,7 @@ class SortingViewController: UIViewController {
         setupButton(button: emplyButton, title: "Применить", color: ColorPalette.yellow, textColor: ColorPalette.black)
         
         setupLabel(label: popularPlacesLabel, text: "По популярности", fontSize: 20)
-        setupLabel(label: rankPlacesLabel, text: "По рангу", fontSize: 20)
+        setupLabel(label: rankPlacesLabel, text: "По рейтингу", fontSize: 20)
         
         popularPlacesButton.addTarget(self, action: #selector(didClickedPopularPlacesButton), for: .touchUpInside)
         rankPlacesButton.addTarget(self, action: #selector(didClickedIsClosedPlacesButton), for: .touchUpInside)
@@ -126,7 +126,8 @@ class SortingViewController: UIViewController {
                 emplyButton.widthAnchor.constraint(equalToConstant: 150),
                 emplyButton.heightAnchor.constraint(equalToConstant: 50),
                 emplyButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                emplyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100)
+                emplyButton.topAnchor.constraint(equalTo: customLine1.bottomAnchor, constant: 30)
+               // emplyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100)
             ])
         }
     }
@@ -202,6 +203,7 @@ class SortingViewController: UIViewController {
         }
          self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 

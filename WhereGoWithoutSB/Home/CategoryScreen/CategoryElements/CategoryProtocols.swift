@@ -24,6 +24,7 @@ protocol CategoryViewOutput: AnyObject {
     var itemsCount: Int { get }
     func item(at index: Int) -> CategoryTableViewCellModel
     func tableView(filter: String, pageInt: Int)
+    func sortingTableView(filter: String, pageInt: Int)
     func didSelect(at index: Int)
     func didSelectFilter()
     var countElementsToPages: Int { get set}

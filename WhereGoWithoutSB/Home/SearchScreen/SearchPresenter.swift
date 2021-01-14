@@ -47,18 +47,17 @@ extension SearchPresenter: SearchInteractorOutput {
         if !globalSearchElement.isEmpty{
             router.show(globalSearchElement[0])
         }
+     
     }
     
     func didLoadSearchElements(searchElements: SearchElements?) {
         globalSearchElements = searchElements!.results
-        if !globalSearchElements.isEmpty{
-            view?.update()
-        }
+        view?.update()
     }
 
     
     func didFail(with error: Error) {
-        
+        print ("did fail when load searchElements")
     }
     
     func didSelect(with index: Int) {

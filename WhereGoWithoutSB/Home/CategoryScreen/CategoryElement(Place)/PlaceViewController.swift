@@ -46,7 +46,7 @@ class PlaceViewController: UIViewController {
         let viewLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
         viewLayout.scrollDirection = .horizontal
-        viewLayout.itemSize = CGSize.init(width: UIScreen.main.bounds.width, height: 412)
+        viewLayout.itemSize = CGSize.init(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height/2)
         viewLayout.minimumInteritemSpacing = 0
         viewLayout.minimumLineSpacing = 0
         collectionView.backgroundColor = .white
@@ -58,7 +58,7 @@ class PlaceViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1080)
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1100)//1080
        
     }
     
@@ -77,7 +77,8 @@ class PlaceViewController: UIViewController {
         showOnMapButton.addTarget(self, action: #selector(didClickedShowOnMapButton), for: .touchUpInside)
         imageCollectionView.layer.zPosition = -0.1
         
-        
+        view.layer.cornerRadius = 15
+        view.layer.masksToBounds = true
        
         setupLittleButton(button: showOnMapButton, imageName: "location.fill", bgImageName: "", tintColor: ColorPalette.black)
         showOnMapButton.backgroundColor = ColorPalette.gray
@@ -117,7 +118,7 @@ class PlaceViewController: UIViewController {
         } else {
             subwayLabel.text = "далеко от метро"
         }
-        [timeTableLabel,phoneLabel,subwayLabel].forEach {
+        [timeTableLabel,phoneLabel,subwayLabel, adressLabel].forEach {
             ($0).numberOfLines = 2
             ($0).lineBreakMode = .byClipping
         }
@@ -175,6 +176,7 @@ class PlaceViewController: UIViewController {
     func setupDescriptionTextView(){
         let descriptionText = currentElement.description + currentElement.body_text
         descriptionTextView.text = descriptionText
+        descriptionTextView.backgroundColor = .white
         descriptionTextView.font = UIFont(name: "POEVeticaVanta", size: 18)
         descriptionTextView.isEditable = false
         descriptionTextView.textColor = ColorPalette.darkGray
@@ -215,16 +217,21 @@ class PlaceViewController: UIViewController {
         collectionView.isPagingEnabled = true
     }
     
+    
     private func setupPageControl(pageControl: UIPageControl){
         pageControl.backgroundColor = UIColor.clear
         pageControl.numberOfPages = currentElement.images.count
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = ColorPalette.black
+       // pageControl.pageIndicatorTintColor = ColorPalette.black
     }
     
     
     
     func addConstraints(){
+        
+        let leftAndRightAnchor = UIScreen.main.bounds.width/15
+        let imageCollectionViewHeight = UIScreen.main.bounds.height/2
+        
         [goBackButton, imageCollectionView, imagesPageControl, titleLabel, adressLabel, timeTableLabel, phoneLabel, descriptionTextView, adressImageView, timeImageView, subwayImageView, phoneImageView, subwayLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, likeButton, reviewLabel, likeImage, showOnMapButton].forEach {
             ($0).translatesAutoresizingMaskIntoConstraints = false      //reviewButton
                                                                         //MARK: решено пока без отзывов(
@@ -238,8 +245,8 @@ class PlaceViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            imageCollectionView.widthAnchor.constraint(equalToConstant: self.scrollView.bounds.width),
-            imageCollectionView.heightAnchor.constraint(equalToConstant: 400),
+            imageCollectionView.widthAnchor.constraint(equalToConstant: self.view.bounds.width),
+            imageCollectionView.heightAnchor.constraint(equalToConstant: imageCollectionViewHeight),
             imageCollectionView.topAnchor.constraint(equalTo: self.scrollView.topAnchor),
             imageCollectionView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor),
             imageCollectionView.rightAnchor.constraint(equalTo: self.scrollView.rightAnchor)
@@ -255,123 +262,130 @@ class PlaceViewController: UIViewController {
         NSLayoutConstraint.activate([
             imagesPageControl.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 0.0),
             imagesPageControl.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: 0.0),
-            imagesPageControl.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor),
-            imagesPageControl.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, constant: 400)
+            imagesPageControl.topAnchor.constraint(equalTo: self.imageCollectionView.bottomAnchor, constant: -2),
         ])
         
         NSLayoutConstraint.activate([
-            titleLabel.widthAnchor.constraint(equalToConstant:  380),
+            titleLabel.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 15),
+            titleLabel.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -15),
             titleLabel.heightAnchor.constraint(equalToConstant: 50),
-            titleLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 420),
+            titleLabel.topAnchor.constraint(equalTo: self.imageCollectionView.bottomAnchor, constant: 10),
             titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             customLine0.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine0.widthAnchor.constraint(equalToConstant: 350),
-            customLine0.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 461),
+            customLine0.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 50),
+            customLine0.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -50),
+            customLine0.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: -10),
             customLine0.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
+            descriptionTextView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
+            descriptionTextView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -10),
             descriptionTextView.heightAnchor.constraint(equalToConstant: 265),
-            descriptionTextView.widthAnchor.constraint(equalToConstant: 360),
             descriptionTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            descriptionTextView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 465),
+            descriptionTextView.topAnchor.constraint(equalTo: self.customLine0.bottomAnchor, constant: 4),
         ])
         
         NSLayoutConstraint.activate([
             customLine1.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine1.widthAnchor.constraint(equalToConstant: 350),
-            customLine1.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 735),
+            customLine1.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            customLine1.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            customLine1.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 5),
             customLine1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             adressImageView.heightAnchor.constraint(equalToConstant: 30),
             adressImageView.widthAnchor.constraint(equalToConstant: 30),
-            adressImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 750),
-            adressImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+            adressImageView.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 15),
+            adressImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor),
         ])
         
         NSLayoutConstraint.activate([
             adressLabel.heightAnchor.constraint(equalToConstant: 60),
-            adressLabel.widthAnchor.constraint(equalToConstant: 350),
-            adressLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 740),
-            adressLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            adressLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width-60),
+            adressLabel.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 5),
+            adressLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor+30),
             adressLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             customLine2.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine2.widthAnchor.constraint(equalToConstant: 350),
-            customLine2.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 790),
+            customLine2.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            customLine2.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            customLine2.topAnchor.constraint(equalTo: self.adressLabel.bottomAnchor, constant: -10),
             customLine2.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             timeImageView.heightAnchor.constraint(equalToConstant: 25),
             timeImageView.widthAnchor.constraint(equalToConstant: 25),
-            timeImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 810),
-            timeImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+            timeImageView.topAnchor.constraint(equalTo: self.customLine2.bottomAnchor, constant: 15),
+            timeImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor),
         ])
         
         NSLayoutConstraint.activate([
             timeTableLabel.heightAnchor.constraint(equalToConstant: 60),
-            timeTableLabel.widthAnchor.constraint(equalToConstant: 350),
-            timeTableLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 795),
-            timeTableLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            timeTableLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width-60),
+            timeTableLabel.topAnchor.constraint(equalTo: self.adressLabel.bottomAnchor, constant: -10),
+            timeTableLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor+30),
             timeTableLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             customLine3.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine3.widthAnchor.constraint(equalToConstant: 350),
-            customLine3.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 845),
+            customLine3.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            customLine3.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            customLine3.topAnchor.constraint(equalTo: self.timeTableLabel.bottomAnchor, constant: -10),
             customLine3.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             subwayImageView.heightAnchor.constraint(equalToConstant: 25),
             subwayImageView.widthAnchor.constraint(equalToConstant: 25),
-            subwayImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 865),
-            subwayImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+            subwayImageView.topAnchor.constraint(equalTo: self.customLine3.bottomAnchor, constant: 15),
+            subwayImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor),
         ])
         
         NSLayoutConstraint.activate([
             subwayLabel.heightAnchor.constraint(equalToConstant: 60),
-            subwayLabel.widthAnchor.constraint(equalToConstant: 350),
-            subwayLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 850),
-            subwayLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            subwayLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width-60),
+            subwayLabel.topAnchor.constraint(equalTo: self.timeTableLabel.bottomAnchor, constant: -10),
+            subwayLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor+30),
             subwayLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             customLine4.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine4.widthAnchor.constraint(equalToConstant: 350),
-            customLine4.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 900),
+            customLine4.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            customLine4.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            customLine4.topAnchor.constraint(equalTo: self.subwayLabel.bottomAnchor, constant: -10),
             customLine4.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             phoneImageView.heightAnchor.constraint(equalToConstant: 25),
             phoneImageView.widthAnchor.constraint(equalToConstant: 25),
-            phoneImageView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 920),
-            phoneImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 30),
+            phoneImageView.topAnchor.constraint(equalTo: self.customLine4.bottomAnchor, constant: 15),
+            phoneImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor),
         ])
         
         NSLayoutConstraint.activate([
             phoneLabel.heightAnchor.constraint(equalToConstant: 60),
-            phoneLabel.widthAnchor.constraint(equalToConstant: 350),
-            phoneLabel.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 905),
-            phoneLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: 60),
+            phoneLabel.widthAnchor.constraint( equalToConstant: UIScreen.main.bounds.width-60),
+            phoneLabel.topAnchor.constraint(equalTo: self.subwayLabel.bottomAnchor, constant: -10),
+            phoneLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor+30),
             phoneLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([
             customLine5.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine5.widthAnchor.constraint(equalToConstant: 350),
-            customLine5.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: 955),
+            customLine5.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            customLine5.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            customLine5.topAnchor.constraint(equalTo: self.phoneLabel.bottomAnchor, constant: -10),
             customLine5.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
@@ -400,7 +414,6 @@ class PlaceViewController: UIViewController {
     
     @objc func didClickedGoBackButton() {
         self.dismiss(animated: true, completion: nil)
-       // navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @objc func didClickedShowOnMapButton() {

@@ -105,8 +105,10 @@ final class CategoryViewController: UIViewController{
 
 extension CategoryViewController: CategoryViewInput{
     func upplyFilter(with filterValue: String) {
+//        animationView.isHidden = false
+//        tableView.isHidden = true
         output.removeCategoryElements()
-        output.tableView(filter: filterValue, pageInt: output.countElementsToPages)
+        output.tableView(filter: filterValue, pageInt: 1)//output.countElementsToPages
     }
     
     func update() {
@@ -158,7 +160,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {  
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         
         print("scrollViewDidEndDragging")
-        if ((tableView.contentOffset.y + tableView.frame.size.height) >= tableView.contentSize.height - 400)
+        if ((tableView.contentOffset.y + tableView.frame.size.height) >= tableView.contentSize.height - 1500)
         {
             if !isDataLoading{
                 isDataLoading = true

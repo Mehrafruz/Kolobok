@@ -46,6 +46,10 @@ extension CategoryPresenter: CategoryViewOutput {
         interactor.loadCurrentCategoryElements(with: filter, with: pageInt)
     }
     
+    func sortingTableView(filter: String, pageInt: Int){
+        interactor.loadCurrentCategoryElements(with: filter, with: pageInt)
+    }
+    
         
     func didSelect(at index: Int) {
         if !categoryElements.isEmpty{
@@ -92,7 +96,7 @@ extension CategoryPresenter: CategoryInteractorOutput {
     
     func didFail(with error: Error) {
     //MARK: кидает ошибку, разобраться
-       // router.show(error)
+        //   router.show(error)
     }
     
     }

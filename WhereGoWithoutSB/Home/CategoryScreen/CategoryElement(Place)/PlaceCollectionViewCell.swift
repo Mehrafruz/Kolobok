@@ -30,7 +30,7 @@ class PlaceCollectionViewCell: UICollectionViewCell {
     
     private func setupViews() {
         contentView.clipsToBounds = true
-        contentView.layer.cornerRadius = 12.0
+        //contentView.layer.cornerRadius = 12.0
         contentView.backgroundColor = .white
         indicatorView.center = contentView.center
         indicatorView.color = ColorPalette.black
