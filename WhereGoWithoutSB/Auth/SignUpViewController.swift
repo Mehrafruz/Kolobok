@@ -229,6 +229,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         text.addAttribute(.link, value: value, range: NSRange(location: location, length: length))
         UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.yellow]
         textView.attributedText = text
+        textView.isEditable = false
     }
     
     func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){

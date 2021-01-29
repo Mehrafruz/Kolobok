@@ -16,8 +16,6 @@ protocol SignInDelegate: AnyObject{
 }
 
 class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
-
-
     weak var delegate: SignInDelegate?
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
@@ -201,7 +199,12 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     func showAlert(reason: String){
         let title = "Ошибка"
         let action = UIAlertAction(title: "OK", style: .default)
+        
         displayAlert(with: title , message: reason, actions: [action])
+    }
+    
+    func showAlertWithTextField(reason: String){
+        displayAlertForgotPassKeys(with: "Забыли пароль", message: "Укажите почту, мы отправим на нее ссылку для сброса пароля")
     }
     
     func setupLabel(label: UILabel, text: String, fontSize: CGFloat){
@@ -232,6 +235,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         text.addAttribute(.link, value: value, range: NSRange(location: location, length: length))
         UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.yellow]
         textView.attributedText = text
+        textView.isEditable = false
     }
     
     func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
@@ -377,9 +381,11 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
 
 
 extension SignInViewController: UITextFieldDelegate, UITextViewDelegate{
+    
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
         if URL.absoluteString == "forgotPass"{
             print ("_______cliced to link")
+            showAlertWithTextField(reason: "Введите почту")
         }
        if URL.absoluteString == "signUp"{
             self.dismiss(animated: true, completion: {
