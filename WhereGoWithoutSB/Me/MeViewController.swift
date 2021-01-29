@@ -2,65 +2,21 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-protocol MainViewDelegate: AnyObject{
-    func openSignIn()
-    func dismissMeView()
-}
 
-weak var delegate: MainViewDelegate?
-
-class MeViewController: UIViewController{
-    
-    private let output: MeViewOutput
- 
+class MeViewController: UIViewController {
     
     private var scrollView = UIScrollView()
-    let nameLabel = UILabel()
-    let avatarImageView = UIImageView()
-    let avatarImagPickerController = UIImagePickerController()
-    let changeAvatarButton = UIButton()
-    let visitedLabel = UILabel()
-    let favoriteLabel = UILabel()
-    let settings: [String] = ["Настройки", "Выйти"]
+    private let contentView = UIView()
+    private var exitButton = UIButton()
+    private let avatarImageView = UIImageView()
+    private let changeAvatarButton = UIButton()
+    private let nameLabel = UILabel()
+    private let emailLabel = UILabel()
+    private var customLine0 = UITableViewCell()
+    private var customLine1 = UITableViewCell()
+    private let liveAccountButton = UIButton()
     
-    private let visitedCollectionView: UICollectionView = {
-        let viewLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
-        viewLayout.scrollDirection = .horizontal
-        viewLayout.itemSize = CGSize.init(width: 180, height: 130)
-        viewLayout.minimumInteritemSpacing = 3
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
-    
-    //var timer = Timer()
-    
-    @objc
-    func timerAction() {
-        favoriteCollectionView.reloadData()
-        visitedCollectionView.reloadData()
-    }
-    
-    private let favoriteCollectionView: UICollectionView = {
-        let viewLayout = UICollectionViewFlowLayout()
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: viewLayout)
-        viewLayout.scrollDirection = .horizontal
-        viewLayout.itemSize = CGSize.init(width: 180, height: 130)
-        viewLayout.minimumInteritemSpacing = 3
-        collectionView.backgroundColor = .white
-        return collectionView
-    }()
-    
-    private var settingsTableView : UITableView = {
-        let tableView = UITableView()
-        tableView.tableFooterView = UIView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        return tableView
-    }()
-    
-    init(output: MeViewOutput) {
-        self.output = output
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -70,103 +26,54 @@ class MeViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        if globalAppUser.name.isEmpty {
-            delegate?.dismissMeView()
-            delegate?.openSignIn()
-           // present(SignInViewController(), animated: true)
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if globalAppUser.name.isEmpty{
-            delegate?.dismissMeView()
-            delegate?.openSignIn()
-        }
-        //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
-        favoriteCollectionView.reloadData()
-        visitedCollectionView.reloadData()
-        _ = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1200)
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 600)
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
     }
     
     override func viewDidLoad() {
-           super.viewDidLoad()
-        if globalAppUser.name.isEmpty{
-            view.backgroundColor = .white
-            delegate?.dismissMeView()
-            delegate?.openSignIn()
-        }
-        else {
-            navigationItem.title = "Аккаунт"
-            view.backgroundColor = .systemBackground
-            setup()
-            _ = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-            _ = Timer.scheduledTimer(timeInterval: 3.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
-            favoriteCollectionView.reloadData()
-            visitedCollectionView.reloadData()
-        }
+        super.viewDidLoad()
+        contentView.backgroundColor = .white
+        navigationItem.title = "Аккаунт"
+        setup()
     }
     
-    func setup(){
-        scrollView.contentOffset = CGPoint.zero
-        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    
+    func setup() {
+        contentView.layer.cornerRadius = 15
+        contentView.layer.masksToBounds = true
+        setupLittleButton(button: exitButton, image: UIImage(systemName: "xmark")!, tintColor: ColorPalette.black)
+        exitButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
         
-        setupTitleView()
         setupAvatarImage()
-        setupView("Просмотреное", visitedLabel)
-        constraintsForVisited(to: avatarImageView, by: 10, visitedLabel)
-        setupView("Избранное", favoriteLabel)
-        constraintsForVisited(to: avatarImageView, by: 200, favoriteLabel)
+        setupLibel(label: nameLabel, text: globalAppUser.name, sizeFont: 37)
+        setupLibel(label: emailLabel, text: globalAppUser.email, sizeFont: 17)
         
-        setupCollectionView(visitedCollectionView)
-        setupLayouts(visitedCollectionView, visitedLabel)
-        setupCollectionView(favoriteCollectionView)
-        setupLayouts(favoriteCollectionView, favoriteLabel)
-        setupTableView()
-        setupLittleButton(button: changeAvatarButton, imageName: "", bgImageName: "square.and.pencil", tintColor: ColorPalette.blue)
+        setupButton(button: changeAvatarButton, title: "Изменить фото", color: ColorPalette.yellow, textColor: ColorPalette.black, borderColor: ColorPalette.yellow)
         changeAvatarButton.addTarget(self, action: #selector(didChangeAvatar), for: .touchUpInside)
+
+        setupButton(button: liveAccountButton, title: "Выйти из аккаунта", color: ColorPalette.black, textColor: ColorPalette.gray, borderColor: ColorPalette.black)
+        liveAccountButton.addTarget(self, action: #selector(didTapLiveAccountButton), for: .touchUpInside)
         
-        avatarImageView.contentMode = .scaleAspectFill
-        //view.addSubview(scrollView)
+        [customLine0, customLine1].forEach {
+            ($0).backgroundColor =  ColorPalette.gray
+        }
         
-        [changeAvatarButton].forEach{
-            view.addSubview(($0))
+        view.addSubview(contentView)
+        
+        contentView.addSubview(scrollView)
+        
+        [exitButton, avatarImageView, emailLabel, nameLabel, changeAvatarButton, customLine0, customLine1, liveAccountButton].forEach{
+            scrollView.addSubview(($0))
         }
         addConstraints()
     }
+
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
-    func setupTableView() {
-        view.addSubview(settingsTableView)
-        
-        settingsTableView.delegate = self
-        settingsTableView.dataSource = self
-        
-        settingsTableView.topAnchor.constraint(equalTo: favoriteCollectionView.bottomAnchor, constant: 16).isActive = true
-        settingsTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        settingsTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        settingsTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 20).isActive = true
-        settingsTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-    }
-    
-    
-    func setupLittleButton(button: UIButton, imageName: String, bgImageName: String, tintColor: UIColor) {
-        button.setImage( UIImage(systemName: imageName), for: UIControl.State.normal)
-        button.setBackgroundImage( UIImage(systemName: bgImageName), for: UIControl.State.normal)
-        button.setTitleColor(UIColor.white, for: UIControl.State.normal)
-        button.tintColor = tintColor
-        button.layer.cornerRadius = 25
-        button.clipsToBounds = true
-        button.layer.shadowRadius = 3.0
-        button.layer.shadowOpacity = 0.5
-        button.layer.masksToBounds = false
-        button.layer.shadowOffset = CGSize(width: 0, height: 3)
+    @objc
+    func didClickedGoBackButton() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc
@@ -177,229 +84,146 @@ class MeViewController: UIViewController{
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    @objc
+    func didTapLiveAccountButton(){
+        showAlert(reason: "")
+    }
     
     func addConstraints() {
-        [changeAvatarButton].forEach{
+        [scrollView, contentView, exitButton, emailLabel, nameLabel, avatarImageView, changeAvatarButton, customLine0, customLine1, liveAccountButton].forEach{
             ($0).translatesAutoresizingMaskIntoConstraints = false
         }
-        changeAvatarButton.translatesAutoresizingMaskIntoConstraints = false
-        changeAvatarButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        changeAvatarButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        changeAvatarButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: -35).isActive = true
-        changeAvatarButton.rightAnchor.constraint(equalTo: avatarImageView.rightAnchor, constant: 0).isActive = true
-    }
-    
-    private func setupCollectionView(_ collectionView: UICollectionView) {
-        view.addSubview(collectionView)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.register(MeCollectionViewCell.self, forCellWithReuseIdentifier: MeCollectionViewCell.identifier)
-    }
-    
-    
-    
-    private func setupLayouts(_ collectionView: UICollectionView, _ upperView: UILabel) {
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: upperView.bottomAnchor, constant: -10),
-            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            collectionView.heightAnchor.constraint(equalToConstant: 130)
+            contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7),
+            contentView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            contentView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            scrollView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            scrollView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            exitButton.widthAnchor.constraint(equalToConstant: 30),
+            exitButton.heightAnchor.constraint(equalToConstant: 30),
+            exitButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 30),
+            exitButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20)
+        ])
+        
+        NSLayoutConstraint.activate([
+            nameLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            nameLabel.heightAnchor.constraint(equalToConstant: 40),
+            nameLabel.topAnchor.constraint(equalTo: self.exitButton.bottomAnchor, constant: 10),
+            nameLabel.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine0.widthAnchor.constraint(equalToConstant: 300),
+            customLine0.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine0.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            customLine0.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 3)
+        ])
+        
+        NSLayoutConstraint.activate([
+            emailLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
+            emailLabel.heightAnchor.constraint(equalToConstant: 30),
+            emailLabel.topAnchor.constraint(equalTo: customLine0.bottomAnchor, constant: 10),
+            emailLabel.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            avatarImageView.widthAnchor.constraint(equalToConstant: 210),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 210),
+            avatarImageView.topAnchor.constraint(equalTo: self.emailLabel.bottomAnchor, constant: 1),
+            avatarImageView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
+        ])
+       
+        NSLayoutConstraint.activate([
+            changeAvatarButton.widthAnchor.constraint(equalToConstant: 150),
+            changeAvatarButton.heightAnchor.constraint(equalToConstant: 35),
+            changeAvatarButton.topAnchor.constraint(equalTo: self.avatarImageView.bottomAnchor, constant: 10),
+            changeAvatarButton.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine1.widthAnchor.constraint(equalToConstant: 300),
+            customLine1.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine1.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            customLine1.topAnchor.constraint(equalTo: changeAvatarButton.bottomAnchor, constant: 10)
+        ])
+        
+        NSLayoutConstraint.activate([
+            liveAccountButton.widthAnchor.constraint(equalToConstant: 290),
+            liveAccountButton.heightAnchor.constraint(equalToConstant: 35),
+            liveAccountButton.topAnchor.constraint(equalTo: self.customLine1.bottomAnchor, constant: 15),
+            liveAccountButton.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor)
+        ])
+        
     }
     
+    func setupLittleButton(button: UIButton, image: UIImage, tintColor: UIColor) {
+           let image = image
+           button.setBackgroundImage( image, for: UIControl.State.normal)
+           button.setTitleColor(UIColor.white, for: UIControl.State.normal)
+           button.tintColor = tintColor
+       }
+       
     
-    func setupView(_ titleName: String, _ viewLabel: UILabel) {
-        view.addSubview(viewLabel)
-        viewLabel.backgroundColor = .white
-        viewLabel.text = titleName
-        viewLabel.font = UIFont(name: "POEVeticaVanta", size: 19)
-        viewLabel.adjustsFontSizeToFitWidth = true
-        viewLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+    func setupLibel(label: UILabel, text: String, sizeFont: CGFloat) {
+        label.backgroundColor = .white
+        label.text = text
+        label.font = UIFont(name: "POEVeticaVanta", size: sizeFont)
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setupAvatarImage() {
         if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
             
-            avatarImageView.image = UIImage(systemName: "plus.circle")
+            avatarImageView.image = UIImage(named: "appIcon")
             avatarImageView.tintColor = ColorPalette.blue
             
         } else {
             loadAvatarURL(avatarURL: globalAppUser.avatarURL)
         }
-        view.addSubview(avatarImageView)
-        let indent: CGFloat = 144.0
-        let width = UIScreen.main.bounds.width - indent * 2
         
-        avatarImageView.layer.cornerRadius = width / 2
+        
+        avatarImageView.contentMode = .scaleAspectFill
+        avatarImageView.layer.cornerRadius = 210 / 2
         avatarImageView.layer.masksToBounds = true
         
-        avatarImageView.layer.borderColor = ColorPalette.gray.cgColor
-        avatarImageView.layer.borderWidth = 3
-        
-        constrainsForAva(indent, width)
+        avatarImageView.layer.borderColor = ColorPalette.yellow.cgColor
+        avatarImageView.layer.borderWidth = 1
+    }
+    
+    func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor, borderColor: UIColor){
+        button.setTitle(title, for: UIControl.State.normal)
+        button.setTitleColor(textColor, for: UIControl.State.normal)
+        button.titleLabel?.font = UIFont(name: "POEVeticaVanta", size: 18)
+        button.backgroundColor = color
+        button.layer.zPosition = 0.1
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
+        button.layer.shadowRadius = 0.1
+        button.layer.shadowOpacity = 0.1
+        button.layer.masksToBounds = false
+        button.layer.shadowOffset = CGSize(width: 0, height: 1)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = borderColor.cgColor
     }
     
     
-    func setupTitleView() {
-        view.addSubview(nameLabel)
-        nameLabel.backgroundColor = .white
-        nameLabel.text = globalAppUser.name
-        nameLabel.font = UIFont(name: "POEVeticaVanta", size: 27)
-        nameLabel.adjustsFontSizeToFitWidth = true
-        nameLabel.translatesAutoresizingMaskIntoConstraints = false
-        constraintsForTitle()
-        
-    }
-    
-    
-    
-    func constraintsForTitle() {
-        let horizontalConstraint = NSLayoutConstraint(item: nameLabel,
-                                                      attribute: .top,
-                                                      relatedBy: .equal,
-                                                      toItem: view,
-                                                      attribute: .top,
-                                                      multiplier: 1,
-                                                      constant: 40)
-        let verticalCenter = NSLayoutConstraint(item: nameLabel,
-                                                attribute: .centerX,
-                                                relatedBy: .equal,
-                                                toItem: view,
-                                                attribute: .centerX,
-                                                multiplier: 1,
-                                                constant: 0)
-        let height = NSLayoutConstraint(item: nameLabel,
-                                        attribute: .height,
-                                        relatedBy: .equal,
-                                        toItem: nil,
-                                        attribute: .height,
-                                        multiplier: 1,
-                                        constant: 50)
-        
-        let constraints: [NSLayoutConstraint] = [horizontalConstraint, verticalCenter, height]
-        
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    fileprivate func constrainsForAva(_ indent: CGFloat, _ width: CGFloat) {
-        
-        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
-        avatarImageView.centerXAnchor.constraint(equalToSystemSpacingAfter: view.safeAreaLayoutGuide.centerXAnchor, multiplier: 1).isActive = true //
-        avatarImageView.heightAnchor.constraint(equalToConstant: width).isActive = true
-        avatarImageView.widthAnchor.constraint(equalToConstant: width).isActive = true
-        avatarImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 7).isActive = true
-    }
-    
-    
-    
-    
-    fileprivate func constraintsForVisited(to item: Any, by constant: CGFloat, _ sendView: UILabel) {
-        let horizontalConstraint = NSLayoutConstraint(item: sendView,
-                                                      attribute: .top,
-                                                      relatedBy: .equal,
-                                                      toItem: item,
-                                                      attribute: .bottom,
-                                                      multiplier: 1,
-                                                      constant: constant)
-        let verticalConstraint = NSLayoutConstraint(item: sendView,
-                                                    attribute: .leading,
-                                                    relatedBy: .equal,
-                                                    toItem: view,
-                                                    attribute: .leading,
-                                                    multiplier: 1,
-                                                    constant: 10)
-        let height = NSLayoutConstraint(item: sendView,
-                                        attribute: .height,
-                                        relatedBy: .equal,
-                                        toItem: nil,
-                                        attribute: .height,
-                                        multiplier: 1,
-                                        constant: 50)
-        
-        
-        let constraints: [NSLayoutConstraint] = [horizontalConstraint, verticalConstraint, height]
-        
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-}
-extension MeViewController: UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView === favoriteCollectionView{
-            return output.itemsCount(arr: globalAppUser.favoritePlaces)
-        }
-        else if collectionView === visitedCollectionView{
-            return output.itemsCount(arr: globalAppUser.viewedPlaces)
-        }
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MeCollectionViewCell.identifier, for: indexPath) as! MeCollectionViewCell
-        var item = FavoretiPlaceViewCellModel(imageURL: nil, title: "")
-        if collectionView === favoriteCollectionView{
-            item = output.item(at: indexPath.row, at: globalAppUser.favoritePlaces)
-        }
-        else if collectionView === visitedCollectionView{
-            item = output.item(at: indexPath.row, at: globalAppUser.viewedPlaces)
-        }
-        cell.configure(with: item)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if collectionView === favoriteCollectionView{
-            let id = globalAppUser.favoritePlaces.reversed()[indexPath.row]
-            output.didSelect(at: id)
-        }
-        if collectionView === visitedCollectionView{
-            let id = globalAppUser.viewedPlaces.reversed()[indexPath.row]
-            output.didSelect(at: id)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 50
-    }
-}
-
-extension MeViewController: UICollectionViewDelegate {
     
 }
 
-extension MeViewController: UITableViewDelegate, UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = settings[indexPath.row]
-        cell.textLabel?.textAlignment = .right
-        if indexPath.row == 1{
-            cell.textLabel?.textColor = .red
-        }
-        cell.textLabel?.font = UIFont(name: "POEVeticaVanta", size: 16)
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
-            present(SettingsViewController(), animated: true)
-        }
-        if indexPath.row == 1 {
-            showAlert(reason: "")
-        }
-        tableView.deselectRow(at: indexPath, animated: false)
-    }
-    
-    
-}
+
+
 
 extension MeViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -416,7 +240,6 @@ extension MeViewController: UIImagePickerControllerDelegate, UINavigationControl
             case.failure(let error):
                 print (error)
             }
-            
         }
     }
 }
@@ -424,7 +247,6 @@ extension MeViewController: UIImagePickerControllerDelegate, UINavigationControl
 extension MeViewController: FireStoreAvatarInput{
     
     func uploadAvatarImage(currentUserId: String, photo: UIImage, completion: @escaping (Result<URL, Error>) -> Void) {
-        
         let ref = Storage.storage().reference().child("avatars").child(currentUserId)
         guard let imageData = avatarImageView.image?.jpegData(compressionQuality: 0.4) else { return }
         let metadata = StorageMetadata()
@@ -479,17 +301,6 @@ extension MeViewController: FireStoreFavoritePlacesInput{
     
 }
 
-extension MeViewController: MeViewInput{
-    func updateFavoriteCollectionViewCell(at index: Int) {
-        favoriteCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-    }
-    
-    func updateVisitedCollectionViewCell(at index: Int){
-        visitedCollectionView.reloadItems(at: [IndexPath(row: index, section: 0)])
-    }
-    
-}
-
 extension MeViewController: AlertDisplayer{
     func showAlert(reason: String){
         let title = "Вы дейсвительно хотите выйти?"
@@ -502,7 +313,8 @@ extension MeViewController: AlertDisplayer{
                 print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
                 globalAppUser.removeUser()
                 delegate?.dismissMeView()
-                delegate?.openSignIn()
+                self.dismiss(animated: true, completion: nil)
+                //delegate?.openSignIn()
             } catch {
                 print ("Не удалось выйти из аккаунта")
             }
@@ -512,3 +324,23 @@ extension MeViewController: AlertDisplayer{
     }
     
 }
+
+extension MeViewController: MeTableViewFirstCellDelegate{
+    
+    func presentImagePickerController() {
+        let imagePickerController: UIImagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+}
+
+extension MeViewController: SettingsViewControllerDelegate{
+    func dissmisSettingsViewController() {
+        self.reloadInputViews()
+    }
+    
+    
+}
+

@@ -17,6 +17,7 @@ protocol SignInDelegate: AnyObject{
 
 class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
 
+
     weak var delegate: SignInDelegate?
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
@@ -166,7 +167,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                         globalAppUser.email = email
                         self.getInfo(id: currentUserId ?? "", key: "avatarURL") { resultString in
                             globalAppUser.avatarURL = resultString
-                            self.saveUser(id: globalAppUser.id, name: globalAppUser.name, imageData: globalAppUser.avatarURL, rememberUser: !self.flag)
+                            self.saveUser(id: globalAppUser.id, name: globalAppUser.name, email: email, imageData: globalAppUser.avatarURL, rememberUser: !self.flag)
                         }
                     }
                    
@@ -192,8 +193,8 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         }
     }
     
-    func saveUser(id: String, name: String, imageData: String, rememberUser: Bool){
-        self.addUserData(id: id, name: name, imageData: imageData, rememberUser: rememberUser)
+    func saveUser(id: String, name: String, email: String, imageData: String, rememberUser: Bool){
+        self.addUserData(id: id, name: name, email: email, imageData: imageData, rememberUser: rememberUser)
     
     }
     
@@ -395,7 +396,6 @@ extension SignInViewController: UITextFieldDelegate, UITextViewDelegate{
     
     
 }
-
 
 
 extension SignInViewController: FireStoreFavoritePlacesOutput{

@@ -12,7 +12,7 @@ import Firebase
 
 var categoriesNavigationViewController : UINavigationController?
 var mapViewNavigationController: UINavigationController?
-var meNavigationViewController: UINavigationController?
+var favoritesViewNavigationController: UINavigationController?
 var authNavigationViewController: UINavigationController?
 var welcomeNavigationViewController: UINavigationController?
 
@@ -31,11 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let mapContext = MapContext()
         let mapContainer = MapContainer.assemble(with: "park,questroom,art-space,museums,bar,clubs,attractions", with: mapContext)
         
-        let meContext = MeContext()
-        let meContainer = MeContainer.assemble(with: meContext)
+        let favoritesContext = FavoritesContext()
+        let favoritesContainer = FavoritesContainer.assemble(with: favoritesContext)
+        
         
         mapViewNavigationController =  UINavigationController(rootViewController: mapContainer.viewController)
-        meNavigationViewController = UINavigationController(rootViewController: meContainer.viewController)
+        favoritesViewNavigationController = UINavigationController(rootViewController: favoritesContainer.viewController)
         welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
         delegate = self
         FirebaseApp.configure()
@@ -45,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             if UserSettings.rememberUser{
                 globalAppUser.id = UserSettings.id
                 globalAppUser.name = UserSettings.userName
+                globalAppUser.email = UserSettings.email
                 globalAppUser.avatarURL = UserSettings.imageData
                 self.loadFavoritePlaces(currentUserId: UserSettings.id)
                 self.loadViewedPlaces(currentUserId: UserSettings.id)
@@ -84,11 +86,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         //MARK: исправить force unwrapping
-        tabBarController.viewControllers = [categoriesNavigationViewController!, mapViewNavigationController!, meNavigationViewController!]
+        tabBarController.viewControllers = [categoriesNavigationViewController!, mapViewNavigationController!, favoritesViewNavigationController!]
         
         let item1 = UITabBarItem(title: "", image: UIImage(named:"house"), tag: 0)
         let item2 = UITabBarItem(title: "", image:  UIImage(named: "map"), tag: 1)//"mappin.circle.fill"
-        let item3 = UITabBarItem(title: "", image: UIImage(named: "person"), tag: 2)//"person.fill"
+        let item3 = UITabBarItem(title: "", image:  UIImage(named: "favorite"), tag: 2)
         
 //
 //        let item1 = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)//"homeBar"
@@ -102,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         categoriesNavigationViewController?.tabBarItem = item1
         mapViewNavigationController?.tabBarItem = item2
-        meNavigationViewController?.tabBarItem = item3
+        favoritesViewNavigationController?.tabBarItem = item3
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = tabBarController
@@ -160,3 +162,5 @@ extension AppDelegate: MainViewDelegate{
     
     
 }
+
+

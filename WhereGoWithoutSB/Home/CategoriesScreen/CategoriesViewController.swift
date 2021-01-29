@@ -141,24 +141,33 @@ extension CategoriesViewController: UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var category: String = ""
+        var title: String = ""
   
         switch indexPath {
         case [0,0]:
             category = "park"
+            title = "Парки"
         case [0,1]:
             category = "questroom"
+            title = "Квесты"
         case [0,2]:
             category = "art-space"
+            title = "Выставки"
         case [0,3]:
             category = "museums"
+            title = "Музеи"
         case [0,4]:
             category = "restaurants"
+            title = "Рестораны"
         case [0,5]:
             category = "bar"
+            title = "Бары"
         case [0,6]:
             category = "clubs"
+            title = "Клубы"
         case [0,7]:
             category = "attractions"
+            title = "Истересные места"
         default:
             category = ""
         }
@@ -167,7 +176,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         let container = CategoryContainer.assemble(with: category, with: context)
         navigationController?.pushViewController(container.viewController, animated: true)
         self.navigationController?.navigationBar.tintColor = ColorPalette.black//UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-        self.navigationController?.navigationBar.topItem?.title = "К категориям"
+        self.navigationController?.navigationBar.topItem?.title = title
     }
 }
 

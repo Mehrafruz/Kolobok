@@ -13,6 +13,7 @@ final class UserSettings{
     private enum SettingsKeys: String{
         case id
         case userName
+        case email
         case imageData
         case rememberUser
     }
@@ -48,6 +49,22 @@ final class UserSettings{
             }
         }
     }
+    
+    static var email: String!{
+           get{
+               return UserDefaults.standard.string(forKey: SettingsKeys.email.rawValue)
+           }
+           set{
+               let defaults = UserDefaults.standard
+               let key = SettingsKeys.email.rawValue
+               if let email = newValue {
+                   print ("value \(email) was added to \(key)")
+                   defaults.set(email, forKey: key)
+               } else {
+                   defaults.removeObject(forKey: key)
+               }
+           }
+       }
     
     static var imageData: String!{
         get{
@@ -86,6 +103,7 @@ final class UserSettings{
 
         defaults.removeObject(forKey: SettingsKeys.id.rawValue)
         defaults.removeObject(forKey: SettingsKeys.userName.rawValue)
+        defaults.removeObject(forKey: SettingsKeys.email.rawValue)
         defaults.removeObject(forKey: SettingsKeys.imageData.rawValue)
         defaults.removeObject(forKey: SettingsKeys.rememberUser.rawValue)
     }

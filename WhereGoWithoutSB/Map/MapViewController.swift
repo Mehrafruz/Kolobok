@@ -121,8 +121,8 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
     func onObjectAdded(with view: YMKUserLocationView) {
         let pinPlacemark = view.pin.useCompositeIcon()
         
-        pinPlacemark.setIconWithName("userLocation",
-                                     image: UIImage(named:"userLocation")!,
+        pinPlacemark.setIconWithName("location.circle",
+                                     image: UIImage(systemName:"location.circle")!,
                                      style:YMKIconStyle(
                                         anchor: CGPoint(x: 0, y: 0) as NSValue,
                                         rotationType:YMKRotationType.rotate.rawValue as NSNumber,
@@ -153,9 +153,7 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
         let scale = UIScreen.main.scale
         userLocationLayer?.setVisibleWithOn(true)
         userLocationLayer?.isHeadingEnabled = true
-        userLocationLayer?.setAnchorWithAnchorNormal(
-            CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale),
-            anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
+        userLocationLayer?.setAnchorWithAnchorNormal(CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale), anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
         userLocationLayer?.setObjectListenerWith(self)
         mapView.mapWindow.map.move( with: userLocationLayer?.cameraPosition() ?? YMKCameraPosition.init(target: points[0], zoom: 12, azimuth: 0, tilt: 0))
     }
