@@ -53,6 +53,10 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         presentationController?.delegate = self
         isModalInPresentation = true
         
+        [signUpWithLabel, signUpWithFacebookButton, signUpWithAppleButton].forEach{
+            ($0).isHidden = true
+        }
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         confirmPasswordTextField.delegate = self

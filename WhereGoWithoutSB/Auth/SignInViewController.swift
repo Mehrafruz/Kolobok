@@ -51,6 +51,9 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         emailTextField.delegate = self
         passwordTextField.delegate = self
         passwordTextField.isSecureTextEntry = true
+        [signUpWithLabel, signUpWithFacebookButton, signUpWithAppleButton].forEach{
+            ($0).isHidden = true
+        }
         
         setup()
     }
