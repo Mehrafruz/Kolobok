@@ -178,7 +178,9 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                         })
                     }
                     else {
-                        self.showAlert(reason: "Такой пользовятель уже существует")
+                        let err = AuthErrorCode(rawValue: error!._code)
+                        self.showAlert(reason: err?.errorMessage ?? "Произошла неизвестная ошибка")
+                       // self.showAlert(reason: "Такой пользовятель уже существует")
                     }
                 }
             }

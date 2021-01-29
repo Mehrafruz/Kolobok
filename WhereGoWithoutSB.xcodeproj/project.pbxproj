@@ -21,6 +21,7 @@
 		EF355AF025409F7300B260E6 /* CustomLayoutSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF355AEF25409F7300B260E6 /* CustomLayoutSwift.swift */; };
 		EF37ADC8257A9AC0006B99C4 /* PlaceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */; };
 		EF38AA122551D5BB00385632 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF38AA112551D5BB00385632 /* Assets.xcassets */; };
+		EF397F4F25C4BC0100954E4B /* AuthErrorCodeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF397F4E25C4BC0100954E4B /* AuthErrorCodeExtension.swift */; };
 		EF3BB03125C099B400318433 /* FavoritesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3BB02B25C099B400318433 /* FavoritesPresenter.swift */; };
 		EF3BB03225C099B400318433 /* FavoritesRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3BB02C25C099B400318433 /* FavoritesRouter.swift */; };
 		EF3BB03325C099B400318433 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3BB02D25C099B400318433 /* FavoritesViewController.swift */; };
@@ -94,6 +95,7 @@
 		EF355AEF25409F7300B260E6 /* CustomLayoutSwift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLayoutSwift.swift; sourceTree = "<group>"; };
 		EF37ADC7257A9AC0006B99C4 /* PlaceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceCollectionViewCell.swift; sourceTree = "<group>"; };
 		EF38AA112551D5BB00385632 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = WhereGoWithoutSB/Assets.xcassets; sourceTree = "<group>"; };
+		EF397F4E25C4BC0100954E4B /* AuthErrorCodeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthErrorCodeExtension.swift; sourceTree = "<group>"; };
 		EF3BB02B25C099B400318433 /* FavoritesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesPresenter.swift; sourceTree = "<group>"; };
 		EF3BB02C25C099B400318433 /* FavoritesRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesRouter.swift; sourceTree = "<group>"; };
 		EF3BB02D25C099B400318433 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
@@ -375,6 +377,7 @@
 			isa = PBXGroup;
 			children = (
 				EFAEC6F8258F9F8100AF154B /* AlertControllerExtension.swift */,
+				EF397F4E25C4BC0100954E4B /* AuthErrorCodeExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				EF4DEE0625B79ADB00F6ABB7 /* MeTableViewHeader.swift in Sources */,
 				EF33F598254360BA00593C46 /* CategoryTableViewCell.swift in Sources */,
 				EF73ADE1258CF04000A86044 /* SortingViewController.swift in Sources */,
+				EF397F4F25C4BC0100954E4B /* AuthErrorCodeExtension.swift in Sources */,
 				EF3F8C5825782D1B00B103A1 /* SignUpViewController.swift in Sources */,
 				EF5ADBE62585162A00E6D034 /* MapContainer.swift in Sources */,
 				EF3C546425C3840F00812F2A /* RenameUserViewController.swift in Sources */,

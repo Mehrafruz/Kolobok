@@ -178,6 +178,10 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
                         self.delegate?.dismissWelcomeView()
                     })
                 }
+                else {
+                    let err = AuthErrorCode(rawValue: error!._code)
+                    self.showAlert(reason: err?.errorMessage ?? "Произошла неизвестная ошибка")
+                }
             }
         } else {
             showAlert(reason: reason)
@@ -443,3 +447,4 @@ extension SignInViewController: UIAdaptivePresentationControllerDelegate{
         print(#function)
     }
 }
+
