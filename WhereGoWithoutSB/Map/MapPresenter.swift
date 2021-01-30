@@ -37,7 +37,7 @@ extension MapPresenter: MapViewOutput {
     }
     
     func categoriesElementsIsLoad(){
-        interactor.loadCategoriesElements()
+        interactor.loadCategoriesElements(pageInt: 1)
     }
     
 }

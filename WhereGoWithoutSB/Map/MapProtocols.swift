@@ -25,7 +25,7 @@ protocol MapViewOutput: class {
 }
 
 protocol MapInteractorInput: class {
-    func loadCategoriesElements()
+    func loadCategoriesElements(pageInt: Int)
 }
 
 protocol MapInteractorOutput: class {

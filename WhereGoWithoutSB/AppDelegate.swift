@@ -24,8 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         YMKMapKit.setApiKey("3ed69a38-a2d6-43ec-ac3e-a79da5bd277d")
-        
-        
+         tabBarController.delegate = self
+       
         categoriesNavigationViewController = UINavigationController(rootViewController: CategoriesViewController())
         
         let mapContext = MapContext()
@@ -116,12 +116,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 }
 
-extension AppDelegate: UITabBarControllerDelegate{
+extension AppDelegate: UITabBarControllerDelegate, UITabBarDelegate{
+    
     private func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        let tabBarIndex = tabBarController.selectedIndex
+        let tabBarIndex = tabBarController.tabBarItem.tag
         if tabBarIndex == 2{
+            if globalAppUser.name.isEmpty{
+                delegate?.dismissMeView()
+                delegate?.openSignIn()
+            }
         }
     }
+    
+
 }
 
 
@@ -148,6 +155,8 @@ extension AppDelegate: FireStoreFavoritePlacesOutput{
             completion(result)
         }
     }
+    
+    
     
 }
 

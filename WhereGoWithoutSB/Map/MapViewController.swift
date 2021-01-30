@@ -155,7 +155,7 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
         userLocationLayer?.isHeadingEnabled = true
         userLocationLayer?.setAnchorWithAnchorNormal(CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale), anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
         userLocationLayer?.setObjectListenerWith(self)
-        mapView.mapWindow.map.move( with: userLocationLayer?.cameraPosition() ?? YMKCameraPosition.init(target: points[0], zoom: 12, azimuth: 0, tilt: 0))
+        mapView.mapWindow.map.move( with: userLocationLayer?.cameraPosition() ?? YMKCameraPosition.init(target: points[54], zoom: 12, azimuth: 0, tilt: 0))
     }
     
     
@@ -191,7 +191,7 @@ extension MapViewController: MapViewInput{
         collection?.clusterPlacemarks(withClusterRadius: 10, minZoom: 5)
         
         mapView.mapWindow.map.move(
-            with: YMKCameraPosition.init(target: points[0], zoom: 12, azimuth: 0, tilt: 0))
+            with: YMKCameraPosition.init(target: points[54], zoom: 12, azimuth: 0, tilt: 0))
     }
     
     

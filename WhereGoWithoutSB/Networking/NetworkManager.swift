@@ -23,16 +23,16 @@ enum NetworkError: Error {
 }
 
 protocol NetworkManagerDescription: AnyObject {
-    func categoryElements(category: String, filter: String, pageInt: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void)
+    func categoryElements(category: String, filter: String, pageInt: Int, pageSize: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void)
 }
 
 final class NetworkManager: NetworkManagerDescription {
     static let shared: NetworkManagerDescription = NetworkManager()
 
     
-    func categoryElements(category: String, filter: String, pageInt: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void) {
+    func categoryElements(category: String, filter: String, pageInt: Int, pageSize: Int, completion: @escaping (Result<CategoryElements, Error>) -> Void) {
         let pageStr = String(pageInt)
-        let urlString = "https://kudago.com/public-api/v1.3/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text,&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since=&showing_until=&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=15"
+        let urlString = "https://kudago.com/public-api/v1.3/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text,&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since=&showing_until=&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=\(pageSize)"
         
         //"https://kudago.com/public-api/v1.4/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since&showing_until&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=15"
         

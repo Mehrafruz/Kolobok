@@ -19,9 +19,13 @@ final class FavoritesViewController: UIViewController {
 
     private let output: FavoritesViewOutput
     private var currentSegment: String = "Favorites"
-    private let backgroundImage = UIImageView()
     private let backgroundLabel = UILabel()
     
+    private let heartForEmptyKeysImageView = UIImageView()
+    private let eyeForEmptyKeysImageView = UIImageView()
+    private let favForEmptyKeysLabel = UILabel()
+    private let visForEmptyKeysLabel = UILabel()
+
     var favoritesTableView : UITableView = {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
@@ -59,22 +63,64 @@ final class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        backgroundImage.image = UIImage(named: "bgWelcomeScene")
         favoritesTableView.dataSource = self
         favoritesTableView.delegate = self
-
+        setupEmptyKeys()
         favoritesTableView.register(FavoritesTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "FavoritesTableViewHeader")
         favoritesTableView.register(FavoritesTableViewCell.self, forCellReuseIdentifier: "FavoritesTableViewCell")
                 
-        [favoritesTableView, backgroundImage].forEach{
+        [favoritesTableView, favForEmptyKeysLabel, visForEmptyKeysLabel, eyeForEmptyKeysImageView, heartForEmptyKeysImageView].forEach{
             view.addSubview($0)
         }
         
         addConstraints()
     }
     
+    func setupEmptyKeys(){
+        heartForEmptyKeysImageView.image = UIImage(systemName: "heart.fill")
+        heartForEmptyKeysImageView.tintColor = ColorPalette.gray//yellow
+        eyeForEmptyKeysImageView.image = UIImage(systemName: "eye.fill")
+        eyeForEmptyKeysImageView.tintColor = ColorPalette.gray//yellow
+        
+        favForEmptyKeysLabel.text = "Добавьте понравившиеся локации в избранное"
+        visForEmptyKeysLabel.text = "Тут будут отображаться последние 10 просмотренных локаций"
+        
+        [favForEmptyKeysLabel, visForEmptyKeysLabel].forEach{
+            ($0).numberOfLines = 3
+            ($0).lineBreakMode = .byClipping
+            ($0).textAlignment = .center
+            ($0).font = UIFont(name: "POEVeticaVanta", size: 18)
+            ($0).textColor = .gray
+        }
+    }
+    
+    func hideVisitedEmptyKeys(){
+        [eyeForEmptyKeysImageView, visForEmptyKeysLabel].forEach{
+            ($0).isHidden = true
+        }
+    }
+    
+    func hideFavoriteEmptyKeys(){
+        [favForEmptyKeysLabel, heartForEmptyKeysImageView].forEach{
+            ($0).isHidden = true
+        }
+    }
+    
+    func showVisitedEmptyKeys(){
+        [eyeForEmptyKeysImageView, visForEmptyKeysLabel].forEach{
+            ($0).isHidden = false
+        }
+    }
+    
+    func showFavoriteEmptyKeys(){
+        [favForEmptyKeysLabel, heartForEmptyKeysImageView].forEach{
+            ($0).isHidden = false
+        }
+    }
+    
+    
     func addConstraints(){
-        [backgroundImage, favoritesTableView].forEach{
+        [favoritesTableView, favForEmptyKeysLabel, visForEmptyKeysLabel, eyeForEmptyKeysImageView, heartForEmptyKeysImageView].forEach{
             ($0).translatesAutoresizingMaskIntoConstraints = false
         }
         
@@ -85,14 +131,33 @@ final class FavoritesViewController: UIViewController {
             favoritesTableView.rightAnchor.constraint(equalTo: view.rightAnchor)
         ])
         
+        NSLayoutConstraint.activate([
+            heartForEmptyKeysImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            heartForEmptyKeysImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            heartForEmptyKeysImageView.widthAnchor.constraint(equalToConstant: 120),
+            heartForEmptyKeysImageView.heightAnchor.constraint(equalToConstant: 110)
+        ])
         
         NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundImage.leftAnchor.constraint(equalTo: view.leftAnchor),
-            backgroundImage.rightAnchor.constraint(equalTo: view.rightAnchor)
+            favForEmptyKeysLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            favForEmptyKeysLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+            favForEmptyKeysLabel.widthAnchor.constraint(equalToConstant: 300),
+            favForEmptyKeysLabel.heightAnchor.constraint(equalToConstant: 100)
         ])
-        backgroundImage.layer.zPosition = 2
+        
+        NSLayoutConstraint.activate([
+            eyeForEmptyKeysImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            eyeForEmptyKeysImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            eyeForEmptyKeysImageView.widthAnchor.constraint(equalToConstant: 120),
+            eyeForEmptyKeysImageView.heightAnchor.constraint(equalToConstant: 90)
+        ])
+        
+        NSLayoutConstraint.activate([
+            visForEmptyKeysLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            visForEmptyKeysLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 50),
+            visForEmptyKeysLabel.widthAnchor.constraint(equalToConstant: 300),
+            visForEmptyKeysLabel.heightAnchor.constraint(equalToConstant: 100)
+        ])
     }
     
 
@@ -109,23 +174,25 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
         if currentSegment == "Favorites" {
             count = output.itemsCount(arr: globalAppUser.favoritePlaces)
             if count > 0 {
-                backgroundImage.isHidden = true
+                hideFavoriteEmptyKeys()
+                hideVisitedEmptyKeys()
             } else {
-                backgroundImage.isHidden = false
+                showFavoriteEmptyKeys()
+                hideVisitedEmptyKeys()
             }
             return count
         }
         if currentSegment == "Visited" {
             count = output.itemsCount(arr: globalAppUser.viewedPlaces)
             if count > 0 {
-                backgroundImage.isHidden = true
+                hideVisitedEmptyKeys()
+                hideFavoriteEmptyKeys()
             } else {
-                backgroundImage.isHidden = false
+                showVisitedEmptyKeys()
+                hideFavoriteEmptyKeys()
             }
             return count
         }
-        
-        
         return count
     }
     

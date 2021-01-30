@@ -34,6 +34,7 @@ final class CategoryViewController: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+    //    animationView.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -105,8 +106,8 @@ final class CategoryViewController: UIViewController{
 
 extension CategoryViewController: CategoryViewInput{
     func upplyFilter(with filterValue: String) {
-//        animationView.isHidden = false
-//        tableView.isHidden = true
+        animationView.isHidden = false
+        tableView.isHidden = true
         output.removeCategoryElements()
         output.tableView(filter: filterValue, pageInt: 1)//output.countElementsToPages
     }
