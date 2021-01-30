@@ -54,6 +54,7 @@ class WelcomeViewController: UIViewController{
         let attribute = [NSAttributedString.Key.font: UIFont(name: "POEVeticaVanta", size: 16)]
         withoutSingUpTextView.delegate = self
         withoutSingUpTextView.backgroundColor = .white
+        withoutSingUpTextView.isEditable = false
         let withoutSingUpText = NSMutableAttributedString(string: "Хочешь продолжить без регистрации?", attributes: attribute as [NSAttributedString.Key : Any])
         withoutSingUpText.addAttribute(.link, value: "withoutSignUp", range: NSRange(location: 6, length: withoutSingUpText.string.count-7))
         UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.gray]

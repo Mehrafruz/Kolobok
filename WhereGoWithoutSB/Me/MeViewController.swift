@@ -277,7 +277,7 @@ extension MeViewController: FireStoreAvatarOutput{
     
     func loadAvatarURL (avatarURL: String){
         let referenceUsers = Storage.storage().reference(forURL: avatarURL)
-        let mByte = Int64(2*1024*1024)
+        let mByte = Int64(3*1024*1024)
         referenceUsers.getData(maxSize: mByte) { (data, error) in
             guard let imageData = data else { return }
             let image = UIImage(data: imageData)
