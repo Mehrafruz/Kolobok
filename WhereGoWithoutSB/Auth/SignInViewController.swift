@@ -106,12 +106,13 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         goBackButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
         rememberMeButton.addTarget(self, action: #selector(didClickedRememberMeButton), for: .touchUpInside)
         signInButton.addTarget(self, action: #selector(didClickedSignInButton), for: .touchUpInside)
+        
         [customLine0, customLine1].forEach {
             ($0).backgroundColor =  ColorPalette.gray
         }
         
-        setupTextView(textView: forgotPassTextView, text: "Забыли пароль?", value: "forgotPass", location: 0, length: "Забыли пароль?".count)
-        setupTextView(textView: signUpTextView, text: "Новый пользователь? Зарегистрироваться.", value: "signUp", location: 20, length: "Новый пользователь? Зарегистрироваться.".count-20)
+        setupTextView(textView: forgotPassTextView, text: "Забыли пароль?", value: "forgotPass", location: 0, length: "Забыли пароль?".count, fontSize: 16)
+        setupTextView(textView: signUpTextView, text: "Новый пользователь? Зарегистрироваться.", value: "signUp", location: 20, length: "Новый пользователь? Зарегистрироваться.".count-20, fontSize: 14)
         
         view.addSubview(scrollView)
         [goBackButton, loginLabel, emailTextField, passwordTextField, emailImageView, lockImageView, rememberMeLabel, rememberMeButton, forgotPassTextView, signInButton, signUpTextView, signUpWithLabel, signUpWithFacebookButton, customLine0, customLine1, signUpWithAppleButton].forEach {
@@ -145,7 +146,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     func didClickedSignInButton() {
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
-        
+        signInButton.pulsate()
         let reason = "Заполните все поля"
         guard let email = emailTextField.text, email != "" else{
             print ("emailTextField is empty")
@@ -234,14 +235,15 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         imageView.tintColor = ColorPalette.yellow
     }
     
-    func setupTextView(textView: UITextView, text: String, value: String, location: Int, length: Int) {
-        let attribute = [NSAttributedString.Key.font: UIFont(name: "POEVeticaVanta", size: 16)]
+    func setupTextView(textView: UITextView, text: String, value: String, location: Int, length: Int, fontSize: CGFloat) {
+        let attribute = [NSAttributedString.Key.font: UIFont(name: "POEVeticaVanta", size: fontSize)]
         textView.delegate = self
         textView.backgroundColor = .white
         let text = NSMutableAttributedString(string: text, attributes: attribute as [NSAttributedString.Key : Any])
         text.addAttribute(.link, value: value, range: NSRange(location: location, length: length))
         UITextView.appearance().linkTextAttributes = [ .foregroundColor: ColorPalette.yellow]
         textView.attributedText = text
+        textView.textAlignment = .center
         textView.isEditable = false
     }
     
@@ -377,7 +379,7 @@ class SignInViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         ])
         
         NSLayoutConstraint.activate([
-            signUpTextView.widthAnchor.constraint(equalToConstant: 330),
+            signUpTextView.widthAnchor.constraint(equalToConstant: 300),
             signUpTextView.heightAnchor.constraint(equalToConstant: 50),
             signUpTextView.centerXAnchor.constraint(equalTo: self.scrollView.centerXAnchor),
             signUpTextView.centerYAnchor.constraint(equalTo: self.scrollView.centerYAnchor, constant: 8*view.bounds.midY/10)

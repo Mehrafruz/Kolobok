@@ -49,7 +49,6 @@ final class CategoryViewController: UIViewController{
 
         tableView.dataSource = self
         tableView.delegate = self
-       // tableView.prefetchDataSource = self
         tableView.tableFooterView = UIView()
         tableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryTableViewCell")
         tableView.frame = view.frame
@@ -106,7 +105,7 @@ final class CategoryViewController: UIViewController{
 
 extension CategoryViewController: CategoryViewInput{
     func upplyFilter(with filterValue: String) {
-        animationView.isHidden = false
+          animationView.isHidden = false
         tableView.isHidden = true
         output.removeCategoryElements()
         output.tableView(filter: filterValue, pageInt: 1)//output.countElementsToPages

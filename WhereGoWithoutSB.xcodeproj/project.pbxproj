@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		772F1BDA27828033B394FE5B /* Pods_WhereGoWithoutSB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10B34FD96B04F238164D35FA /* Pods_WhereGoWithoutSB.framework */; };
+		EF27416025EF9DA200A422A4 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF27415F25EF9DA200A422A4 /* FilterViewController.swift */; };
+		EF309D7525ECDF5F003406C4 /* UIButtonExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF309D7425ECDF5F003406C4 /* UIButtonExtensions.swift */; };
 		EF33F58D2541FAA100593C46 /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33F58C2541FAA100593C46 /* CategoryCollectionViewCell.swift */; };
 		EF33F58F254207E800593C46 /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33F58E254207E800593C46 /* CategoryItem.swift */; };
 		EF33F59325430F4400593C46 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF33F59225430F4400593C46 /* CategoryViewController.swift */; };
@@ -80,6 +82,8 @@
 		10B34FD96B04F238164D35FA /* Pods_WhereGoWithoutSB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhereGoWithoutSB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32413FC7EE826EE816762BCD /* Pods-WhereGoWithoutSB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhereGoWithoutSB.release.xcconfig"; path = "Target Support Files/Pods-WhereGoWithoutSB/Pods-WhereGoWithoutSB.release.xcconfig"; sourceTree = "<group>"; };
 		D8389969A86C86FC42F03C3C /* Pods-WhereGoWithoutSB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhereGoWithoutSB.debug.xcconfig"; path = "Target Support Files/Pods-WhereGoWithoutSB/Pods-WhereGoWithoutSB.debug.xcconfig"; sourceTree = "<group>"; };
+		EF27415F25EF9DA200A422A4 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		EF309D7425ECDF5F003406C4 /* UIButtonExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtensions.swift; sourceTree = "<group>"; };
 		EF33F58C2541FAA100593C46 /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		EF33F58E254207E800593C46 /* CategoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
 		EF33F59225430F4400593C46 /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +175,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EF27416125EF9DC700A422A4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EF27415F25EF9DA200A422A4 /* FilterViewController.swift */,
+				EF355AEB2540518600B260E6 /* MapViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		EF33F59025430CD500593C46 /* CategoriesScreen */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,7 +270,7 @@
 		EF355AE7254046C300B260E6 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				EF355AEB2540518600B260E6 /* MapViewController.swift */,
+				EF27416125EF9DC700A422A4 /* Views */,
 				EF5ADBDD2585162900E6D034 /* MapPresenter.swift */,
 				EF5ADBDE2585162A00E6D034 /* MapRouter.swift */,
 				EF5ADBDF2585162A00E6D034 /* MapProtocols.swift */,
@@ -378,6 +391,7 @@
 			children = (
 				EFAEC6F8258F9F8100AF154B /* AlertControllerExtension.swift */,
 				EF397F4E25C4BC0100954E4B /* AuthErrorCodeExtension.swift */,
+				EF309D7425ECDF5F003406C4 /* UIButtonExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -585,6 +599,7 @@
 				EF5ADBE32585162A00E6D034 /* MapRouter.swift in Sources */,
 				EF3BB03125C099B400318433 /* FavoritesPresenter.swift in Sources */,
 				EFAEC6F9258F9F8100AF154B /* AlertControllerExtension.swift in Sources */,
+				EF309D7525ECDF5F003406C4 /* UIButtonExtensions.swift in Sources */,
 				EF3EF574256ACA2F007E6E33 /* PlaceViewController.swift in Sources */,
 				EF405D512589419800588EC8 /* SearchElements.swift in Sources */,
 				EF405D492588F71E00588EC8 /* SearchRouter.swift in Sources */,
@@ -628,6 +643,7 @@
 				EF3C546425C3840F00812F2A /* RenameUserViewController.swift in Sources */,
 				EF3BB03B25C0B82300318433 /* FavoritesTableViewCell.swift in Sources */,
 				EF3BB03325C099B400318433 /* FavoritesViewController.swift in Sources */,
+				EF27416025EF9DA200A422A4 /* FilterViewController.swift in Sources */,
 				EF33F59525430F9500593C46 /* CategoryElements.swift in Sources */,
 				EF3F8C5625782D0B00B103A1 /* SignInViewController.swift in Sources */,
 				EF3C546625C3842600812F2A /* RepassUserViewController.swift in Sources */,
@@ -773,9 +789,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Z589H773DC;
 				INFOPLIST_FILE = WhereGoWithoutSB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -795,9 +812,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = Z589H773DC;
 				INFOPLIST_FILE = WhereGoWithoutSB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

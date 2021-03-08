@@ -51,7 +51,7 @@ class WelcomeViewController: UIViewController{
         welcomeLabel.text = "Привет!"
         welcomeLabel.textAlignment = .center
         
-        let attribute = [NSAttributedString.Key.font: UIFont(name: "POEVeticaVanta", size: 16)]
+        let attribute = [NSAttributedString.Key.font: UIFont(name: "POEVeticaVanta", size: 14)]
         withoutSingUpTextView.delegate = self
         withoutSingUpTextView.backgroundColor = .white
         withoutSingUpTextView.isEditable = false
@@ -186,7 +186,7 @@ class WelcomeViewController: UIViewController{
         ])
         
         NSLayoutConstraint.activate([
-            withoutSingUpTextView.widthAnchor.constraint(equalToConstant: 300),
+            withoutSingUpTextView.widthAnchor.constraint(equalToConstant: 260),
             withoutSingUpTextView.heightAnchor.constraint(equalToConstant: 30),
             withoutSingUpTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
             withoutSingUpTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20)
@@ -202,7 +202,7 @@ class WelcomeViewController: UIViewController{
     let signUpViewController = SignUpViewController()
     @objc
     func didClickedSignUpButton(){
-        signUpButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        signUpButton.pulsate()
         signUpViewController.delegate = self
         let signUpNavigationViewController = UINavigationController(rootViewController: signUpViewController)
         present(signUpNavigationViewController, animated: true)
@@ -212,7 +212,7 @@ class WelcomeViewController: UIViewController{
     let signInViewController = SignInViewController()
     @objc
     func didClickedSignInButton(){
-        signInButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
+        signInButton.pulsate()
         signInViewController.delegate = self
         let signInNavigationViewController = UINavigationController(rootViewController: signInViewController)
         present(signInNavigationViewController, animated: true)

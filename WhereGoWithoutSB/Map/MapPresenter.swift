@@ -36,8 +36,12 @@ extension MapPresenter: MapViewOutput {
         }
     }
     
-    func categoriesElementsIsLoad(){
-        interactor.loadCategoriesElements(pageInt: 1)
+    func categoriesElementsIsLoad(categories: String, page: Int){
+        interactor.loadCategoriesElements(categories: "", pageInt: page)
+    }
+    
+    func didSelectFilter(){
+        router.showFilter()
     }
     
 }

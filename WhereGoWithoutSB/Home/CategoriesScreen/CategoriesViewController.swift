@@ -62,7 +62,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
         let context = SearchContext()
         let container = SearchContainer.assemble(with: context)
         self.navigationController?.pushViewController(container.viewController, animated: false)
-        self.navigationController?.navigationBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = ColorPalette.black
         self.navigationController?.navigationBar.topItem?.title = "Отмена"
         
     }
@@ -98,9 +98,9 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     
     func addConstraints(){
         searcBar.translatesAutoresizingMaskIntoConstraints = false
-        searcBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true// left side
-        searcBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0).isActive = true //right side
-        searcBar.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        searcBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
+        searcBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -0).isActive = true
+        searcBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         searcBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY).isActive = true
     }
     
@@ -116,7 +116,7 @@ class CategoriesViewController: UIViewController, SKPhysicsContactDelegate, UISe
     private func setupLayouts() {
         categoriesCollectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+40),
+            categoriesCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: view.bounds.minY+50),
             categoriesCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             categoriesCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor),
             categoriesCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor)
@@ -143,6 +143,7 @@ extension CategoriesViewController: UICollectionViewDataSource{
         var category: String = ""
         var title: String = ""
   
+       
         switch indexPath {
         case [0,0]:
             category = "park"
@@ -172,10 +173,11 @@ extension CategoriesViewController: UICollectionViewDataSource{
             category = ""
         }
         
+        
         let context = CategoryContext()
         let container = CategoryContainer.assemble(with: category, with: context)
         navigationController?.pushViewController(container.viewController, animated: true)
-        self.navigationController?.navigationBar.tintColor = ColorPalette.black//UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
+        self.navigationController?.navigationBar.tintColor = ColorPalette.black
         self.navigationController?.navigationBar.topItem?.title = title
     }
 }

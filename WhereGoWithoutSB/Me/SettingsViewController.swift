@@ -219,12 +219,7 @@ class SettingsViewController: UIViewController {
     
     @objc
     func didClickedGoBackButton() {
-       // let meViewController = MeViewController()
         self.dismiss(animated: true, completion: nil)
-        //let meViewTableHeader = MeTableViewHeader()
-        //meViewTableHeader.setupAvatarImage()
-      //  meViewController.dismissMeVC()
-        
     }
     
     @objc

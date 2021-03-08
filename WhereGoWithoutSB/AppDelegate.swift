@@ -41,7 +41,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         delegate = self
         FirebaseApp.configure()
         
-        // MARK: Содержимое кномки выйти из аккаунта, пока не решено куда ее лепить
+       
+     
         if UserSettings.rememberUser != nil {
             if UserSettings.rememberUser{
                 globalAppUser.id = UserSettings.id
@@ -90,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let item1 = UITabBarItem(title: "", image: UIImage(named:"house"), tag: 0)
         let item2 = UITabBarItem(title: "", image:  UIImage(named: "map"), tag: 1)//"mappin.circle.fill"
-        let item3 = UITabBarItem(title: "", image:  UIImage(named: "favorite"), tag: 2)
+        let item3 = UITabBarItem(title: "", image:  UIImage(named: "person"), tag: 2)  //UIImage(named: "favorite"
         
 //
 //        let item1 = UITabBarItem(title: "", image: UIImage(systemName: "house.fill"), tag: 0)//"homeBar"
@@ -100,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabBarController.tabBar.barTintColor = UIColor(red: 255/255, green: 206/255, blue: 59/255, alpha: 1)
         tabBarController.tabBar.tintColor = UIColor(red: 31/255, green: 30/255, blue: 35/255, alpha: 1)
-        tabBarController.tabBar.alpha = 0.9
+       // tabBarController.tabBar.alpha = 0.9
         
         categoriesNavigationViewController?.tabBarItem = item1
         mapViewNavigationController?.tabBarItem = item2

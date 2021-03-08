@@ -48,7 +48,7 @@ final class NetworkManager: NetworkManagerDescription {
                 completion(.failure(error))
                 return
             }
-            
+            print (data!)
             guard let data = data, !data.isEmpty else {
                 completion(.failure(NetworkError.emptyData))
                 return
@@ -58,6 +58,7 @@ final class NetworkManager: NetworkManagerDescription {
             
             do {
                 let categoryElements = try decoder.decode(CategoryElements.self, from: data)
+                
                 completion(.success(categoryElements))
             } catch let error {
                 completion(.failure(error))

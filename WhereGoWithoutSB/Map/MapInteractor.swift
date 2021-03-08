@@ -21,8 +21,8 @@ final class MapInteractor {
 }
 
 extension MapInteractor: MapInteractorInput {
-    func loadCategoriesElements(pageInt: Int) {
-        networkManager.categoryElements(category: self.category, filter: "", pageInt: 1, pageSize: 150) { [weak self] (result) in
+    func loadCategoriesElements(categories: String, pageInt: Int) {
+        networkManager.categoryElements(category: self.category, filter: "", pageInt: pageInt, pageSize: 200) { [weak self] (result) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let categoryElements):

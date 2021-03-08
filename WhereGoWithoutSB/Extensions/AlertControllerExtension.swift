@@ -27,6 +27,7 @@ extension AlertDisplayer where Self: UIViewController {
         }
         alertController.view.tintColor = ColorPalette.blue
         present(alertController, animated: true)
+        
     }
     
     
@@ -65,18 +66,4 @@ extension AlertDisplayer where Self: UIViewController {
 }
 
 
-//let exit = UIAlertAction(title: "Выйти", style: .default, handler: { action in
-//    do{
-//        try Auth.auth().signOut()
-//        let domain = Bundle.main.bundleIdentifier!
-//        UserDefaults.standard.removePersistentDomain(forName: domain)
-//        UserDefaults.standard.synchronize()
-//        print(Array(UserDefaults.standard.dictionaryRepresentation().keys).count)
-//        globalAppUser.removeUser()
-//        delegate?.dismissMeView()
-//        self.dismiss(animated: true, completion: nil)
-//        //delegate?.openSignIn()
-//    } catch {
-//        print ("Не удалось выйти из аккаунта")
-//    }
-//})
+

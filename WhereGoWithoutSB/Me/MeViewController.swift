@@ -2,9 +2,13 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
+protocol EditFavoritesViewController: AnyObject {
+    func reloadHeader()
+}
+
 
 class MeViewController: UIViewController {
-    
+    weak var favoritesDelegate: EditFavoritesViewController?
     private var scrollView = UIScrollView()
     private let contentView = UIView()
     private var exitButton = UIButton()
@@ -73,6 +77,7 @@ class MeViewController: UIViewController {
     
     @objc
     func didClickedGoBackButton() {
+        self.favoritesDelegate?.reloadHeader()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -185,10 +190,12 @@ class MeViewController: UIViewController {
     
     func setupAvatarImage() {
         if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
-            
-            avatarImageView.image = UIImage(named: "appIcon")
-            avatarImageView.tintColor = ColorPalette.blue
-            
+            if UserSettings.imageData.isEmpty{
+                avatarImageView.image = UIImage(named: "appIcon")
+                avatarImageView.tintColor = ColorPalette.blue
+            } else {
+                loadAvatarURL(avatarURL: UserSettings.imageData)
+            }            
         } else {
             loadAvatarURL(avatarURL: globalAppUser.avatarURL)
         }
@@ -235,6 +242,7 @@ extension MeViewController: UIImagePickerControllerDelegate, UINavigationControl
         uploadAvatarImage(currentUserId: globalAppUser.id, photo: image) {(result) in
             switch result {
             case.success(let url):
+                UserSettings.imageData = url.absoluteString
                 globalAppUser.avatarURL = url.absoluteString
                 self.uploadAvatarURL(currentUserId: globalAppUser.id)
             case.failure(let error):
@@ -332,6 +340,7 @@ extension MeViewController: MeTableViewFirstCellDelegate{
         imagePickerController.delegate = self
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
+        
     }
     
 }

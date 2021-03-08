@@ -20,6 +20,11 @@ extension MapRouter: MapRouterInput {
         viewController?.present(placeViewController, animated: true, completion: nil)
     }
     
+    func showFilter (){
+        let filterViewController = FilterViewController()
+        viewController?.present(filterViewController, animated: true, completion: nil)
+    }
+    
     func show(_ error: Error) {
         let message: String = (error as? NetworkError)?.errorDescription ?? error.localizedDescription
         let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)

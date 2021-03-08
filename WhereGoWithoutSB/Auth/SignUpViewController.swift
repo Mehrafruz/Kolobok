@@ -16,9 +16,8 @@ protocol SignUpDelegate: AnyObject{
 }
 
 class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
-    
     weak var delegate: SignUpDelegate?
-    
+ 
     private var scrollView = UIScrollView()
     private var goBackButton = UIButton()
     private var signinLabel = UILabel()
@@ -39,6 +38,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     private var signUpWithFacebookButton = UIButton()
     private var signUpWithAppleButton = UIButton()
     private let signInTextView = UITextView()
+
     private var flag = true
 
     override func viewWillAppear(_ animated: Bool) {
@@ -47,6 +47,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         view.backgroundColor = .white
         registerForKeyboardNotifikation()
         
@@ -133,6 +134,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     }
     
     @objc func didClickedSignUpButton() {
+        signUpButton.pulsate()
         nameTextField.resignFirstResponder()
         emailTextField.resignFirstResponder()
         passwordTextField.resignFirstResponder()
@@ -250,6 +252,7 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
         button.layer.shadowOpacity = 0.6
         button.layer.masksToBounds = false
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
+        
     }
     
     func setupLittleButton(button: UIButton, image: UIImage, tintColor: UIColor) {
@@ -262,6 +265,9 @@ class SignUpViewController: UIViewController, AlertDisplayer, UserSettingsInput{
     func addConstraint(){
         [goBackButton, signinLabel,nameTextField, emailTextField, passwordTextField, confirmPasswordTextField, personImageView, emailImageView, lockImageView0, lockImageView1, signUpButton, signInTextView, signUpWithLabel, signUpWithFacebookButton, customLine0, customLine1, customLine2, customLine3, signUpWithAppleButton].forEach {
             ($0).translatesAutoresizingMaskIntoConstraints = false
+        }
+        if view.traitCollection.horizontalSizeClass == .compact{
+            
         }
         
         NSLayoutConstraint.activate([

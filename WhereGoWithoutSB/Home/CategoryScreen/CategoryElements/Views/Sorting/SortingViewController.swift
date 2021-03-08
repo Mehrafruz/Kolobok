@@ -10,7 +10,8 @@ import UIKit
 
 class SortingViewController: UIViewController {
     weak var categoryView: CategoryViewInput?
-    
+    private var scrollView = UIScrollView()
+
     private let contentView = UIView()
     private var exitButton = UIButton()
     private var emplyButton = UIButton()
@@ -25,6 +26,10 @@ class SortingViewController: UIViewController {
     private var flagPopularPlaces = false
     private var flagRankPlaces = false
     
+    override func viewWillAppear(_ animated: Bool) {
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 600)
+        scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,15 +62,16 @@ class SortingViewController: UIViewController {
         }
         
         view.addSubview(contentView)
+        contentView.addSubview(scrollView)
         
         [exitButton, popularPlacesLabel, popularPlacesButton, rankPlacesLabel, rankPlacesButton, customLine0, customLine1, emplyButton].forEach{
-            contentView.addSubview($0)
+            scrollView.addSubview($0)
         }
         addConstraints()
     }
     
     func addConstraints() {
-        [contentView, exitButton, popularPlacesLabel, popularPlacesButton, rankPlacesLabel, rankPlacesButton, customLine0, customLine1, emplyButton].forEach{
+        [contentView, scrollView, exitButton, popularPlacesLabel, popularPlacesButton, rankPlacesLabel, rankPlacesButton, customLine0, customLine1, emplyButton].forEach{
             ($0).translatesAutoresizingMaskIntoConstraints = false
             
             contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
@@ -74,58 +80,65 @@ class SortingViewController: UIViewController {
             contentView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             
             NSLayoutConstraint.activate([
+                scrollView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                scrollView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                scrollView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+                scrollView.rightAnchor.constraint(equalTo: contentView.rightAnchor)
+            ])
+            
+            NSLayoutConstraint.activate([
                 exitButton.widthAnchor.constraint(equalToConstant: 30),
                 exitButton.heightAnchor.constraint(equalToConstant: 30),
-                exitButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+                exitButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
                 exitButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -20)
             ])
             
             NSLayoutConstraint.activate([
                 popularPlacesButton.widthAnchor.constraint(equalToConstant: 35),
                 popularPlacesButton.heightAnchor.constraint(equalToConstant: 35),
-                popularPlacesButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -100),
-                popularPlacesButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120)
+                popularPlacesButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: -100),
+                popularPlacesButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120)
             ])
             
             NSLayoutConstraint.activate([
                 popularPlacesLabel.widthAnchor.constraint(equalToConstant: 170),
                 popularPlacesLabel.heightAnchor.constraint(equalToConstant: 40),
-                popularPlacesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
-                popularPlacesLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120)
+                popularPlacesLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: 0),
+                popularPlacesLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 120)
             ])
             
             NSLayoutConstraint.activate([
                 customLine0.widthAnchor.constraint(equalToConstant: 300),
                 customLine0.heightAnchor.constraint(equalToConstant: 0.5),
-                customLine0.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                customLine0.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 155)
+                customLine0.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                customLine0.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 155)
             ])
             
             NSLayoutConstraint.activate([
                 rankPlacesButton.widthAnchor.constraint(equalToConstant: 35),
                 rankPlacesButton.heightAnchor.constraint(equalToConstant: 35),
-                rankPlacesButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -100),
-                rankPlacesButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 170)
+                rankPlacesButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: -100),
+                rankPlacesButton.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 170)
             ])
             
             NSLayoutConstraint.activate([
                 rankPlacesLabel.widthAnchor.constraint(equalToConstant: 170),
                 rankPlacesLabel.heightAnchor.constraint(equalToConstant: 40),
-                rankPlacesLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0),
-                rankPlacesLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 170)
+                rankPlacesLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: 0),
+                rankPlacesLabel.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 170)
             ])
             
             NSLayoutConstraint.activate([
                 customLine1.widthAnchor.constraint(equalToConstant: 300),
                 customLine1.heightAnchor.constraint(equalToConstant: 0.5),
-                customLine1.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-                customLine1.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 205)
+                customLine1.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                customLine1.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 205)
             ])
             
             NSLayoutConstraint.activate([
                 emplyButton.widthAnchor.constraint(equalToConstant: 150),
                 emplyButton.heightAnchor.constraint(equalToConstant: 50),
-                emplyButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                emplyButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
                 emplyButton.topAnchor.constraint(equalTo: customLine1.bottomAnchor, constant: 30)
                // emplyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100)
             ])

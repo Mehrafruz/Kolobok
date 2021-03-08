@@ -62,7 +62,10 @@ extension FavoritesPresenter: FavoritesViewOutput {
 
 extension FavoritesPresenter: FavoritesInteractorOutput {
     func didLoadCurrentElement(for id: Int, for arr: [Int], element: CategoryElements?) {
-        currentPlacesById[id] = element!.results[0]
+        guard let elem = element else {
+            return
+        }
+        currentPlacesById[id] = elem.results[0]
         let revArr: [Int] = arr.reversed()
         if let index = revArr.firstIndex(of: id){
             view?.updateCell(at: index)

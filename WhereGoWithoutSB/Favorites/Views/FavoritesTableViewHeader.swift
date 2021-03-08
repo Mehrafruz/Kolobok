@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
+
  
 protocol TableViewHeader: AnyObject {
     func didChangeSegment()
@@ -26,7 +29,7 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         setupSegmentedControll()
         setupLibel(label: titleLabel)
-        setupLittleButton(button: profileButton, image: UIImage(systemName: "person.crop.circle")!, tintColor: ColorPalette.gray)
+        setupLittleButton(button: profileButton, image: UIImage(systemName: "person.crop.circle")!, tintColor: ColorPalette.black)
         profileButton.addTarget(self, action: #selector(didTabProfileButton), for: .touchUpInside)
         contentView.backgroundColor = .white
         [titleLabel, profileButton, segmentedControl].forEach {
@@ -71,9 +74,9 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
         ])
     
         NSLayoutConstraint.activate([
-            profileButton.widthAnchor.constraint(equalToConstant: 35),
-            profileButton.heightAnchor.constraint(equalToConstant: 35),
-            profileButton.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+            profileButton.widthAnchor.constraint(equalToConstant: 50),
+            profileButton.heightAnchor.constraint(equalToConstant: 50),
+            profileButton.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0),
             profileButton.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -15)
         ])
         
@@ -88,9 +91,10 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
     }
     
     func setupLittleButton(button: UIButton, image: UIImage, tintColor: UIColor) {
-        let image = image
         button.setBackgroundImage( image, for: UIControl.State.normal)
         button.setTitleColor(UIColor.white, for: UIControl.State.normal)
+        button.layer.cornerRadius = 25
+        button.clipsToBounds = true
         button.tintColor = tintColor
     }
     
@@ -105,13 +109,15 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
           self.delegate?.didChangeSegment()
     }
     
-    
     @objc
     func didTabProfileButton(){
         delegate?.didTapProfileButton()
     }
     
-    func configure(titleText: String){
+    func configure(titleText: String, image: UIImage){
         titleLabel.text = titleText
+        profileButton.setBackgroundImage(image, for: UIControl.State.normal)
     }
+
+    
 }

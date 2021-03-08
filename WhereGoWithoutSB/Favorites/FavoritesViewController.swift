@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseStorage
 
 protocol MainViewDelegate: AnyObject{
     func openSignIn()
@@ -20,12 +22,13 @@ final class FavoritesViewController: UIViewController {
     private let output: FavoritesViewOutput
     private var currentSegment: String = "Favorites"
     private let backgroundLabel = UILabel()
-    
+    private var avatarImage = UIImage()
     private let heartForEmptyKeysImageView = UIImageView()
     private let eyeForEmptyKeysImageView = UIImageView()
     private let favForEmptyKeysLabel = UILabel()
     private let visForEmptyKeysLabel = UILabel()
-
+    private let meViewController = MeViewController()
+    
     var favoritesTableView : UITableView = {
         let tableView = UITableView()
         tableView.tableFooterView = UIView()
@@ -36,6 +39,7 @@ final class FavoritesViewController: UIViewController {
     init(output: FavoritesViewOutput) {
         self.output = output
         super.init(nibName: nil, bundle: nil)
+        
     }
     
     @available(*, unavailable)
@@ -47,10 +51,13 @@ final class FavoritesViewController: UIViewController {
         if globalAppUser.name.isEmpty{
             delegate?.dismissMeView()
             delegate?.openSignIn()
+        } else {
+            loadAvatarURL(avatarURL: globalAppUser.avatarURL)
         }
         favoritesTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         _ = Timer.scheduledTimer(timeInterval: 1.5, target: self, selector: #selector(timerAction), userInfo: nil, repeats: false)
+         
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -74,6 +81,9 @@ final class FavoritesViewController: UIViewController {
         }
         
         addConstraints()
+        // MARK: Это штука не работает доделай
+        meViewController.favoritesDelegate = self
+
     }
     
     func setupEmptyKeys(){
@@ -166,6 +176,17 @@ final class FavoritesViewController: UIViewController {
         favoritesTableView.reloadData()
     }
     
+    func loadAvatarURL (avatarURL: String) {
+        var image = UIImage()
+        let referenceUsers = Storage.storage().reference(forURL: avatarURL)
+        let mByte = Int64(2*1024*1024)
+        referenceUsers.getData(maxSize: mByte) { (data, error) in
+            guard let imageData = data else { return }
+            image = UIImage(data: imageData) ?? UIImage()
+            self.avatarImage = image
+        }
+    }
+    
 }
 
 extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
@@ -212,14 +233,24 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
+    //делать загрузку аватарки не тут
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = favoritesTableView.dequeueReusableHeaderFooterView(withIdentifier: "FavoritesTableViewHeader") as! FavoritesTableViewHeader
         view.delegate = self
+       
         if currentSegment == "Favorites" {
-            view.configure(titleText: "Избранное")
-            
+            if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
+                view.configure(titleText: "Избранное", image: UIImage(systemName: "person.crop.circle")!)
+            } else {
+                view.configure(titleText: "Избранное", image: avatarImage)
+            }
+        
         } else if currentSegment == "Visited"{
-            view.configure(titleText: "Просмотренное")
+            if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
+                view.configure(titleText: "Просмотренное", image: UIImage(systemName: "person.crop.circle")!)
+            } else {
+                view.configure(titleText: "Просмотренное", image: avatarImage)
+            }
         }
         return view
     }
@@ -277,3 +308,12 @@ extension FavoritesViewController: TableViewHeader{
        
    }
    
+
+extension FavoritesViewController: EditFavoritesViewController{
+ 
+    func reloadHeader() {
+        favoritesTableView.reloadData()
+    }
+    
+    
+}

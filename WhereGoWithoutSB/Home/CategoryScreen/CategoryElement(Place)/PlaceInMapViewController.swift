@@ -189,13 +189,13 @@ extension PlaceInMapViewController: YMKLayersGeoObjectTapListener, YMKMapInputLi
     
     
     @objc func didClickedUserLocationButton(){
-        let scale = UIScreen.main.scale
+        //let scale = UIScreen.main.scale
         userLocationLayer?.setVisibleWithOn(true)
         userLocationLayer?.isHeadingEnabled = true
-        userLocationLayer?.setAnchorWithAnchorNormal(
-            CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale),
-            anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
-        userLocationLayer?.setObjectListenerWith(self)
+//        userLocationLayer?.setAnchorWithAnchorNormal(
+//            CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.5 * mapView.frame.size.height * scale),
+//            anchorCourse: CGPoint(x: 0.5 * mapView.frame.size.width * scale, y: 0.83 * mapView.frame.size.height * scale))
+//        userLocationLayer?.setObjectListenerWith(self)
         mapView.mapWindow.map.move( with: userLocationLayer?.cameraPosition() ?? YMKCameraPosition.init(target: YMKPoint(latitude: self.lat, longitude: self.lon), zoom: 12, azimuth: 0, tilt: 0))
     }
     
