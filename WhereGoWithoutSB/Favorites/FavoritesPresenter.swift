@@ -28,7 +28,7 @@ extension FavoritesPresenter: FavoritesModuleInput {
 
 extension FavoritesPresenter: FavoritesViewOutput {
     func didTapProfileButton() {
-        
+        router.showProfile()
     }
     
     func itemsCount(arr: [Int]) -> Int {

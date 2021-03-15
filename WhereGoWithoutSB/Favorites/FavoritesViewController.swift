@@ -48,11 +48,13 @@ final class FavoritesViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if globalAppUser.name.isEmpty{
+        if globalAppUser.name.isEmpty {
             delegate?.dismissMeView()
             delegate?.openSignIn()
         } else {
-            loadAvatarURL(avatarURL: globalAppUser.avatarURL)
+            if (globalAppUser.avatarURL != "0" && globalAppUser.avatarURL != ""){
+                loadAvatarURL(avatarURL: globalAppUser.avatarURL)
+            }
         }
         favoritesTableView.reloadData()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -81,8 +83,7 @@ final class FavoritesViewController: UIViewController {
         }
         
         addConstraints()
-        // MARK: Это штука не работает доделай
-        meViewController.favoritesDelegate = self
+
 
     }
     
@@ -184,6 +185,7 @@ final class FavoritesViewController: UIViewController {
             guard let imageData = data else { return }
             image = UIImage(data: imageData) ?? UIImage()
             self.avatarImage = image
+            self.favoritesTableView.reloadData()
         }
     }
     
@@ -233,21 +235,20 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-    //делать загрузку аватарки не тут
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = favoritesTableView.dequeueReusableHeaderFooterView(withIdentifier: "FavoritesTableViewHeader") as! FavoritesTableViewHeader
         view.delegate = self
        
         if currentSegment == "Favorites" {
             if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
-                view.configure(titleText: "Избранное", image: UIImage(systemName: "person.crop.circle")!)
+                view.configure(titleText: "Избранное", image: UIImage(named: "appIcon")!)
             } else {
                 view.configure(titleText: "Избранное", image: avatarImage)
             }
         
         } else if currentSegment == "Visited"{
             if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
-                view.configure(titleText: "Просмотренное", image: UIImage(systemName: "person.crop.circle")!)
+                view.configure(titleText: "Просмотренное", image: UIImage(named: "appIcon")!)
             } else {
                 view.configure(titleText: "Просмотренное", image: avatarImage)
             }
@@ -297,7 +298,7 @@ extension FavoritesViewController: TableViewHeader{
     
     
     func didTapProfileButton() {
-        self.present(MeViewController(), animated: true)
+        output.didTapProfileButton()
     }
     
     
@@ -312,7 +313,11 @@ extension FavoritesViewController: TableViewHeader{
 extension FavoritesViewController: EditFavoritesViewController{
  
     func reloadHeader() {
-        favoritesTableView.reloadData()
+        loadAvatarURL(avatarURL: globalAppUser.avatarURL)
+    }
+    
+    func reloadTableView(){
+        //favoritesTableView.reloadData()
     }
     
     

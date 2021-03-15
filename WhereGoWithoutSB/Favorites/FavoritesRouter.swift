@@ -14,8 +14,9 @@ final class FavoritesRouter {
 
 extension FavoritesRouter: FavoritesRouterInput {
     func showProfile() {
-        //let meViewController = MeViewController()
-        //viewController?.present(meViewController, animated: true, completion: nil)
+        let meViewController = MeViewController()
+        viewController?.present(meViewController, animated: true, completion: nil)
+        meViewController.favoritesDelegate = viewController as? EditFavoritesViewController
     }
     
  

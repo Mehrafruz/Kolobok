@@ -58,7 +58,7 @@ class PlaceViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         //MARK: чтобы прокрутка скрола нормально заработала сонтентсайз вызывай тут
-        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1100)//1080
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: 1500)//1080
        
     }
     
@@ -180,6 +180,7 @@ class PlaceViewController: UIViewController {
         descriptionTextView.font = UIFont(name: "POEVeticaVanta", size: 18)
         descriptionTextView.isEditable = false
         descriptionTextView.textColor = ColorPalette.darkGray
+        //descriptionTextView.isScrollEnabled = false
     }
     
     func setupButton(button: UIButton, title: String, color: UIColor, textColor: UIColor){
@@ -282,32 +283,16 @@ class PlaceViewController: UIViewController {
         ])
         
         NSLayoutConstraint.activate([
-            descriptionTextView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
-            descriptionTextView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -10),
-            descriptionTextView.heightAnchor.constraint(equalToConstant: 265),
-            descriptionTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            descriptionTextView.topAnchor.constraint(equalTo: self.customLine0.bottomAnchor, constant: 4),
-        ])
-        
-        NSLayoutConstraint.activate([
-            customLine1.heightAnchor.constraint(equalToConstant: 0.5),
-            customLine1.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
-            customLine1.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
-            customLine1.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 5),
-            customLine1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-        ])
-        
-        NSLayoutConstraint.activate([
             adressImageView.heightAnchor.constraint(equalToConstant: 30),
             adressImageView.widthAnchor.constraint(equalToConstant: 30),
-            adressImageView.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 15),
+            adressImageView.topAnchor.constraint(equalTo: self.customLine0.bottomAnchor, constant: 15),
             adressImageView.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor),
         ])
         
         NSLayoutConstraint.activate([
             adressLabel.heightAnchor.constraint(equalToConstant: 60),
             adressLabel.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width-60),
-            adressLabel.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 5),
+            adressLabel.topAnchor.constraint(equalTo: self.customLine0.bottomAnchor, constant: 5),
             adressLabel.leftAnchor.constraint(equalTo: self.scrollView.leftAnchor, constant: leftAndRightAnchor+30),
             adressLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
@@ -387,6 +372,22 @@ class PlaceViewController: UIViewController {
             customLine5.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
             customLine5.topAnchor.constraint(equalTo: self.phoneLabel.bottomAnchor, constant: -10),
             customLine5.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            descriptionTextView.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 10),
+            descriptionTextView.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -10),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 700),
+            descriptionTextView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            descriptionTextView.topAnchor.constraint(equalTo: self.customLine5.bottomAnchor, constant: 4),
+        ])
+        
+        NSLayoutConstraint.activate([
+            customLine1.heightAnchor.constraint(equalToConstant: 0.5),
+            customLine1.leftAnchor.constraint(equalTo: scrollView.leftAnchor, constant: 30),
+            customLine1.rightAnchor.constraint(equalTo: scrollView.rightAnchor, constant: -30),
+            customLine1.topAnchor.constraint(equalTo: self.descriptionTextView.bottomAnchor, constant: 5),
+            customLine1.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
         ])
         
         NSLayoutConstraint.activate([

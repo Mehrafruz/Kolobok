@@ -43,7 +43,23 @@ class MapViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        output.categoriesElementsIsLoad(categories: "", page: 1)
+        output.categoriesElementsIsLoad(categories: "park,questroom,art-space,museums,bar,clubs,attractions", page: 1, pageSize: 500)
+        output.categoriesElementsIsLoad(categories: "park,questroom,art-space,museums,bar,clubs,attractions", page: 2, pageSize: 500)
+        output.categoriesElementsIsLoad(categories: "park,questroom,art-space,museums,bar,clubs,attractions", page: 3, pageSize: 500)
+        output.categoriesElementsIsLoad(categories: "park,questroom,art-space,museums,bar,clubs,attractions", page: 4, pageSize: 500)
+        output.categoriesElementsIsLoad(categories: "park,questroom,art-space,museums,bar,clubs,attractions", page: 5, pageSize: 500)
+
+//        output.categoriesElementsIsLoad(categories: "", page: 1, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 2, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 3, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 4, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 5, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 6, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 7, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 8, pageSize: 500)
+//        output.categoriesElementsIsLoad(categories: "", page: 9, pageSize: 500)
+//
+
         mapView.mapWindow.map.addCameraListener(with: self)
         mapView.mapWindow.map.move(with: YMKCameraPosition.init(target: YMKPoint(latitude: 55.752, longitude: 37.61556), zoom: 12, azimuth: 0, tilt: 0))
         view.addSubview(mapView)
@@ -93,7 +109,7 @@ class MapViewController: UIViewController{
     
     @objc
     func loadMapElements(){
-        output.categoriesElementsIsLoad(categories: "", page: 2)
+        output.categoriesElementsIsLoad(categories: "park,questroom,art-space,museums,bar,clubs,attractions", page: 1, pageSize: 200)
     }
     
     func setupLittleButton(button: UIButton, imageName: String, bgImageName: String, tintColor: UIColor) {
@@ -203,6 +219,7 @@ extension MapViewController: YMKMapCameraListener, YMKUserLocationObjectListener
 extension MapViewController: MapViewInput{
     
     func update() {
+       
         collection = mapView.mapWindow.map.mapObjects.addClusterizedPlacemarkCollection(with: self)
         collection?.addTapListener(with: self)
         
@@ -224,8 +241,10 @@ extension MapViewController: MapViewInput{
 
 extension MapViewController: FilterWillApplied{
     
-    func applyFilter(categories: String) {
-        
+    func applyFilter(categories: String, page: Int) {
+        mapView.mapWindow.map.mapObjects.clear()
+        globalCategoriesElements.removeAll()
+        output.categoriesElementsIsLoad(categories: categories, page: page, pageSize: 500)
     }
     
     

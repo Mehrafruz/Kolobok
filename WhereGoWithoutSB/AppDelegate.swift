@@ -40,7 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         welcomeNavigationViewController = UINavigationController(rootViewController: WelcomeViewController())
         delegate = self
         FirebaseApp.configure()
-        
+//       
+//        do{
+//           try Auth.auth().signOut()
+//        } catch{
+//            print ("some")
+//        }
        
      
         if UserSettings.rememberUser != nil {

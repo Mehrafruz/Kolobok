@@ -36,8 +36,8 @@ extension MapPresenter: MapViewOutput {
         }
     }
     
-    func categoriesElementsIsLoad(categories: String, page: Int){
-        interactor.loadCategoriesElements(categories: "", pageInt: page)
+    func categoriesElementsIsLoad(categories: String, page: Int, pageSize: Int){
+        interactor.loadCategoriesElements(categories: categories, pageInt: page, pageSize: pageSize)
     }
     
     func didSelectFilter(){

@@ -488,6 +488,7 @@
 				TargetAttributes = {
 					EF355ACE254045AD00B260E6 = {
 						CreatedOnToolsVersion = 11.7;
+						LastSwiftMigration = 1170;
 					};
 				};
 			};
@@ -787,9 +788,10 @@
 			baseConfigurationReference = D8389969A86C86FC42F03C3C /* Pods-WhereGoWithoutSB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z589H773DC;
 				INFOPLIST_FILE = WhereGoWithoutSB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -797,9 +799,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = App.example.WhereGoWithoutSB;
 				PRODUCT_NAME = Kolobok;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -810,9 +815,10 @@
 			baseConfigurationReference = 32413FC7EE826EE816762BCD /* Pods-WhereGoWithoutSB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Z589H773DC;
 				INFOPLIST_FILE = WhereGoWithoutSB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -820,9 +826,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = App.example.WhereGoWithoutSB;
 				PRODUCT_NAME = Kolobok;
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

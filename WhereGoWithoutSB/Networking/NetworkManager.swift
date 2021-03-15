@@ -34,8 +34,8 @@ final class NetworkManager: NetworkManagerDescription {
         let pageStr = String(pageInt)
         let urlString = "https://kudago.com/public-api/v1.3/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text,&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since=&showing_until=&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=\(pageSize)"
         
-        //"https://kudago.com/public-api/v1.4/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since&showing_until&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=15"
-        
+    
+        //https://kudago.com/public-api/v1.3/places/?lang=&fields=id,title,address,images,description,foreign_url,subway,timetable,favorites_count,phone,coords,short_title,body_text,&expand=&order_by=\(filter)&text_format=text&ids=&location=msk&has_showings=&showing_since=&showing_until=&categories=\(category)&lon=&lat=&radius=&page=\(pageStr)&page_size=\(pageSize)
     
         
         guard let url = URL(string: urlString) else {
@@ -48,7 +48,7 @@ final class NetworkManager: NetworkManagerDescription {
                 completion(.failure(error))
                 return
             }
-            print (data!)
+ 
             guard let data = data, !data.isEmpty else {
                 completion(.failure(NetworkError.emptyData))
                 return

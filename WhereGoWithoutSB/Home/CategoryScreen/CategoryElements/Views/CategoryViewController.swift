@@ -146,6 +146,8 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate {  
         return 110
     }
     
+ 
+    
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
 
         print("scrollViewWillBeginDragging")

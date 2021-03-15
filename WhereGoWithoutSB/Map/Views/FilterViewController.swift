@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FilterWillApplied: AnyObject{
-    func applyFilter(categories: String)
+    func applyFilter(categories: String, page: Int)
 }
 
 class FilterViewController: UIViewController {
@@ -120,9 +120,9 @@ class FilterViewController: UIViewController {
     func addConstraints() {
         let buttonSize: CGFloat = 35
         let lineSpacing: CGFloat = 15
-        [contentView, scrollView, exitButton, emplyButton, parksLabel, parksButton, questroomButton, artplaysButton, museumsButton, restaurantButton, barsButton, attractionsButton, clubsButton, parksLabel, questroomLabel, artplaysLabel, museumsLabel, restaurantLabel, barsLabel, attractionsLabel, clubsLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, customLine6, customLine7].forEach{
+        [contentView, scrollView, exitButton, emplyButton, parksLabel, parksButton, questroomButton, artplaysButton, museumsButton, restaurantButton, barsButton, attractionsButton, clubsButton, parksLabel, questroomLabel, artplaysLabel, museumsLabel, restaurantLabel, barsLabel, attractionsLabel, clubsLabel, customLine0, customLine1, customLine2, customLine3, customLine4, customLine5, customLine6, customLine7].forEach {
             ($0).translatesAutoresizingMaskIntoConstraints = false
-            
+        }
             contentView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.85).isActive = true
             contentView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
             contentView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor).isActive = true
@@ -318,7 +318,7 @@ class FilterViewController: UIViewController {
                 emplyButton.topAnchor.constraint(equalTo: customLine7.bottomAnchor, constant: lineSpacing*2)
                 // emplyButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -100)
             ])
-        }
+        
     }
     
     func setupLittleButton(button: UIButton, image: UIImage, tintColor: UIColor) {
@@ -447,34 +447,71 @@ class FilterViewController: UIViewController {
     @objc
     func didClickedEmplyButton() {
         emplyButton.pulsate()
+        var flagBegin = false
         var filterParams =  ""
         if flagParks{
+            if !flagBegin{
+                flagBegin = true
+            }
             filterParams = filterParams + "park"
         }
         if flagQuestroom{
-            filterParams = filterParams + ",questroom"
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "questroom"
+            } else{
+                filterParams = filterParams + ",questroom"
+            }
         }
         if flagMuseums{
-            filterParams = filterParams + ",museums"
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "museums"
+            } else {
+                filterParams = filterParams + ",museums"
+            }
         }
         if flagArtplays{
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "art-space"
+            }
             filterParams = filterParams + ",art-space"
         }
         if flagRestaurant{
-            filterParams = filterParams + ",restaurants"
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "restaurants"
+            } else {
+                filterParams = filterParams + ",restaurants"
+            }
         }
         if flagBars{
-            filterParams = filterParams + ",bar"
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "bar"
+            } else {
+                filterParams = filterParams + ",bar"
+            }
         }
         if flagClubs{
-            filterParams = filterParams + ",clubs"
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "clubs"
+            } else {
+                filterParams = filterParams + ",clubs"
+            }
         }
         if flagAttractions{
-            filterParams = filterParams + ",attractions"
+            if !flagBegin{
+                flagBegin = true
+                filterParams = filterParams + "attractions"
+            } else {
+                filterParams = filterParams + ",attractions"
+            }
         }
         
-        delegate?.applyFilter(categories: "")
-        print (filterParams)
+        delegate?.applyFilter(categories: filterParams, page: 1)
         self.dismiss(animated: true, completion: nil)
     }
     

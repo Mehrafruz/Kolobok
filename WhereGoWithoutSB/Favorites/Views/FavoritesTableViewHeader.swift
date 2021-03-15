@@ -29,7 +29,7 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         setupSegmentedControll()
         setupLibel(label: titleLabel)
-        setupLittleButton(button: profileButton, image: UIImage(systemName: "person.crop.circle")!, tintColor: ColorPalette.black)
+        setupLittleButton(button: profileButton, image: UIImage(named: "appIcon")!, tintColor: ColorPalette.black)//person.crop.circle
         profileButton.addTarget(self, action: #selector(didTabProfileButton), for: .touchUpInside)
         contentView.backgroundColor = .white
         [titleLabel, profileButton, segmentedControl].forEach {
@@ -74,7 +74,7 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
         ])
     
         NSLayoutConstraint.activate([
-            profileButton.widthAnchor.constraint(equalToConstant: 50),
+            profileButton.widthAnchor.constraint(equalToConstant: 55),
             profileButton.heightAnchor.constraint(equalToConstant: 50),
             profileButton.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0),
             profileButton.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -15)
@@ -96,6 +96,9 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
         button.tintColor = tintColor
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+        button.imageView?.contentMode = .scaleAspectFill
     }
     
     @objc

@@ -20,8 +20,9 @@ extension MapRouter: MapRouterInput {
         viewController?.present(placeViewController, animated: true, completion: nil)
     }
     
-    func showFilter (){
+    func showFilter(){
         let filterViewController = FilterViewController()
+        filterViewController.delegate = viewController as? FilterWillApplied
         viewController?.present(filterViewController, animated: true, completion: nil)
     }
     

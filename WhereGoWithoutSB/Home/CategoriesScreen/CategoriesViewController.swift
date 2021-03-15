@@ -191,4 +191,5 @@ extension CategoriesViewController: CustomLayoutDelegate{
     func collectionView(_ collectionView: UICollectionView, sizeOfPhotoAtIndexPath indexPath: IndexPath) -> CGSize {
         return UIImage(named: categoriesItems[indexPath.item].imageName)?.size ?? CGSize(width: 0, height: 0)
     }
+    
 }

@@ -4,6 +4,7 @@ import FirebaseStorage
 
 protocol EditFavoritesViewController: AnyObject {
     func reloadHeader()
+    func reloadTableView()
 }
 
 
@@ -77,7 +78,7 @@ class MeViewController: UIViewController {
     
     @objc
     func didClickedGoBackButton() {
-        self.favoritesDelegate?.reloadHeader()
+        self.favoritesDelegate?.reloadTableView()
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -189,13 +190,14 @@ class MeViewController: UIViewController {
     }
     
     func setupAvatarImage() {
-        if globalAppUser.avatarURL == "" || globalAppUser.avatarURL == "0"{
-            if UserSettings.imageData.isEmpty{
+        print (globalAppUser.avatarURL)
+        if globalAppUser.avatarURL.isEmpty || globalAppUser.avatarURL == "" || Int(globalAppUser.avatarURL) == 0{
+            //if UserSettings.imageData.isEmpty{
                 avatarImageView.image = UIImage(named: "appIcon")
                 avatarImageView.tintColor = ColorPalette.blue
-            } else {
-                loadAvatarURL(avatarURL: UserSettings.imageData)
-            }            
+          //  } else {
+               // loadAvatarURL(avatarURL: UserSettings.imageData)
+           // }            
         } else {
             loadAvatarURL(avatarURL: globalAppUser.avatarURL)
         }
@@ -245,6 +247,7 @@ extension MeViewController: UIImagePickerControllerDelegate, UINavigationControl
                 UserSettings.imageData = url.absoluteString
                 globalAppUser.avatarURL = url.absoluteString
                 self.uploadAvatarURL(currentUserId: globalAppUser.id)
+                self.favoritesDelegate?.reloadHeader()
             case.failure(let error):
                 print (error)
             }
