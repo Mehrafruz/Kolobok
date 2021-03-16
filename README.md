@@ -1,5 +1,8 @@
 # Kolobok - поиск локаций
 
+##
+![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Hi.gif)
+
 ## Приложение которое поможет выбрать ту самую идеальную локацию.
 
 ### Описание
