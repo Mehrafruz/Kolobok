@@ -68,6 +68,9 @@ class FilterViewController: UIViewController {
         
         setup()
         contentView.backgroundColor = .white
+        attractionsButton.isHidden = true
+        attractionsLabel.isHidden = true
+        customLine7.isHidden = true
     }
     
     func setup (){
@@ -86,10 +89,10 @@ class FilterViewController: UIViewController {
         setupLabel(label: parksLabel, text: "Парки", fontSize: 20)
         setupLabel(label: questroomLabel, text: "Квесты", fontSize: 20)
         setupLabel(label: artplaysLabel, text: "Выставки", fontSize: 20)
-        setupLabel(label: museumsLabel, text: "Квесты", fontSize: 20)
+        setupLabel(label: museumsLabel, text: "Музеи", fontSize: 20)
         setupLabel(label: restaurantLabel, text: "Рестораны", fontSize: 20)
         setupLabel(label: barsLabel, text: "Бары", fontSize: 20)
-        setupLabel(label: attractionsLabel, text: "Интесности", fontSize: 20)
+        setupLabel(label: attractionsLabel, text: "Наша подборка", fontSize: 20)
         setupLabel(label: clubsLabel, text: "Клубы", fontSize: 20)
         
         exitButton.addTarget(self, action: #selector(didClickedGoBackButton), for: .touchUpInside)
@@ -269,10 +272,31 @@ class FilterViewController: UIViewController {
             ])
             
             NSLayoutConstraint.activate([
+                clubsButton.widthAnchor.constraint(equalToConstant: buttonSize),
+                clubsButton.heightAnchor.constraint(equalToConstant: buttonSize),
+                clubsButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: -100),
+                clubsButton.topAnchor.constraint(equalTo: barsButton.bottomAnchor, constant: lineSpacing)
+            ])
+            
+            NSLayoutConstraint.activate([
+                clubsLabel.widthAnchor.constraint(equalToConstant: 200),
+                clubsLabel.heightAnchor.constraint(equalToConstant: 40),
+                clubsLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                clubsLabel.topAnchor.constraint(equalTo: clubsButton.topAnchor)
+            ])
+            
+            NSLayoutConstraint.activate([
+                customLine6.widthAnchor.constraint(equalToConstant: 300),
+                customLine6.heightAnchor.constraint(equalToConstant: 0.5),
+                customLine6.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                customLine6.topAnchor.constraint(equalTo: clubsButton.bottomAnchor)
+            ])
+            
+            NSLayoutConstraint.activate([
                 attractionsButton.widthAnchor.constraint(equalToConstant: buttonSize),
                 attractionsButton.heightAnchor.constraint(equalToConstant: buttonSize),
                 attractionsButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: -100),
-                attractionsButton.topAnchor.constraint(equalTo: barsButton.bottomAnchor, constant: lineSpacing)
+                attractionsButton.topAnchor.constraint(equalTo: clubsButton.bottomAnchor, constant: lineSpacing)
             ])
             
             NSLayoutConstraint.activate([
@@ -283,31 +307,10 @@ class FilterViewController: UIViewController {
             ])
             
             NSLayoutConstraint.activate([
-                customLine6.widthAnchor.constraint(equalToConstant: 300),
-                customLine6.heightAnchor.constraint(equalToConstant: 0.5),
-                customLine6.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                customLine6.topAnchor.constraint(equalTo: attractionsButton.bottomAnchor)
-            ])
-            
-            NSLayoutConstraint.activate([
-                clubsButton.widthAnchor.constraint(equalToConstant: buttonSize),
-                clubsButton.heightAnchor.constraint(equalToConstant: buttonSize),
-                clubsButton.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor, constant: -100),
-                clubsButton.topAnchor.constraint(equalTo: attractionsButton.bottomAnchor, constant: lineSpacing)
-            ])
-            
-            NSLayoutConstraint.activate([
-                clubsLabel.widthAnchor.constraint(equalToConstant: 170),
-                clubsLabel.heightAnchor.constraint(equalToConstant: 40),
-                clubsLabel.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                clubsLabel.topAnchor.constraint(equalTo: clubsButton.topAnchor)
-            ])
-            
-            NSLayoutConstraint.activate([
                 customLine7.widthAnchor.constraint(equalToConstant: 300),
                 customLine7.heightAnchor.constraint(equalToConstant: 0.5),
                 customLine7.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-                customLine7.topAnchor.constraint(equalTo: clubsButton.bottomAnchor)
+                customLine7.topAnchor.constraint(equalTo: attractionsButton.bottomAnchor)
             ])
             
             

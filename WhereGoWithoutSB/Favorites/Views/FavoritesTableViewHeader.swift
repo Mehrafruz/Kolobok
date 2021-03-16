@@ -74,7 +74,7 @@ class FavoritesTableViewHeader: UITableViewHeaderFooterView {
         ])
     
         NSLayoutConstraint.activate([
-            profileButton.widthAnchor.constraint(equalToConstant: 55),
+            profileButton.widthAnchor.constraint(equalToConstant: 50),
             profileButton.heightAnchor.constraint(equalToConstant: 50),
             profileButton.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 0),
             profileButton.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -15)
