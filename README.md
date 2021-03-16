@@ -2,7 +2,6 @@
 
 ## Приложение которое поможет выбрать ту самую идеальную локацию.
 
-##
 ![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Hi.gif)
 
 ### Описание
