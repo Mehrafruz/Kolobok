@@ -6,4 +6,4 @@
 
 Основные экраны: главная (разбита по категориям: парки, театры, artplays, ресторыны, бары и т.д.), карта, "моё" (личный кабинет, любимые места и т. д.)
 
-![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Демонстрация%20(1).gif)
+![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Демо_1.gif)
