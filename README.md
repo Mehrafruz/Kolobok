@@ -33,3 +33,6 @@
 
 ## Демо
 ![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Демо_1.gif)
+
+## Ссылка в AppStore
+https://apps.apple.com/app/id1548675189/
