@@ -15,19 +15,19 @@
 </tr>
     <td> 
     <b style="font-size:15px">
-    &nbsp;&nbsp;&nbsp;&nbsp;   ◦ SocketIO <br/> 
+    &nbsp;&nbsp;&nbsp;&nbsp;   ◦ UIKit <br/> 
     &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Alamofire, URLSession<br/>
-     &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Autolayout, SnapKit <br/>
+     &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Autolayout, Pin Layout <br/>
       &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Restful API<br/>
-        &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Clean swift (VIP)<br/>
-         &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Core animation <br/>
-         &nbsp;&nbsp;&nbsp;&nbsp;  ◦ MessageKit (real-time chat)<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;  ◦ VIPER <br/>
+         &nbsp;&nbsp;&nbsp;&nbsp;  ◦ SpriteKit, SceneKit <br/>
          &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Kingfisher<br/>
-          &nbsp;&nbsp;&nbsp;&nbsp;   ◦ SwiftyBeaver (logging)<br/>
+          &nbsp;&nbsp;&nbsp;&nbsp;   ◦ YandexMapsMobile, YMKMapKit (logging)<br/>
            &nbsp;&nbsp;&nbsp;&nbsp;  ◦ SwiftyJSON, Decodable<br/>
            </b>
     </td>
  </tr>
 <br/> 
 
+## Демо
 ![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Демо_1.gif)
