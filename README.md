@@ -27,7 +27,7 @@
          &nbsp;&nbsp;&nbsp;&nbsp;  ◦ SpriteKit, SceneKit <br/>
          &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Kingfisher<br/>
           &nbsp;&nbsp;&nbsp;&nbsp;   ◦ YandexMapsMobile, YMKMapKit<br/>
-           &nbsp;&nbsp;&nbsp;&nbsp;  ◦ SwiftyJSON, Decodable<br/>
+           &nbsp;&nbsp;&nbsp;&nbsp;  ◦ Decodable<br/>
            </b>
     </td>
  </tr>
