@@ -20,6 +20,7 @@ class MeViewController: UIViewController {
     private var customLine0 = UITableViewCell()
     private var customLine1 = UITableViewCell()
     private let liveAccountButton = UIButton()
+    private let text = "for task 1"
     
     init() {
         super.init(nibName: nil, bundle: nil)
