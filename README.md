@@ -33,8 +33,5 @@
  </tr>
 <br/> 
 
-## Демо
-![mi](https://github.com/Mehrafruz/Kolobok/blob/master/Демо_1.gif)
-
-## Ссылка в AppStore
+## Ссылка в AppStore (пока не рабочая в связи с просроченный аккаунтом)
 https://apps.apple.com/app/id1548675189/
