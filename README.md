@@ -12,8 +12,7 @@
 
 
 
-<img src="bgImage2.png" alt="Kitten"
-	title="A cute kitten" />
+<img src="bgImage2.png"/>
 
 ## Стек технологий
 </tr>
